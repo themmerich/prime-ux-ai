@@ -1,0 +1,89 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Nie zwei Deployments parallel — Terraform-State und S3-Sync vertragen das nicht.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: eu-central-1
+  TF_VERSION: 1.14.8
+
+jobs:
+  deploy:
+    name: Trivy → Terraform → Build → S3 → CloudFront
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Security-Scan (Trivy)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scanners: vuln,secret,misconfig
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+          ignore-unfixed: true
+
+      - name: AWS-Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform -chdir=infra init -input=false
+
+      - name: Terraform Apply
+        run: terraform -chdir=infra apply -input=false -auto-approve
+
+      - name: Terraform-Outputs auslesen
+        id: tf
+        run: |
+          echo "bucket=$(terraform -chdir=infra output -raw site_bucket)" >> "$GITHUB_OUTPUT"
+          echo "distribution=$(terraform -chdir=infra output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+
+      - name: Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build (Angular)
+        run: |
+          npm ci
+          npm run build
+
+      - name: S3-Sync
+        run: |
+          # Gehashte Assets: ein Jahr immutable cachen
+          aws s3 sync dist/prime-ux/browser "s3://${{ steps.tf.outputs.bucket }}" \
+            --delete \
+            --exclude index.html \
+            --cache-control "public,max-age=31536000,immutable"
+          # index.html: nie cachen, damit neue Deployments sofort greifen
+          aws s3 cp dist/prime-ux/browser/index.html "s3://${{ steps.tf.outputs.bucket }}/index.html" \
+            --cache-control "no-cache"
+
+      - name: CloudFront-Cache invalidieren
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ steps.tf.outputs.distribution }}" \
+            --paths "/*"

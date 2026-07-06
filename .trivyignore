@@ -1,0 +1,11 @@
+# Bewusst akzeptierte Findings — Begründungen:
+
+# CloudFront ohne WAF: Für eine statische Portfolio-Seite ohne Backend/Formulare
+# schützt eine WAF nichts, kostet aber ab ~5 USD/Monat. Bewusst verzichtet;
+# Kosten-Schutz übernimmt der Budget-Alarm (infra/budget.tf).
+AVD-AWS-0011
+
+# S3-Verschlüsselung mit SSE-S3 (AES256) statt Customer-Managed-KMS-Key:
+# Der Bucket enthält ausschließlich die öffentlich ausgelieferte Webseite.
+# Ein CMK brächte keinen Sicherheitsgewinn, aber Kosten und Key-Verwaltung.
+AVD-AWS-0132
