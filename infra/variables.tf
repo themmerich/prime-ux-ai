@@ -38,3 +38,15 @@ variable "mail_txt_records" {
   type        = list(string)
   default     = []
 }
+
+variable "dmarc_txt_records" {
+  description = "TXT-Records für _dmarc.<domain>, z.B. [\"v=DMARC1;p=reject;\"]"
+  type        = list(string)
+  default     = []
+}
+
+variable "autoconfig_cname" {
+  description = "CNAME-Ziel für autoconfig.<domain> (Mail-Client-Autokonfiguration), leer = kein Record"
+  type        = string
+  default     = ""
+}

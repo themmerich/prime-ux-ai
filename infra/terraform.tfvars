@@ -1,10 +1,14 @@
 # Diese Datei ist bewusst eingecheckt — DNS-Records sind öffentliche Daten,
 # die Pipeline braucht sie beim Apply.
 
-# TODO vor der NS-Umstellung: Mail-Records vom aktuellen DNS-Provider
-# übernehmen, sonst kommt auf info@prime-ux.de keine Mail mehr an!
-# Beispiel:
-# mx_records       = ["10 mx00.provider.de.", "20 mx01.provider.de."]
-# mail_txt_records = ["v=spf1 include:provider.de ~all"]
-mx_records       = []
+# Mail-Records, übernommen vom bisherigen DNS-Provider (STRATO),
+# per DNS-Abfrage inventarisiert am 06.07.2026:
+mx_records = ["5 smtpin.rzone.de"]
+
+# Es existiert aktuell kein SPF-Record — bewusst so übernommen.
 mail_txt_records = []
+
+dmarc_txt_records = ["v=DMARC1;p=reject;"]
+
+# Mail-Client-Autokonfiguration (STRATO)
+autoconfig_cname = "autoconfigure.strato.de"

@@ -80,3 +80,23 @@ resource "aws_route53_record" "mail_txt" {
   ttl     = 3600
   records = var.mail_txt_records
 }
+
+resource "aws_route53_record" "dmarc" {
+  count = length(var.dmarc_txt_records) > 0 ? 1 : 0
+
+  zone_id = aws_route53_zone.site.zone_id
+  name    = "_dmarc.${var.domain_name}"
+  type    = "TXT"
+  ttl     = 3600
+  records = var.dmarc_txt_records
+}
+
+resource "aws_route53_record" "autoconfig" {
+  count = var.autoconfig_cname != "" ? 1 : 0
+
+  zone_id = aws_route53_zone.site.zone_id
+  name    = "autoconfig.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = 3600
+  records = [var.autoconfig_cname]
+}
