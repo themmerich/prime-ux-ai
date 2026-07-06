@@ -65,7 +65,7 @@ export const HERO = {
   } as L<string[]>,
   ctaContact: { de: 'Projekt anfragen', en: 'Start a conversation' } as L,
   ctaProjects: { de: 'Projekte ansehen', en: 'View projects' } as L,
-  photo: 'portrait.jpg',
+  photo: 'portrait.png',
   photoCaption: 'thomas-hemmerich.jpg',
   available: {
     de: 'aktuell ausgebucht bis 31.12.2026',
