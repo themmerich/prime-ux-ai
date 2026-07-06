@@ -8,7 +8,7 @@ import { LEARNING_INTRO, LEARNING_TITLE, TRAININGS } from '../data/content';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SectionHeading],
   template: `
-    <section class="border-t border-slate-200 dark:border-ink-800">
+    <section id="weiterbildung" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="06" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
