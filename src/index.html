@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>Thomas Hemmerich — Frontend-Architekt & Angular Lead | PRIME UX</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Thomas Hemmerich — Freiberuflicher Frontend-Architekt & Angular Lead. Agentic UI, Modern Angular (Signals, Micro-Frontends, Nx), Architektur-Beratung und Team-Coaching."
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      // Theme vor dem Rendern setzen, um Flackern zu vermeiden (Standard: dark)
+      try {
+        if (localStorage.getItem('px-theme') === 'light') {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

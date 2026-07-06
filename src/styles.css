@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+
+  /* Eigene Farbwelt: tiefes Blau-Schwarz + Smaragd-Akzent */
+  --color-ink-950: #070b14;
+  --color-ink-900: #0b1120;
+  --color-ink-800: #111a2e;
+  --color-ink-700: #1b2a44;
+  --color-accent-300: #6ee7b7;
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+  --color-accent-600: #059669;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  @apply bg-white font-sans text-slate-600 antialiased dark:bg-ink-950 dark:text-slate-400;
+}
+
+::selection {
+  @apply bg-accent-400/30 text-inherit;
+}
