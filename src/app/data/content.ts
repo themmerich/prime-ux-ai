@@ -520,7 +520,7 @@ export const EMPLOYMENT_TITLE = { de: 'Anstellung', en: 'Employment' } as L;
 export const EDUCATION: BackgroundEntry[] = [
   {
     period: '09/2000 – 02/2007',
-    title: { de: 'Diplom-Informatiker (Dipl.-Inf.)', en: 'Diploma in Computer Science (Dipl.-Inf.)' },
+    title: { de: 'Diplom-Informatiker, Univ.', en: 'Diploma in Computer Science (Dipl.-Inf.)' },
     place: 'Universität Würzburg',
     note: { de: 'Abschluss Februar 2007', en: 'Graduated February 2007' },
   },
@@ -578,6 +578,27 @@ export const SITE_CATEGORIES: { title: string; items: string[] }[] = [
   { title: 'CI/CD', items: ['GitHub Actions'] },
   { title: 'Security', items: ['Trivy Scanner'] },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Über mich                                                           */
+/* ------------------------------------------------------------------ */
+
+export const ABOUT = {
+  title: { de: 'Über mich', en: 'About Me' } as L,
+  text: {
+    de: 'Seit über 20 Jahren baue ich Software, seit 2009 freiberuflich. Was mich antreibt: Architekturen, die auch in fünf Jahren noch tragen, und Teams, die nach meinem Einsatz stärker sind als vorher. Ich rede Klartext mit Fachbereich und Entwicklung gleichermaßen und teile mein Wissen lieber, als es zu horten.',
+    en: 'I have been building software for over 20 years, freelancing since 2009. What drives me: architectures that still hold up five years down the line, and teams that are stronger after my engagement than before. I speak plainly with both business and engineering, and I would rather share my knowledge than hoard it.',
+  } as L,
+  beyond: {
+    de: 'Abseits des Rechners: CrossFit, Open Source und ein wacher Blick auf neue Technologien.',
+    en: 'Away from the keyboard: CrossFit, open source and a keen eye on emerging technologies.',
+  } as L,
+  interests: [
+    { de: 'CrossFit', en: 'CrossFit' },
+    { de: 'Open Source', en: 'Open Source' },
+    { de: 'Technologie-Trends', en: 'Tech Trends' },
+  ] as L[],
+};
 
 /* ------------------------------------------------------------------ */
 /* Kontakt                                                             */

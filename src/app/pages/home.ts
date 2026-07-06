@@ -8,6 +8,7 @@ import { Skills } from '../sections/skills';
 import { Learning } from '../sections/learning';
 import { Background } from '../sections/background';
 import { SiteProject } from '../sections/site-project';
+import { About } from '../sections/about';
 import { Contact } from '../sections/contact';
 
 @Component({
@@ -23,6 +24,7 @@ import { Contact } from '../sections/contact';
     Learning,
     Background,
     SiteProject,
+    About,
     Contact,
   ],
   template: `
@@ -35,6 +37,7 @@ import { Contact } from '../sections/contact';
     <px-learning />
     <px-background />
     <px-site-project />
+    <px-about />
     <px-contact />
   `,
 })
