@@ -524,11 +524,31 @@ export const SITE = {
     'Trivy',
   ],
   repo: { label: 'prime-ux-ai', url: 'https://github.com/themmerich/prime-ux-ai' },
+  actionsUrl: 'https://github.com/themmerich/prime-ux-ai/actions/workflows/deploy.yml',
   roadmap: {
     de: 'Roadmap: ein agentischer Assistent, der Fragen zu Profil und Projekten direkt hier beantwortet.',
     en: 'Roadmap: an agentic assistant answering questions about my profile and projects right here.',
   } as L,
 };
+
+export interface PipelineStep {
+  title: string;
+  sub: string;
+  note?: string;
+  accent?: boolean;
+}
+
+export const SITE_PIPELINE: PipelineStep[] = [
+  { title: 'GitHub Repo', sub: 'TRIGGER: push to main' },
+  { title: 'GitHub Actions', sub: 'CI/CD' },
+  { title: 'Trivy', sub: 'SECURITY SCAN' },
+  { title: 'Terraform', sub: 'INIT · PLAN · APPLY', note: 's3://prime-ux-tfstate' },
+  { title: 'ng build', sub: 'ANGULAR 22 · ZONELESS' },
+  { title: 'AWS S3', sub: 'SYNC · PRIVATE BUCKET' },
+  { title: 'CloudFront', sub: 'CDN · CACHE INVALIDATION' },
+  { title: 'Route 53 + ACM', sub: 'DNS · HTTPS' },
+  { title: 'prime-ux.de', sub: 'LIVE', accent: true },
+];
 
 /* ------------------------------------------------------------------ */
 /* Kontakt                                                             */

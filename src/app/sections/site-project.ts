@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
-import { SITE } from '../data/content';
+import { SITE, SITE_PIPELINE } from '../data/content';
+
+type PipelineState = 'loading' | 'passing' | 'failing' | 'unknown';
 
 @Component({
   selector: 'px-site-project',
@@ -14,29 +16,94 @@ import { SITE } from '../data/content';
         <px-section-heading index="07" [title]="i18n.t(site.title)" />
         <p class="max-w-3xl text-base leading-relaxed md:text-lg">{{ i18n.t(site.text) }}</p>
 
-        <!-- Die echte Deployment-Pipeline (.github/workflows/deploy.yml) -->
+        <!-- Pipeline-Diagramm im Stil "Kästen mit Pfeilen" -->
         <div
-          class="mt-8 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-6 font-mono text-sm dark:border-ink-700 dark:bg-ink-900"
+          class="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-ink-700 dark:bg-ink-900"
         >
-          <p class="whitespace-nowrap text-slate-600 dark:text-slate-300">
-            <span class="text-accent-600 dark:text-accent-400">$</span> git push origin main
-          </p>
-          <p class="mt-3 whitespace-nowrap text-slate-600 dark:text-slate-300">
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> GitHub Actions
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> Trivy
-            <span class="mr-1.5 text-[11px] text-slate-400 dark:text-slate-500">SECURITY SCAN</span>
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> Terraform
-            <span class="mr-1.5 text-[11px] text-slate-400 dark:text-slate-500">INIT · APPLY</span>
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> ng build
-          </p>
-          <p class="mt-3 whitespace-nowrap text-slate-600 dark:text-slate-300">
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> S3 Sync
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> CloudFront
-            <span class="mr-1.5 text-[11px] text-slate-400 dark:text-slate-500">CACHE INVALIDATION</span>
-            <span class="text-slate-400 dark:text-slate-500">──▶</span> Route 53 + ACM
-            <span class="text-slate-400 dark:text-slate-500">──▶</span>
-            <span class="text-accent-600 dark:text-accent-400">https://prime-ux.de</span>
-          </p>
+          <div class="flex flex-wrap items-center gap-y-4 font-mono">
+            @for (step of pipeline; track step.title; let last = $last) {
+              <div class="flex items-center">
+                <div
+                  class="rounded-lg border px-3 py-2"
+                  [class]="
+                    step.accent
+                      ? 'border-accent-500/60 bg-accent-500/[0.08] dark:border-accent-400/60 dark:bg-accent-400/[0.08]'
+                      : 'border-slate-300 bg-white dark:border-ink-700 dark:bg-ink-950'
+                  "
+                >
+                  <p
+                    class="text-xs font-semibold"
+                    [class]="
+                      step.accent
+                        ? 'text-accent-700 dark:text-accent-300'
+                        : 'text-slate-800 dark:text-slate-200'
+                    "
+                  >
+                    {{ step.title }}
+                  </p>
+                  <p class="mt-0.5 text-[10px] tracking-wide text-slate-500">{{ step.sub }}</p>
+                  @if (step.note) {
+                    <p class="text-[10px] tracking-wide text-slate-400 dark:text-slate-600">
+                      {{ step.note }}
+                    </p>
+                  }
+                </div>
+                @if (!last) {
+                  <span class="mx-2 text-slate-400 dark:text-slate-600" aria-hidden="true">─▶</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Live-Status aus der GitHub-API -->
+          <div
+            class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-slate-200 pt-5 font-mono text-xs dark:border-ink-800"
+          >
+            <span class="inline-flex items-center gap-2">
+              <span
+                class="size-2 rounded-full"
+                [class]="{
+                  'animate-pulse bg-amber-400': state() === 'loading',
+                  'bg-accent-500': state() === 'passing',
+                  'bg-red-500': state() === 'failing',
+                  'bg-slate-400': state() === 'unknown',
+                }"
+              ></span>
+              <span class="text-slate-700 dark:text-slate-300">
+                Pipeline
+                @switch (state()) {
+                  @case ('loading') {
+                    …
+                  }
+                  @case ('passing') {
+                    passing
+                  }
+                  @case ('failing') {
+                    failing
+                  }
+                  @case ('unknown') {
+                    {{ i18n.lang() === 'de' ? 'Status n/v' : 'status n/a' }}
+                  }
+                }
+              </span>
+              <span class="text-slate-500">Terraform · Trivy · S3</span>
+            </span>
+
+            @if (deployDate(); as date) {
+              <span class="text-slate-500">
+                {{ i18n.lang() === 'de' ? 'Letzter Deploy:' : 'Last deploy:' }} {{ date }}
+              </span>
+            }
+
+            <a
+              [href]="site.actionsUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-slate-600 transition-colors hover:text-accent-600 dark:text-slate-400 dark:hover:text-accent-400"
+            >
+              System-Status → GitHub Actions ↗
+            </a>
+          </div>
         </div>
 
         <div class="mt-6 flex flex-wrap gap-1.5">
@@ -73,4 +140,46 @@ import { SITE } from '../data/content';
 export class SiteProject {
   protected readonly i18n = inject(I18n);
   protected readonly site = SITE;
+  protected readonly pipeline = SITE_PIPELINE;
+
+  protected readonly state = signal<PipelineState>('loading');
+  private readonly deployedAt = signal<Date | null>(null);
+
+  protected readonly deployDate = computed(() => {
+    const date = this.deployedAt();
+    if (!date) {
+      return null;
+    }
+    return date.toLocaleDateString(this.i18n.lang() === 'de' ? 'de-DE' : 'en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  });
+
+  constructor() {
+    this.loadPipelineStatus();
+  }
+
+  private async loadPipelineStatus(): Promise<void> {
+    try {
+      // Öffentliche GitHub-API, ohne Auth (60 Requests/h pro IP genügen hier).
+      const response = await fetch(
+        'https://api.github.com/repos/themmerich/prime-ux-ai/actions/workflows/deploy.yml/runs?per_page=1&status=completed',
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = await response.json();
+      const run = data.workflow_runs?.[0];
+      if (!run) {
+        this.state.set('unknown');
+        return;
+      }
+      this.state.set(run.conclusion === 'success' ? 'passing' : 'failing');
+      this.deployedAt.set(new Date(run.updated_at));
+    } catch {
+      this.state.set('unknown');
+    }
+  }
 }
