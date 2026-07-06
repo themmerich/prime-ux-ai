@@ -9,6 +9,15 @@ import { CONTACT, HERO } from '../data/content';
     <section class="mx-auto max-w-5xl px-6 pt-36 pb-24 md:pt-44 md:pb-32">
       <div class="grid items-center gap-12 lg:grid-cols-[1fr_auto]">
         <div>
+          <!-- Rundes Porträt auf Mobile / Tablet -->
+          <img
+            [src]="hero.photo"
+            [alt]="hero.name"
+            width="96"
+            height="96"
+            class="mb-6 size-24 rounded-full border-2 border-accent-500/40 object-cover shadow-lg lg:hidden dark:border-accent-400/40"
+          />
+
           <p class="font-mono text-sm text-accent-600 dark:text-accent-400">
             // {{ hero.kicker }} · frontend architecture × agentic ui
           </p>
@@ -51,22 +60,43 @@ import { CONTACT, HERO } from '../data/content';
           </div>
         </div>
 
-        <!-- Dekorative Code-Karte (nur auf großen Screens) -->
-        <div
-          class="hidden rounded-xl border border-slate-200 bg-slate-50 p-6 font-mono text-sm shadow-sm lg:block dark:border-ink-700 dark:bg-ink-900"
-          aria-hidden="true"
-        >
-          <div class="mb-4 flex gap-1.5">
-            <span class="size-3 rounded-full bg-slate-300 dark:bg-ink-700"></span>
-            <span class="size-3 rounded-full bg-slate-300 dark:bg-ink-700"></span>
-            <span class="size-3 rounded-full bg-accent-500 dark:bg-accent-400"></span>
-          </div>
-          <pre class="leading-relaxed text-slate-600 dark:text-slate-300"><span class="text-violet-600 dark:text-violet-400">const</span> thomas = &#123;
-  role: <span class="text-accent-600 dark:text-accent-300">'Frontend Architect'</span>,
-  stack: [<span class="text-accent-600 dark:text-accent-300">'Angular'</span>, <span class="text-accent-600 dark:text-accent-300">'Signals'</span>, <span class="text-accent-600 dark:text-accent-300">'Nx'</span>],
-  focus: <span class="text-accent-600 dark:text-accent-300">'Agentic UI'</span>,
-  status: <span class="text-accent-600 dark:text-accent-300">'building'</span> <span class="animate-pulse text-accent-500">▌</span>
-&#125;;</pre>
+        <!-- Porträt als Datei-Fenster (nur auf großen Screens) -->
+        <div class="relative hidden justify-self-end lg:block">
+          <!-- weicher Akzent-Schein hinter dem Bild -->
+          <div
+            class="absolute -inset-6 rounded-full bg-accent-500/15 blur-3xl dark:bg-accent-400/15"
+            aria-hidden="true"
+          ></div>
+
+          <figure
+            class="relative w-80 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-xl dark:border-ink-700 dark:bg-ink-900"
+          >
+            <div
+              class="flex items-center gap-1.5 border-b border-slate-200 px-4 py-3 dark:border-ink-700"
+            >
+              <span class="size-3 rounded-full bg-slate-300 dark:bg-ink-700"></span>
+              <span class="size-3 rounded-full bg-slate-300 dark:bg-ink-700"></span>
+              <span class="size-3 rounded-full bg-accent-500 dark:bg-accent-400"></span>
+              <span class="ml-2 font-mono text-xs text-slate-400 dark:text-slate-500">
+                ~/{{ hero.photoCaption }}
+              </span>
+            </div>
+
+            <img
+              [src]="hero.photo"
+              width="320"
+              height="320"
+              [alt]="hero.name"
+              class="aspect-square w-80 object-cover"
+            />
+
+            <figcaption
+              class="flex items-center gap-2 border-t border-slate-200 px-4 py-3 font-mono text-xs dark:border-ink-700"
+            >
+              <span class="size-2 animate-pulse rounded-full bg-accent-500"></span>
+              <span class="text-slate-600 dark:text-slate-300">{{ i18n.t(hero.available) }}</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
