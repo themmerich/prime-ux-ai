@@ -512,23 +512,21 @@ export const SITE = {
     de: 'Kein Baukasten, kein Template — diese Seite ist selbst ein kleiner Showcase dafür, wie ich Software baue. Frontend: Angular 22 mit zoneless Change Detection, Signal-basiertem i18n und Theming, Tailwind CSS 4, selbst gehostete Fonts, kein Tracking. Betrieb: Die komplette AWS-Infrastruktur (S3, CloudFront, Route 53, ACM) ist mit Terraform beschrieben; jeder Push auf main durchläuft einen Trivy-Security-Scan, Terraform Apply und das Deployment — vollautomatisch per GitHub Actions.',
     en: 'No site builder, no template — this page is itself a small showcase of how I build software. Frontend: Angular 22 with zoneless change detection, signal-based i18n and theming, Tailwind CSS 4, self-hosted fonts, no tracking. Operations: the entire AWS infrastructure (S3, CloudFront, Route 53, ACM) is described in Terraform; every push to main runs through a Trivy security scan, Terraform apply and deployment — fully automated via GitHub Actions.',
   } as L,
-  stack: [
-    'Angular 22',
-    'zoneless',
-    'Signals',
-    'Tailwind CSS 4',
-    'TypeScript 6',
-    'Terraform',
-    'AWS S3 + CloudFront',
-    'GitHub Actions',
-    'Trivy',
-  ],
   repo: { label: 'prime-ux-ai', url: 'https://github.com/themmerich/prime-ux-ai' },
+  actionsUrl: 'https://github.com/themmerich/prime-ux-ai/actions/workflows/deploy.yml',
   roadmap: {
     de: 'Roadmap: ein agentischer Assistent, der Fragen zu Profil und Projekten direkt hier beantwortet.',
     en: 'Roadmap: an agentic assistant answering questions about my profile and projects right here.',
   } as L,
 };
+
+export const SITE_CATEGORIES: { title: string; items: string[] }[] = [
+  { title: 'Frontend', items: ['Angular 22', 'zoneless', 'Signals', 'Tailwind CSS 4'] },
+  { title: 'Cloud', items: ['AWS S3', 'CloudFront', 'Route 53', 'ACM'] },
+  { title: 'IaC', items: ['Terraform', 'Remote State', 'State Lock'] },
+  { title: 'CI/CD', items: ['GitHub Actions'] },
+  { title: 'Security', items: ['Trivy Scanner'] },
+];
 
 /* ------------------------------------------------------------------ */
 /* Kontakt                                                             */
