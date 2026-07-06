@@ -12,14 +12,14 @@ import { CONTACT } from '../data/content';
         <p>Angaben gemäß § 5 DDG</p>
         <p>
           Thomas Hemmerich · PRIME UX<br />
-          <!-- TODO: Straße und Hausnummer ergänzen -->
+          Bühlstr. 16<br />
           97506 Grafenrheinfeld
         </p>
         <p>
           Telefon: {{ contact.phone }}<br />
           E-Mail: {{ contact.email }}
         </p>
-        <!-- TODO: ggf. USt-IdNr. ergänzen -->
+        <p>Steuernummer: 249/227/60531</p>
       </div>
     </section>
   `,
@@ -47,11 +47,10 @@ export class Impressum {
         <p>
           {{
             i18n.lang() === 'de'
-              ? 'Beim Aufruf der Seite verarbeitet der Hosting-Anbieter technisch notwendige Verbindungsdaten (z.B. IP-Adresse) in Server-Logs.'
-              : 'When accessing this site, the hosting provider processes technically necessary connection data (e.g. IP address) in server logs.'
+              ? 'Die Seite wird über Amazon Web Services (Amazon CloudFront/S3) ausgeliefert. Beim Aufruf verarbeitet AWS technisch notwendige Verbindungsdaten (z.B. IP-Adresse), soweit dies für die Auslieferung erforderlich ist. Anbieter: Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, L-1855 Luxemburg.'
+              : 'This site is delivered via Amazon Web Services (Amazon CloudFront/S3). When accessing it, AWS processes technically necessary connection data (e.g. IP address) as required for delivery. Provider: Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, L-1855 Luxembourg.'
           }}
         </p>
-        <!-- TODO: Hosting-Anbieter benennen, sobald das Hosting feststeht -->
       </div>
     </section>
   `,

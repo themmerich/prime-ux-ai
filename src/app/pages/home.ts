@@ -3,7 +3,6 @@ import { Hero } from '../sections/hero';
 import { Profile } from '../sections/profile';
 import { Focus } from '../sections/focus';
 import { Engagements } from '../sections/engagements';
-import { Flagship } from '../sections/flagship';
 import { History } from '../sections/history';
 import { Skills } from '../sections/skills';
 import { Learning } from '../sections/learning';
@@ -18,7 +17,6 @@ import { Contact } from '../sections/contact';
     Profile,
     Focus,
     Engagements,
-    Flagship,
     History,
     Skills,
     Learning,
@@ -30,7 +28,6 @@ import { Contact } from '../sections/contact';
     <px-profile />
     <px-focus />
     <px-engagements />
-    <px-flagship />
     <px-history />
     <px-skills />
     <px-learning />

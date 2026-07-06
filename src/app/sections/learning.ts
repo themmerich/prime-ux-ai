@@ -10,7 +10,7 @@ import { LEARNING_INTRO, LEARNING_TITLE, TRAININGS } from '../data/content';
   template: `
     <section class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <px-section-heading index="07" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
+        <px-section-heading index="06" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
         <ol class="space-y-3">
           @for (t of trainings; track t.date) {

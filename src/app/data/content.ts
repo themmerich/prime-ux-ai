@@ -22,12 +22,13 @@ export interface Engagement {
 }
 
 export interface HistoryEntry {
-  period: string;
+  period: L;
   client: string;
   project: L;
   role: L;
   text: L;
   tech: string[];
+  active?: boolean;
 }
 
 export interface SkillGroup {
@@ -233,38 +234,6 @@ export const ENGAGEMENTS: Engagement[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Flaggschiff: SkillFlowAI                                            */
-/* ------------------------------------------------------------------ */
-
-export const FLAGSHIP = {
-  label: { de: 'Eigenes Produkt · Open Source', en: 'Own product · open source' } as L,
-  title: 'SkillFlowAI',
-  period: '11/2024 – 06/2025',
-  text: {
-    de: 'Web- und Mobile-App zur Verwaltung und Durchführung interner Schulungen — entwickelt für die Freiwillige Feuerwehr. Schulungsinhalte werden mit KI aufbereitet, Lernzielkontrollen automatisch generiert. Von Requirements über Architektur bis Frontend und Backend komplett selbst konzipiert und umgesetzt.',
-    en: 'Web and mobile app for managing and running internal trainings — built for a volunteer fire department. Training content is enriched with AI, assessments are generated automatically. Conceived and built end to end: requirements, architecture, frontend and backend.',
-  } as L,
-  why: {
-    de: 'Warum dieses Projekt hier ganz oben steht: Es verbindet genau das, wofür ich stehe — Modern Angular, saubere Architektur und praktisch eingesetzte KI.',
-    en: 'Why this project sits at the top: it combines exactly what I stand for — modern Angular, clean architecture and AI put to practical use.',
-  } as L,
-  tech: [
-    'Angular 19',
-    'SignalStore',
-    'Tailwind CSS',
-    'KI-Integration',
-    'Java 23',
-    'Spring Boot 3.4',
-    'PostgreSQL',
-    'Playwright',
-  ],
-  repos: [
-    { label: 'skillflowai-frontend', url: 'https://github.com/themmerich/skillflowai-frontend' },
-    { label: 'skillflowai (Backend)', url: 'https://github.com/themmerich/skillflowai' },
-  ],
-};
-
-/* ------------------------------------------------------------------ */
 /* Projekthistorie                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -276,7 +245,54 @@ export const HISTORY_INTRO = {
 
 export const HISTORY: HistoryEntry[] = [
   {
-    period: '10/2023 – 10/2024',
+    period: { de: '07/2025 – heute', en: '07/2025 – present' },
+    client: 'parcIT GmbH',
+    project: {
+      de: 'Webauswertung & Provisionsdatenerfassung',
+      en: 'Web analytics & commission data management',
+    },
+    role: {
+      de: 'Frontend-Architekt · Coach · Lead Frontend Entwickler',
+      en: 'Frontend architect · coach · lead frontend developer',
+    },
+    text: {
+      de: 'Verwaltung von Bankenparametern und Provisionsdaten; Frontend-Architektur-Verantwortung über drei Scrum-Teams — Details siehe „Aktuelle Projekte".',
+      en: 'Managing bank parameters and commission data; frontend architecture ownership across three Scrum teams — see "Current Engagements" for details.',
+    },
+    tech: ['Angular 20–22', 'Micro-Frontends', 'Nx', 'Spring Boot 3.5'],
+    active: true,
+  },
+  {
+    period: { de: '01/2025 – heute', en: '01/2025 – present' },
+    client: 'BAMF',
+    project: {
+      de: 'BABS — Bereitstellung Sprachmittlung',
+      en: 'BABS — interpreter assignment platform',
+    },
+    role: {
+      de: 'Frontend-Architekt · Lead Frontend Entwickler',
+      en: 'Frontend architect · lead frontend developer',
+    },
+    text: {
+      de: 'Modernisierung einer Anwendung zur Planung und Abrechnung von Dolmetscher-Einsätzen — Details siehe „Aktuelle Projekte".',
+      en: 'Modernizing an application for planning and billing interpreter assignments — see "Current Engagements" for details.',
+    },
+    tech: ['Angular 19–22', 'Signals', 'Sheriff', 'Spring Boot'],
+    active: true,
+  },
+  {
+    period: { de: '11/2024 – 06/2025', en: '11/2024 – 06/2025' },
+    client: 'Freiwillige Feuerwehr / Privat',
+    project: { de: 'SkillFlowAI — KI-gestützte Schulungsplattform', en: 'SkillFlowAI — AI-powered training platform' },
+    role: { de: 'Lead Frontend Architekt · Senior Full Stack Entwickler', en: 'Lead frontend architect · senior full stack developer' },
+    text: {
+      de: 'Web- und Mobile-App zur Verwaltung und Durchführung interner Schulungen; Inhalte werden mit KI aufbereitet, Lernzielkontrollen automatisch generiert. Open Source auf GitHub.',
+      en: 'Web and mobile app for managing and running internal trainings; content is enriched with AI, assessments are generated automatically. Open source on GitHub.',
+    },
+    tech: ['Angular 19', 'SignalStore', 'Tailwind CSS', 'KI-Integration', 'Spring Boot 3.4'],
+  },
+  {
+    period: { de: '10/2023 – 10/2024', en: '10/2023 – 10/2024' },
     client: 'Optica (Dr. Güldener Gruppe)',
     project: { de: 'Omnia — Factoring-Software', en: 'Omnia — factoring software' },
     role: { de: 'Senior Full Stack Entwickler', en: 'Senior full stack developer' },
@@ -287,7 +303,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['Angular 14–16', 'NgRx', 'AG Grid', 'Spring Boot', 'Spring Batch', 'RabbitMQ'],
   },
   {
-    period: '12/2022 – 09/2023',
+    period: { de: '12/2022 – 09/2023', en: '12/2022 – 09/2023' },
     client: 'DZR (Dr. Güldener Gruppe)',
     project: { de: 'Megadoc — Factoring-Software', en: 'Megadoc — factoring software' },
     role: { de: 'Senior Full Stack Entwickler', en: 'Senior full stack developer' },
@@ -298,7 +314,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['Angular 14–15', 'Micro-Frontends', 'Web Components', 'Spring Boot', 'Keycloak'],
   },
   {
-    period: '09/2021 – 11/2022',
+    period: { de: '09/2021 – 11/2022', en: '09/2021 – 11/2022' },
     client: 'Sopra Financial Technology',
     project: { de: 'DSGVO & FinStabDev', en: 'GDPR & financial stability regulation' },
     role: { de: 'Senior Full Stack Entwickler', en: 'Senior full stack developer' },
@@ -309,7 +325,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['Angular 13', 'NgRx', 'Spring Boot', 'Oracle', 'RabbitMQ'],
   },
   {
-    period: '01/2017 – 08/2021',
+    period: { de: '01/2017 – 08/2021', en: '01/2017 – 08/2021' },
     client: 'Sparda-Datenverarbeitung eG',
     project: { de: 'GloboZAP — Baufinanzierung', en: 'GloboZAP — mortgage financing' },
     role: { de: 'Senior Full Stack Entwickler', en: 'Senior full stack developer' },
@@ -320,7 +336,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['AngularJS → Angular 8', 'JavaEE', 'WebLogic', 'DB2/Oracle', 'Kubernetes'],
   },
   {
-    period: '01/2015 – 12/2016',
+    period: { de: '01/2015 – 12/2016', en: '01/2015 – 12/2016' },
     client: 'Airbus Defence & Space',
     project: { de: 'ASSET Future ILS — Eurofighter', en: 'ASSET Future ILS — Eurofighter' },
     role: { de: 'Senior Full Stack Entwickler · Team Lead', en: 'Senior full stack developer · team lead' },
@@ -331,7 +347,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['JavaEE 7', 'JSF/PrimeFaces', 'Oracle', 'WebLogic'],
   },
   {
-    period: '02/2012 – 12/2014',
+    period: { de: '02/2012 – 12/2014', en: '02/2012 – 12/2014' },
     client: 'Allianz Global Corporate & Specialty',
     project: { de: 'Actuarial Data Platform', en: 'Actuarial Data Platform' },
     role: { de: 'Full Stack Entwickler', en: 'Full stack developer' },
@@ -342,7 +358,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['Sencha ExtJS', 'Java/Spring', 'Oracle', 'JBoss'],
   },
   {
-    period: '04/2009 – 12/2014',
+    period: { de: '04/2009 – 12/2014', en: '04/2009 – 12/2014' },
     client: 'Allianz Global Corporate & Specialty',
     project: { de: 'AGCS Pricing Tools', en: 'AGCS Pricing Tools' },
     role: { de: 'Full Stack Entwickler', en: 'Full stack developer' },
@@ -353,7 +369,7 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['JavaEE', 'Adobe Flex', 'Apache CXF', 'Oracle'],
   },
   {
-    period: '2006 – 2009',
+    period: { de: '2006 – 2009', en: '2006 – 2009' },
     client: 'AGCS · LEONI (Festanstellung)',
     project: { de: 'Location Mgmt. System & diverse Tools', en: 'Location mgmt. system & various tools' },
     role: { de: 'Full Stack Entwickler', en: 'Full stack developer' },
