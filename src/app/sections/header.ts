@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
 import { ThemeStore } from '../core/theme';
@@ -13,7 +13,11 @@ import { NAV } from '../data/content';
       class="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-md dark:border-ink-700/70 dark:bg-ink-950/80"
     >
       <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-        <a routerLink="/" class="font-mono text-sm font-semibold text-slate-900 dark:text-white">
+        <a
+          routerLink="/"
+          (click)="closeMenu()"
+          class="font-mono text-sm font-semibold text-slate-900 dark:text-white"
+        >
           <span class="text-accent-600 dark:text-accent-400">~/</span>prime-ux
         </a>
 
@@ -46,8 +50,58 @@ import { NAV } from '../data/content';
           >
             {{ theme.theme() === 'dark' ? '☀' : '☾' }}
           </button>
+
+          <!-- Hamburger nur auf Mobile -->
+          <button
+            type="button"
+            (click)="toggleMenu()"
+            class="flex size-8 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 md:hidden dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
+            [attr.aria-label]="
+              menuOpen()
+                ? i18n.lang() === 'de'
+                  ? 'Menü schließen'
+                  : 'Close menu'
+                : i18n.lang() === 'de'
+                  ? 'Menü öffnen'
+                  : 'Open menu'
+            "
+            [attr.aria-expanded]="menuOpen()"
+          >
+            @if (menuOpen()) {
+              <svg viewBox="0 0 20 20" class="size-4 fill-none stroke-current stroke-2" aria-hidden="true">
+                <path d="M5 5l10 10M15 5L5 15" stroke-linecap="round" />
+              </svg>
+            } @else {
+              <svg viewBox="0 0 20 20" class="size-4 fill-none stroke-current stroke-2" aria-hidden="true">
+                <path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round" />
+              </svg>
+            }
+          </button>
         </div>
       </div>
+
+      <!-- Mobiles Aufklapp-Menü -->
+      @if (menuOpen()) {
+        <nav
+          class="border-t border-slate-200/70 bg-white/95 px-6 py-4 md:hidden dark:border-ink-700/70 dark:bg-ink-950/95"
+          aria-label="Mobile Navigation"
+        >
+          <ul class="flex flex-col gap-1">
+            @for (item of nav; track item.anchor) {
+              <li>
+                <a
+                  routerLink="/"
+                  [fragment]="item.anchor"
+                  (click)="closeMenu()"
+                  class="block rounded-md px-2 py-2.5 text-slate-700 transition-colors hover:bg-slate-100 hover:text-accent-600 dark:text-slate-300 dark:hover:bg-ink-800 dark:hover:text-accent-400"
+                >
+                  {{ i18n.t(item.label) }}
+                </a>
+              </li>
+            }
+          </ul>
+        </nav>
+      }
     </header>
   `,
 })
@@ -55,4 +109,14 @@ export class Header {
   protected readonly i18n = inject(I18n);
   protected readonly theme = inject(ThemeStore);
   protected readonly nav = NAV;
+
+  protected readonly menuOpen = signal(false);
+
+  toggleMenu(): void {
+    this.menuOpen.update((open) => !open);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
+  }
 }

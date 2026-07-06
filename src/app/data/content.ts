@@ -104,8 +104,8 @@ export const FOCUS_AREAS: FocusArea[] = [
     icon: '◇',
     title: { de: 'Agentic UI & AI Engineering', en: 'Agentic UI & AI Engineering' },
     text: {
-      de: 'KI-gestützte Oberflächen konzipieren und bauen: Agent-Workflows, generative UI, AI-Driven Development in Design Systems. Fundiert durch Weiterbildungen bei angulararchitects.io und mein eigenes KI-Produkt SkillFlowAI.',
-      en: 'Designing and building AI-powered interfaces: agent workflows, generative UI, AI-driven development for design systems. Grounded in trainings at angulararchitects.io and my own AI product SkillFlowAI.',
+      de: 'KI-gestützte Oberflächen konzipieren und bauen: Agent-Workflows, generative UI, AI-Driven Development in Design Systems. Fundiert durch spezialisierte Weiterbildungen bei angulararchitects.io und eigene KI-Projekte.',
+      en: 'Designing and building AI-powered interfaces: agent workflows, generative UI, AI-driven development for design systems. Grounded in specialized trainings at angulararchitects.io and my own AI projects.',
     },
     tags: ['Agentic AI', 'Generative UI', 'AI-Driven Development', 'LLM-Integration'],
   },
