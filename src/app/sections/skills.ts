@@ -10,7 +10,7 @@ import { SKILL_GROUPS, SKILLS_TITLE } from '../data/content';
   template: `
     <section id="skills" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <px-section-heading index="06" [title]="i18n.t(title)" />
+        <px-section-heading index="05" [title]="i18n.t(title)" />
 
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           @for (group of groups; track i18n.t(group.title)) {

@@ -11,16 +11,28 @@ import { HISTORY, HISTORY_INTRO, HISTORY_TITLE } from '../data/content';
   template: `
     <section class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <px-section-heading index="05" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
+        <px-section-heading index="04" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
         <ol class="relative space-y-10 border-l border-slate-200 pl-8 dark:border-ink-700">
-          @for (entry of history; track entry.period) {
+          @for (entry of history; track $index) {
             <li class="relative">
               <span
-                class="absolute top-1.5 -left-[37px] size-2.5 rounded-full border-2 border-white bg-accent-500 dark:border-ink-950 dark:bg-accent-400"
+                class="absolute top-1.5 -left-[37px] size-2.5 rounded-full border-2 border-white dark:border-ink-950"
+                [class]="
+                  entry.active
+                    ? 'animate-pulse bg-accent-500 dark:bg-accent-400'
+                    : 'bg-accent-500 dark:bg-accent-400'
+                "
                 aria-hidden="true"
               ></span>
-              <p class="font-mono text-xs text-slate-500">{{ entry.period }}</p>
+              <p class="font-mono text-xs text-slate-500">
+                {{ i18n.t(entry.period) }}
+                @if (entry.active) {
+                  <span class="ml-2 text-accent-600 dark:text-accent-400">●
+                    {{ i18n.lang() === 'de' ? 'aktiv' : 'active' }}</span
+                  >
+                }
+              </p>
               <h3 class="mt-1 font-semibold text-slate-900 dark:text-white">
                 {{ i18n.t(entry.project) }}
               </h3>
