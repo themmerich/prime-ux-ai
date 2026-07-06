@@ -54,7 +54,7 @@ export class FlowBox {
   template: `
     <section class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <px-section-heading index="07" [title]="i18n.t(site.title)" />
+        <px-section-heading index="08" [title]="i18n.t(site.title)" />
         <p class="max-w-3xl text-base leading-relaxed md:text-lg">{{ i18n.t(site.text) }}</p>
 
         <!-- Vertikales Pipeline-Flowchart -->

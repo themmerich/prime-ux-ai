@@ -104,8 +104,8 @@ export const FOCUS_AREAS: FocusArea[] = [
     icon: '◇',
     title: { de: 'Agentic UI & AI Engineering', en: 'Agentic UI & AI Engineering' },
     text: {
-      de: 'KI-gestützte Oberflächen konzipieren und bauen: Agent-Workflows, generative UI, AI-Driven Development in Design Systems. Fundiert durch Weiterbildungen bei angulararchitects.io und mein eigenes KI-Produkt SkillFlowAI.',
-      en: 'Designing and building AI-powered interfaces: agent workflows, generative UI, AI-driven development for design systems. Grounded in trainings at angulararchitects.io and my own AI product SkillFlowAI.',
+      de: 'KI-gestützte Oberflächen konzipieren und bauen: Agent-Workflows, generative UI, AI-Driven Development in Design Systems. Fundiert durch spezialisierte Weiterbildungen bei angulararchitects.io und eigene KI-Projekte.',
+      en: 'Designing and building AI-powered interfaces: agent workflows, generative UI, AI-driven development for design systems. Grounded in specialized trainings at angulararchitects.io and my own AI projects.',
     },
     tags: ['Agentic AI', 'Generative UI', 'AI-Driven Development', 'LLM-Integration'],
   },
@@ -281,17 +281,6 @@ export const HISTORY: HistoryEntry[] = [
     active: true,
   },
   {
-    period: { de: '11/2024 – 06/2025', en: '11/2024 – 06/2025' },
-    client: 'Freiwillige Feuerwehr / Privat',
-    project: { de: 'SkillFlowAI — KI-gestützte Schulungsplattform', en: 'SkillFlowAI — AI-powered training platform' },
-    role: { de: 'Lead Frontend Architekt · Senior Full Stack Entwickler', en: 'Lead frontend architect · senior full stack developer' },
-    text: {
-      de: 'Web- und Mobile-App zur Verwaltung und Durchführung interner Schulungen; Inhalte werden mit KI aufbereitet, Lernzielkontrollen automatisch generiert. Open Source auf GitHub.',
-      en: 'Web and mobile app for managing and running internal trainings; content is enriched with AI, assessments are generated automatically. Open source on GitHub.',
-    },
-    tech: ['Angular 19', 'SignalStore', 'Tailwind CSS', 'KI-Integration', 'Spring Boot 3.4'],
-  },
-  {
     period: { de: '10/2023 – 10/2024', en: '10/2023 – 10/2024' },
     client: 'Optica (Dr. Güldener Gruppe)',
     project: { de: 'Omnia — Factoring-Software', en: 'Omnia — factoring software' },
@@ -452,7 +441,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
 /* Weiterbildung / Lernpfad                                            */
 /* ------------------------------------------------------------------ */
 
-export const LEARNING_TITLE = { de: 'Lernpfad', en: 'Learning Path' } as L;
+export const LEARNING_TITLE = { de: 'Weiterbildungen', en: 'Continuing Education' } as L;
 export const LEARNING_INTRO = {
   de: 'Kein Zufall, sondern ein roter Faden: von Angular-Architektur über Design Systems zu Agentic AI.',
   en: 'Not random, but a through line: from Angular architecture via design systems to agentic AI.',
@@ -499,6 +488,62 @@ export const TRAININGS: Training[] = [
     date: '07/2024',
     title: { de: 'Zertifizierter Angular-Architekt', en: 'Certified Angular Architect' },
     provider: 'angulararchitects.io',
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Werdegang: Ausbildung & Anstellung                                  */
+/* ------------------------------------------------------------------ */
+
+export interface BackgroundEntry {
+  period: string;
+  title: L;
+  place: string;
+  note?: L;
+}
+
+export const BACKGROUND_TITLE = { de: 'Werdegang', en: 'Background' } as L;
+export const BACKGROUND_INTRO = {
+  de: 'Vor der Freiberuflichkeit: Ausbildung, Studium und die ersten Jahre als angestellter Entwickler.',
+  en: 'Before going freelance: education, studies and the first years as an employed developer.',
+} as L;
+
+export const EDUCATION_TITLE = { de: 'Ausbildung', en: 'Education' } as L;
+export const EMPLOYMENT_TITLE = { de: 'Anstellung', en: 'Employment' } as L;
+
+export const EDUCATION: BackgroundEntry[] = [
+  {
+    period: '09/2000 – 02/2007',
+    title: { de: 'Diplom-Informatiker (Dipl.-Inf.)', en: 'Diploma in Computer Science (Dipl.-Inf.)' },
+    place: 'Universität Würzburg',
+    note: { de: 'Abschluss Februar 2007', en: 'Graduated February 2007' },
+  },
+  {
+    period: '07/1998 – 06/2000',
+    title: { de: 'Reserveoffizier bei den Pionieren', en: 'Reserve officer, engineer corps' },
+    place: 'Bundeswehr, Volkach',
+    note: {
+      de: 'Offiziersprüfung 2000, Beförderung zum Oberleutnant',
+      en: 'Officer exam 2000, promoted to First Lieutenant',
+    },
+  },
+  {
+    period: '1989 – 1998',
+    title: { de: 'Abitur', en: 'Abitur (secondary school diploma)' },
+    place: 'Walther-Rathenau-Gymnasium, Schweinfurt',
+  },
+];
+
+export const EMPLOYMENT: BackgroundEntry[] = [
+  {
+    period: '10/2008 – 03/2009',
+    title: { de: 'IT-Berater', en: 'IT consultant' },
+    place: 'LEONI Wiring Systems, Kitzingen',
+  },
+  {
+    period: '06/2006 – 09/2008',
+    title: { de: 'IT-Berater', en: 'IT consultant' },
+    place: 'nobisCum, Würzburg',
   },
 ];
 
@@ -559,5 +604,6 @@ export const NAV: { anchor: string; label: L }[] = [
   { anchor: 'fokus', label: { de: 'Fokus', en: 'Focus' } },
   { anchor: 'projekte', label: { de: 'Projekte', en: 'Projects' } },
   { anchor: 'skills', label: { de: 'Skills', en: 'Skills' } },
+  { anchor: 'weiterbildung', label: { de: 'Weiterbildungen', en: 'Education' } },
   { anchor: 'kontakt', label: { de: 'Kontakt', en: 'Contact' } },
 ];

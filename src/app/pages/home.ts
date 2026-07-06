@@ -6,6 +6,7 @@ import { Engagements } from '../sections/engagements';
 import { History } from '../sections/history';
 import { Skills } from '../sections/skills';
 import { Learning } from '../sections/learning';
+import { Background } from '../sections/background';
 import { SiteProject } from '../sections/site-project';
 import { Contact } from '../sections/contact';
 
@@ -20,6 +21,7 @@ import { Contact } from '../sections/contact';
     History,
     Skills,
     Learning,
+    Background,
     SiteProject,
     Contact,
   ],
@@ -31,6 +33,7 @@ import { Contact } from '../sections/contact';
     <px-history />
     <px-skills />
     <px-learning />
+    <px-background />
     <px-site-project />
     <px-contact />
   `,
