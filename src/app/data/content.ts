@@ -67,7 +67,10 @@ export const HERO = {
   ctaProjects: { de: 'Projekte ansehen', en: 'View projects' } as L,
   photo: 'portrait.jpg',
   photoCaption: 'thomas-hemmerich.jpg',
-  available: { de: 'verfügbar für Projekte', en: 'available for projects' } as L,
+  available: {
+    de: 'aktuell ausgebucht bis 31.12.2026',
+    en: 'currently booked until Dec 31, 2026',
+  } as L,
 };
 
 export const PROFILE = {

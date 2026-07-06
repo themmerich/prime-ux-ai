@@ -93,7 +93,7 @@ import { CONTACT, HERO } from '../data/content';
             <figcaption
               class="flex items-center gap-2 border-t border-slate-200 px-4 py-3 font-mono text-xs dark:border-ink-700"
             >
-              <span class="size-2 animate-pulse rounded-full bg-accent-500"></span>
+              <span class="size-2 animate-pulse rounded-full bg-amber-500"></span>
               <span class="text-slate-600 dark:text-slate-300">{{ i18n.t(hero.available) }}</span>
             </figcaption>
           </figure>
