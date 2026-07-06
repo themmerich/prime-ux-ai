@@ -1,0 +1,41 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Hero } from '../sections/hero';
+import { Profile } from '../sections/profile';
+import { Focus } from '../sections/focus';
+import { Engagements } from '../sections/engagements';
+import { Flagship } from '../sections/flagship';
+import { History } from '../sections/history';
+import { Skills } from '../sections/skills';
+import { Learning } from '../sections/learning';
+import { SiteProject } from '../sections/site-project';
+import { Contact } from '../sections/contact';
+
+@Component({
+  selector: 'px-home',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    Hero,
+    Profile,
+    Focus,
+    Engagements,
+    Flagship,
+    History,
+    Skills,
+    Learning,
+    SiteProject,
+    Contact,
+  ],
+  template: `
+    <px-hero />
+    <px-profile />
+    <px-focus />
+    <px-engagements />
+    <px-flagship />
+    <px-history />
+    <px-skills />
+    <px-learning />
+    <px-site-project />
+    <px-contact />
+  `,
+})
+export class Home {}
