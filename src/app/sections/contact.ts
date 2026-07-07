@@ -10,7 +10,7 @@ import { CONTACT } from '../data/content';
   template: `
     <section id="kontakt" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <px-section-heading index="10" [title]="i18n.t(contact.title)" [intro]="i18n.t(contact.text)" />
+        <px-section-heading index="11" [title]="i18n.t(contact.title)" [intro]="i18n.t(contact.text)" />
 
         <div class="flex flex-wrap items-center gap-4">
           <a

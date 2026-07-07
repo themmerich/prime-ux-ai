@@ -10,7 +10,7 @@ import { ABOUT } from '../data/content';
   template: `
     <section id="ueber-mich" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
-        <px-section-heading index="09" [title]="i18n.t(about.title)" />
+        <px-section-heading index="10" [title]="i18n.t(about.title)" />
 
         <div class="max-w-3xl">
           <p class="text-lg leading-relaxed text-slate-700 md:text-xl dark:text-slate-200">

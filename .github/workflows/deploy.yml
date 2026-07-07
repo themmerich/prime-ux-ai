@@ -73,14 +73,20 @@ jobs:
 
       - name: S3-Sync
         run: |
-          # Gehashte Assets: ein Jahr immutable cachen
+          # Gehashte Assets: ein Jahr immutable cachen (index.html und Blog-Markdown ausgenommen)
           aws s3 sync dist/prime-ux/browser "s3://${{ steps.tf.outputs.bucket }}" \
             --delete \
             --exclude index.html \
+            --exclude "*.md" \
             --cache-control "public,max-age=31536000,immutable"
           # index.html: nie cachen, damit neue Deployments sofort greifen
           aws s3 cp dist/prime-ux/browser/index.html "s3://${{ steps.tf.outputs.bucket }}/index.html" \
             --cache-control "no-cache"
+          # Blog-Markdown: feste Dateinamen, daher nur kurz cachen (Artikel-Edits kommen zeitnah an)
+          aws s3 sync dist/prime-ux/browser "s3://${{ steps.tf.outputs.bucket }}" \
+            --exclude "*" \
+            --include "*.md" \
+            --cache-control "public,max-age=300"
 
       - name: CloudFront-Cache invalidieren
         run: |
