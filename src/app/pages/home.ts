@@ -8,6 +8,7 @@ import { Skills } from '../sections/skills';
 import { Learning } from '../sections/learning';
 import { Background } from '../sections/background';
 import { SiteProject } from '../sections/site-project';
+import { BlogTeaser } from '../blog/blog-teaser';
 import { About } from '../sections/about';
 import { Contact } from '../sections/contact';
 
@@ -24,6 +25,7 @@ import { Contact } from '../sections/contact';
     Learning,
     Background,
     SiteProject,
+    BlogTeaser,
     About,
     Contact,
   ],
@@ -37,6 +39,7 @@ import { Contact } from '../sections/contact';
     <px-learning />
     <px-background />
     <px-site-project />
+    <px-blog-teaser />
     <px-about />
     <px-contact />
   `,

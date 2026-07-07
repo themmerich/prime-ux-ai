@@ -65,7 +65,7 @@ export const HERO = {
   } as L<string[]>,
   ctaContact: { de: 'Projekt anfragen', en: 'Start a conversation' } as L,
   ctaProjects: { de: 'Projekte ansehen', en: 'View projects' } as L,
-  photo: 'portrait.png',
+  photo: 'portrait-neu.jpg',
   photoCaption: 'thomas-hemmerich.jpg',
   available: {
     de: 'aktuell ausgebucht bis 31.12.2026',
@@ -632,5 +632,6 @@ export const NAV: { anchor: string; label: L }[] = [
   { anchor: 'projekte', label: { de: 'Projekte', en: 'Projects' } },
   { anchor: 'skills', label: { de: 'Skills', en: 'Skills' } },
   { anchor: 'weiterbildung', label: { de: 'Weiterbildungen', en: 'Education' } },
+  { anchor: 'blog', label: { de: 'Blog', en: 'Blog' } },
   { anchor: 'kontakt', label: { de: 'Kontakt', en: 'Contact' } },
 ];
