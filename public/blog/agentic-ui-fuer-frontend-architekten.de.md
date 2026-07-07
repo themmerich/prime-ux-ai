@@ -2,6 +2,15 @@
 
 Die letzten Jahre standen im Zeichen von Design Systems und Micro-Frontends. Die nächste Verschiebung ist schon sichtbar: **KI-Agenten wandern in die Oberfläche**. Nicht als aufgesetztes Chat-Fenster in der Ecke, sondern als integraler Teil der Interaktion.
 
+<figure>
+  <img src="/blog/images/agentic-ui-beispiel.jpg" alt="Beispielbild mit Bildunterschrift" />
+  <figcaption>So kannst du Bilder mit Bildunterschrift einbinden (Platzhalterbild).</figcaption>
+</figure>
+
+Ein einfaches Bild ohne Unterschrift geht auch mit normaler Markdown-Syntax:
+
+![Alternativtext für Screenreader](/blog/images/agentic-ui-beispiel.jpg)
+
 ## Mehr als ein Chatbot
 
 Ein Chatbot beantwortet Fragen. Ein Agent **handelt**: Er ruft Funktionen auf, füllt Formulare vor, schlägt nächste Schritte vor und führt sie nach Bestätigung aus. Für die Oberfläche heißt das: Sie muss nicht mehr nur Eingaben entgegennehmen, sondern Vorschläge, Zwischenzustände und Rückfragen eines Agenten darstellen.
