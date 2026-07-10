@@ -1,4 +1,5 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export type Lang = 'de' | 'en';
 
@@ -10,13 +11,21 @@ export interface L<T = string> {
 
 const STORAGE_KEY = 'px-lang';
 
+/** Beim Prerendern gerendert und im index.html als lang-Attribut hinterlegt. */
+const SSR_LANG: Lang = 'de';
+
 @Injectable({ providedIn: 'root' })
 export class I18n {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   readonly lang = signal<Lang>(this.initialLang());
 
   constructor() {
     effect(() => {
       const lang = this.lang();
+      if (!this.isBrowser) {
+        return;
+      }
       try {
         localStorage.setItem(STORAGE_KEY, lang);
       } catch {
@@ -34,6 +43,10 @@ export class I18n {
   }
 
   private initialLang(): Lang {
+    // Der Server rendert immer Deutsch; der Browser korrigiert nach der Hydration.
+    if (!this.isBrowser) {
+      return SSR_LANG;
+    }
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === 'de' || stored === 'en') {

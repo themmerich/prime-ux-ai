@@ -10,6 +10,14 @@ resource "aws_cloudfront_origin_access_control" "site" {
   signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_function" "rewrite_index" {
+  name    = "rewrite-index-${replace(var.domain_name, ".", "-")}"
+  runtime = "cloudfront-js-2.0"
+  comment = "Mappt Verzeichnis-Routen des Angular-Prerenders auf index.html"
+  publish = true
+  code    = file("${path.module}/rewrite-index.js")
+}
+
 resource "aws_cloudfront_distribution" "site" {
   enabled             = true
   is_ipv6_enabled     = true
@@ -33,10 +41,16 @@ resource "aws_cloudfront_distribution" "site" {
     compress                   = true
     cache_policy_id            = data.aws_cloudfront_cache_policy.caching_optimized.id
     response_headers_policy_id = data.aws_cloudfront_response_headers_policy.security_headers.id
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.rewrite_index.arn
+    }
   }
 
-  # SPA-Fallback: Angular-Routen wie /impressum liegen nicht als Objekt im
-  # Bucket — S3 antwortet mit 403/404, CloudFront liefert stattdessen die App.
+  # Auffangnetz für URLs, die es nicht (mehr) gibt: S3 antwortet 403/404,
+  # CloudFront liefert die App, deren Router auf die Startseite umleitet.
+  # Die echten Routen werden prerendert und von der Function direkt aufgelöst.
   custom_error_response {
     error_code            = 403
     response_code         = 200

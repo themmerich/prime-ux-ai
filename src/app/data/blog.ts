@@ -1,5 +1,10 @@
 import { L } from '../core/i18n';
 
+import agenticUiDe from '../../content/blog/agentic-ui-fuer-frontend-architekten.de.md';
+import agenticUiEn from '../../content/blog/agentic-ui-fuer-frontend-architekten.en.md';
+import microFrontendsDe from '../../content/blog/micro-frontends-mit-nx.de.md';
+import microFrontendsEn from '../../content/blog/micro-frontends-mit-nx.en.md';
+
 export interface BlogPost {
   slug: string;
   /** ISO-Datum yyyy-mm-dd */
@@ -9,6 +14,8 @@ export interface BlogPost {
   title: L;
   excerpt: L;
   tags: string[];
+  /** Roher Markdown-Text, zur Buildzeit eingebunden */
+  body: L;
 }
 
 export const BLOG_TITLE = { de: 'Blog', en: 'Blog' } as L;
@@ -19,7 +26,7 @@ export const BLOG_INTRO = {
 
 /**
  * Reihenfolge = Anzeige-Reihenfolge (neueste zuerst).
- * Der Artikeltext liegt als Markdown unter public/blog/<slug>.<lang>.md
+ * Der Artikeltext liegt als Markdown unter src/content/blog/<slug>.<lang>.md
  */
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -35,6 +42,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: 'AI agents are moving into the interface. Why that is more than a chat window — and which architecture decisions are due now.',
     },
     tags: ['Agentic UI', 'Architektur', 'Angular'],
+    body: { de: agenticUiDe, en: agenticUiEn },
   },
   {
     slug: 'micro-frontends-mit-nx',
@@ -49,6 +57,7 @@ export const BLOG_POSTS: BlogPost[] = [
       en: 'Micro frontends solve an organizational problem, not a technical one. An honest decision guide from several enterprise projects.',
     },
     tags: ['Micro-Frontends', 'Nx', 'Architektur'],
+    body: { de: microFrontendsDe, en: microFrontendsEn },
   },
 ];
 
