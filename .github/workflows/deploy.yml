@@ -73,10 +73,12 @@ jobs:
 
       - name: S3-Sync
         run: |
-          # Gehashte Assets: ein Jahr immutable cachen (prerenderte Seiten ausgenommen)
+          # Gehashte Assets: ein Jahr immutable cachen (HTML, robots.txt und sitemap.xml ausgenommen)
           aws s3 sync dist/prime-ux/browser "s3://${{ steps.tf.outputs.bucket }}" \
             --delete \
             --exclude "*.html" \
+            --exclude "robots.txt" \
+            --exclude "sitemap.xml" \
             --cache-control "public,max-age=31536000,immutable"
           # Prerenderte Seiten (index.html je Route): nie cachen, damit neue Deployments sofort greifen
           aws s3 sync dist/prime-ux/browser "s3://${{ steps.tf.outputs.bucket }}" \
@@ -84,6 +86,12 @@ jobs:
             --exclude "*" \
             --include "*.html" \
             --cache-control "no-cache"
+          # robots.txt und sitemap.xml: kurz cachen, damit Crawler Änderungen zeitnah sehen
+          aws s3 sync dist/prime-ux/browser "s3://${{ steps.tf.outputs.bucket }}" \
+            --exclude "*" \
+            --include "robots.txt" \
+            --include "sitemap.xml" \
+            --cache-control "public,max-age=3600"
 
       - name: CloudFront-Cache invalidieren
         run: |

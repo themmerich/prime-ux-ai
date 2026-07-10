@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n';
+import { Seo } from '../core/seo';
 import { CONTACT } from '../data/content';
 
 @Component({
@@ -26,6 +27,17 @@ import { CONTACT } from '../data/content';
 })
 export class Impressum {
   protected readonly contact = CONTACT;
+  private readonly seo = inject(Seo);
+
+  constructor() {
+    this.seo.set({
+      title: { de: 'Impressum | PRIME UX', en: 'Legal Notice | PRIME UX' },
+      description: {
+        de: 'Impressum und Anbieterkennzeichnung von Thomas Hemmerich · PRIME UX.',
+        en: 'Legal notice and provider identification for Thomas Hemmerich · PRIME UX.',
+      },
+    });
+  }
 }
 
 @Component({
@@ -57,4 +69,15 @@ export class Impressum {
 })
 export class Datenschutz {
   protected readonly i18n = inject(I18n);
+  private readonly seo = inject(Seo);
+
+  constructor() {
+    this.seo.set({
+      title: { de: 'Datenschutzerklärung | PRIME UX', en: 'Privacy Policy | PRIME UX' },
+      description: {
+        de: 'Diese Webseite verwendet keine Cookies, kein Tracking und keine Analyse-Tools.',
+        en: 'This website uses no cookies, no tracking and no analytics tools.',
+      },
+    });
+  }
 }

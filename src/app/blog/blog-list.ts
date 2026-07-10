@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
+import { Seo } from '../core/seo';
 import { BlogCard } from './blog-card';
 import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
 
@@ -32,7 +33,18 @@ import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
 })
 export class BlogList {
   protected readonly i18n = inject(I18n);
+  private readonly seo = inject(Seo);
   protected readonly title = BLOG_TITLE;
   protected readonly intro = BLOG_INTRO;
   protected readonly posts = BLOG_POSTS;
+
+  constructor() {
+    this.seo.set({
+      title: {
+        de: 'Blog — Angular-Architektur & Agentic UI | PRIME UX',
+        en: 'Blog — Angular Architecture & Agentic UI | PRIME UX',
+      },
+      description: BLOG_INTRO,
+    });
+  }
 }

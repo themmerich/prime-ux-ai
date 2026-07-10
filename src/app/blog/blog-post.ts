@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { marked } from 'marked';
 import { I18n } from '../core/i18n';
+import { ORIGIN, Seo } from '../core/seo';
 import { TechChip } from '../shared/tech-chip';
 import { findPost } from '../data/blog';
 
@@ -59,12 +60,49 @@ import { findPost } from '../data/blog';
 export class BlogPost {
   protected readonly i18n = inject(I18n);
   private readonly route = inject(ActivatedRoute);
+  private readonly seo = inject(Seo);
 
   private readonly slug = toSignal(this.route.paramMap.pipe(map((p) => p.get('slug') ?? '')), {
     initialValue: '',
   });
 
   protected readonly post = computed(() => findPost(this.slug()));
+
+  constructor() {
+    // SEO folgt dem Artikel; bei Slug-Wechsel ohne Neuaufbau der Komponente aktualisiert.
+    effect(() => {
+      const p = this.post();
+      if (!p) {
+        this.seo.set({
+          title: { de: 'Artikel nicht gefunden | PRIME UX', en: 'Article not found | PRIME UX' },
+          description: {
+            de: 'Diesen Artikel gibt es nicht (mehr).',
+            en: 'This article does not exist (anymore).',
+          },
+        });
+        return;
+      }
+      this.seo.set({
+        title: {
+          de: `${p.title.de} | PRIME UX`,
+          en: `${p.title.en} | PRIME UX`,
+        },
+        description: p.excerpt,
+        type: 'article',
+        jsonLd: (lang) => ({
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: p.title[lang],
+          description: p.excerpt[lang],
+          datePublished: p.date,
+          inLanguage: lang === 'de' ? 'de-DE' : 'en-US',
+          keywords: p.tags.join(', '),
+          url: `${ORIGIN}/blog/${p.slug}`,
+          author: { '@type': 'Person', name: 'Thomas Hemmerich', url: ORIGIN },
+        }),
+      });
+    });
+  }
 
   // roher HTML-String — Angular sanitisiert beim [innerHTML]-Binding
   protected readonly body = computed(() => {
