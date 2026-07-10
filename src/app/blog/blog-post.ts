@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -13,8 +6,6 @@ import { marked } from 'marked';
 import { I18n } from '../core/i18n';
 import { TechChip } from '../shared/tech-chip';
 import { findPost } from '../data/blog';
-
-type State = 'loading' | 'ready' | 'error';
 
 @Component({
   selector: 'px-blog-post',
@@ -34,7 +25,10 @@ type State = 'loading' | 'ready' | 'error';
           <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-500">
             <span>{{ formattedDate() }}</span>
             <span aria-hidden="true">·</span>
-            <span>{{ p.readingMinutes }} {{ i18n.lang() === 'de' ? 'Min. Lesezeit' : 'min read' }}</span>
+            <span
+              >{{ p.readingMinutes }}
+              {{ i18n.lang() === 'de' ? 'Min. Lesezeit' : 'min read' }}</span
+            >
           </div>
           <h1
             class="mt-4 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl dark:text-white"
@@ -48,23 +42,7 @@ type State = 'loading' | 'ready' | 'error';
           </div>
         </header>
 
-        @switch (state()) {
-          @case ('ready') {
-            <div class="prose mt-10" [innerHTML]="body()"></div>
-          }
-          @case ('loading') {
-            <p class="mt-10 font-mono text-sm text-slate-500">…</p>
-          }
-          @case ('error') {
-            <p class="mt-10 text-sm text-slate-500">
-              {{
-                i18n.lang() === 'de'
-                  ? 'Der Artikel konnte nicht geladen werden.'
-                  : 'This article could not be loaded.'
-              }}
-            </p>
-          }
-        }
+        <div class="prose mt-10" [innerHTML]="body()"></div>
       } @else {
         <h1 class="mt-6 text-3xl font-bold text-slate-900 dark:text-white">404</h1>
         <p class="mt-4 text-sm">
@@ -87,9 +65,12 @@ export class BlogPost {
   });
 
   protected readonly post = computed(() => findPost(this.slug()));
-  protected readonly state = signal<State>('loading');
+
   // roher HTML-String — Angular sanitisiert beim [innerHTML]-Binding
-  protected readonly body = signal<string>('');
+  protected readonly body = computed(() => {
+    const p = this.post();
+    return p ? marked.parse(this.i18n.t(p.body), { async: false }) : '';
+  });
 
   protected readonly formattedDate = computed(() => {
     const p = this.post();
@@ -102,32 +83,4 @@ export class BlogPost {
       year: 'numeric',
     });
   });
-
-  constructor() {
-    // Markdown neu laden, wenn sich Artikel oder Sprache ändert
-    effect(() => {
-      const p = this.post();
-      const lang = this.i18n.lang();
-      if (!p) {
-        return;
-      }
-      this.load(p.slug, lang);
-    });
-  }
-
-  private async load(slug: string, lang: string): Promise<void> {
-    this.state.set('loading');
-    try {
-      const response = await fetch(`blog/${slug}.${lang}.md`);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      const md = await response.text();
-      const html = await marked.parse(md);
-      this.body.set(html);
-      this.state.set('ready');
-    } catch {
-      this.state.set('error');
-    }
-  }
 }
