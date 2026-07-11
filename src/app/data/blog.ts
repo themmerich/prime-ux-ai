@@ -1,7 +1,7 @@
 import { L } from '../core/i18n';
 
-import agenticUiDe from '../../content/blog/agentic-ui-fuer-frontend-architekten.de.md';
-import agenticUiEn from '../../content/blog/agentic-ui-fuer-frontend-architekten.en.md';
+import makingOfDe from '../../content/blog/wie-diese-website-gebaut-ist.de.md';
+import makingOfEn from '../../content/blog/wie-diese-website-gebaut-ist.en.md';
 import microFrontendsDe from '../../content/blog/micro-frontends-mit-nx.de.md';
 import microFrontendsEn from '../../content/blog/micro-frontends-mit-nx.en.md';
 
@@ -25,24 +25,24 @@ export const BLOG_INTRO = {
 } as L;
 
 /**
- * Reihenfolge = Anzeige-Reihenfolge (neueste zuerst).
+ * Wird nach Datum sortiert (neueste zuerst) — die Reihenfolge hier ist egal.
  * Der Artikeltext liegt als Markdown unter src/content/blog/<slug>.<lang>.md
  */
-export const BLOG_POSTS: BlogPost[] = [
+const POSTS: BlogPost[] = [
   {
-    slug: 'agentic-ui-fuer-frontend-architekten',
-    date: '2026-06-20',
-    readingMinutes: 6,
+    slug: 'wie-diese-website-gebaut-ist',
+    date: '2026-07-11',
+    readingMinutes: 8,
     title: {
-      de: 'Agentic UI: Was KI-Agenten für Frontend-Architekten bedeuten',
-      en: 'Agentic UI: What AI Agents Mean for Frontend Architects',
+      de: 'Kein Template: Wie diese Website gebaut ist',
+      en: 'No Template: How This Site Is Built',
     },
     excerpt: {
-      de: 'KI-Agenten wandern in die Oberfläche. Warum das mehr ist als ein Chat-Fenster — und welche Architektur-Entscheidungen jetzt anstehen.',
-      en: 'AI agents are moving into the interface. Why that is more than a chat window — and which architecture decisions are due now.',
+      de: 'Angular 22 ohne Zone.js, Zweisprachigkeit als Datenmodell, Prerendering statt Node-Server und Infrastruktur als Terraform — ein Rundgang durch die Architektur dieser Seite.',
+      en: 'Angular 22 without Zone.js, bilingualism as a data model, prerendering instead of a Node server and infrastructure as Terraform — a tour of this site’s architecture.',
     },
-    tags: ['Agentic UI', 'Architektur', 'Angular'],
-    body: { de: agenticUiDe, en: agenticUiEn },
+    tags: ['Angular', 'SSG', 'Terraform', 'Making-of'],
+    body: { de: makingOfDe, en: makingOfEn },
   },
   {
     slug: 'micro-frontends-mit-nx',
@@ -60,6 +60,9 @@ export const BLOG_POSTS: BlogPost[] = [
     body: { de: microFrontendsDe, en: microFrontendsEn },
   },
 ];
+
+/** Anzeige-Reihenfolge: neuester Artikel zuerst (ISO-Daten sortieren lexikografisch). */
+export const BLOG_POSTS: BlogPost[] = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
 
 export function findPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);

@@ -23,9 +23,7 @@ type PipelineState = 'loading' | 'passing' | 'failing' | 'unknown';
       <p
         class="text-sm font-semibold"
         [class]="
-          accent()
-            ? 'text-accent-700 dark:text-accent-300'
-            : 'text-slate-800 dark:text-slate-200'
+          accent() ? 'text-accent-700 dark:text-accent-300' : 'text-slate-800 dark:text-slate-200'
         "
       >
         {{ title() }}
@@ -52,7 +50,7 @@ export class FlowBox {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SectionHeading, TechChip, FlowBox],
   template: `
-    <section class="border-t border-slate-200 dark:border-ink-800">
+    <section id="diese-seite" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="08" [title]="i18n.t(site.title)" />
         <p class="max-w-3xl text-base leading-relaxed md:text-lg">{{ i18n.t(site.text) }}</p>
@@ -136,8 +134,12 @@ export class FlowBox {
         <!-- Kategorien -->
         <div class="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
           @for (cat of categories; track cat.title) {
-            <div class="rounded-xl border border-slate-200 p-4 dark:border-ink-700 dark:bg-ink-900/50">
-              <p class="font-mono text-[10px] font-semibold tracking-[0.25em] text-accent-600 uppercase dark:text-accent-400">
+            <div
+              class="rounded-xl border border-slate-200 p-4 dark:border-ink-700 dark:bg-ink-900/50"
+            >
+              <p
+                class="font-mono text-[10px] font-semibold tracking-[0.25em] text-accent-600 uppercase dark:text-accent-400"
+              >
                 {{ cat.title }}
               </p>
               <div class="mt-3 flex flex-wrap gap-1.5">
@@ -190,7 +192,9 @@ export class FlowBox {
               </p>
             </div>
             <div class="px-5 py-4">
-              <p class="font-mono text-[10px] tracking-[0.2em] text-slate-500 uppercase">Pipeline</p>
+              <p class="font-mono text-[10px] tracking-[0.2em] text-slate-500 uppercase">
+                Pipeline
+              </p>
               <p class="mt-1 inline-flex items-center gap-2 font-mono text-sm font-semibold">
                 <span
                   class="size-2 rounded-full"

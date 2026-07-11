@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" font-family="ui-monospace, 'Cascadia Code', Consolas, Menlo, monospace" role="img" aria-label="Sequence: the browser requests /impressum, a CloudFront function appends /index.html, S3 returns the prerendered page.">
+  <defs>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow3Accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="560" fill="#0b1120"/>
+
+  <!-- Actors -->
+  <rect x="80" y="50" width="220" height="66" rx="10" fill="#111a2e" stroke="#1b2a44"/>
+  <text x="190" y="90" fill="#e2e8f0" font-size="19" font-weight="600" text-anchor="middle">BROWSER</text>
+
+  <rect x="480" y="50" width="260" height="66" rx="10" fill="#10b98114" stroke="#10b981"/>
+  <text x="610" y="90" fill="#34d399" font-size="19" font-weight="600" text-anchor="middle">CLOUDFRONT</text>
+
+  <rect x="900" y="50" width="220" height="66" rx="10" fill="#111a2e" stroke="#1b2a44"/>
+  <text x="1010" y="90" fill="#e2e8f0" font-size="19" font-weight="600" text-anchor="middle">S3 ORIGIN</text>
+
+  <!-- Lifelines -->
+  <line x1="190" y1="116" x2="190" y2="470" stroke="#1b2a44" stroke-dasharray="4 6"/>
+  <line x1="610" y1="116" x2="610" y2="470" stroke="#1b2a44" stroke-dasharray="4 6"/>
+  <line x1="1010" y1="116" x2="1010" y2="470" stroke="#1b2a44" stroke-dasharray="4 6"/>
+
+  <!-- 1: GET /impressum -->
+  <line x1="190" y1="166" x2="602" y2="166" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <text x="396" y="152" fill="#e2e8f0" font-size="15" text-anchor="middle">GET /impressum</text>
+
+  <!-- Function note -->
+  <rect x="440" y="196" width="340" height="96" rx="10" fill="#070b14" stroke="#10b981"/>
+  <text x="610" y="230" fill="#34d399" font-size="14" text-anchor="middle">viewer-request function</text>
+  <text x="610" y="256" fill="#e2e8f0" font-size="14" text-anchor="middle">no file extension?</text>
+  <text x="610" y="277" fill="#e2e8f0" font-size="14" text-anchor="middle">→ append /index.html</text>
+
+  <!-- 2: GET rewritten -->
+  <line x1="610" y1="330" x2="1002" y2="330" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow3Accent)"/>
+  <text x="806" y="316" fill="#34d399" font-size="15" text-anchor="middle">GET /impressum/index.html</text>
+
+  <!-- 3: 200 back to CloudFront -->
+  <line x1="1010" y1="386" x2="618" y2="386" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <text x="806" y="372" fill="#64748b" font-size="15" text-anchor="middle">200 · prerendered HTML</text>
+
+  <!-- 4: 200 to browser -->
+  <line x1="610" y1="442" x2="198" y2="442" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow3)"/>
+  <text x="396" y="428" fill="#64748b" font-size="15" text-anchor="middle">200 · cached at the edge</text>
+
+  <!-- footnote -->
+  <line x1="80" y1="492" x2="1120" y2="492" stroke="#1b2a44" stroke-dasharray="4 6"/>
+  <text x="600" y="532" fill="#64748b" font-size="15" text-anchor="middle">unknown key → 403/404 → fallback /index.html <tspan fill="#e2e8f0">(SPA route, home shell)</tspan></text>
+</svg>
