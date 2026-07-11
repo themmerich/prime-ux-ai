@@ -8,6 +8,8 @@ export interface FocusArea {
   icon: string;
   title: L;
   text: L;
+  /** Geschäftlicher Nutzen in einem Satz — spricht Entscheider an, nicht nur Technik. */
+  outcome: L;
   tags: string[];
 }
 
@@ -52,8 +54,8 @@ export const HERO = {
   kicker: 'PRIME UX',
   name: 'Thomas Hemmerich',
   headline: {
-    de: 'Frontend-Architekt & Angular Lead',
-    en: 'Frontend Architect & Angular Lead',
+    de: 'Frontend-Architekt für Enterprise & Agentic UI',
+    en: 'Frontend Architect for Enterprise & Agentic UI',
   } as L,
   tagline: {
     de: 'Ich entwerfe und modernisiere Frontend-Architekturen für Enterprise-Anwendungen — mit Modern Angular, Design Systems und einem klaren Fokus: Agentic UI, die Verbindung von KI-Agenten und Benutzeroberflächen.',
@@ -110,19 +112,30 @@ export const FOCUS_AREAS: FocusArea[] = [
     icon: '◇',
     title: { de: 'Agentic UI & AI Engineering', en: 'Agentic UI & AI Engineering' },
     text: {
-      de: 'KI-gestützte Oberflächen konzipieren und bauen: Agent-Workflows, generative UI, AI-Driven Development in Design Systems. Fundiert durch spezialisierte Weiterbildungen bei angulararchitects.io und eigene KI-Projekte.',
-      en: 'Designing and building AI-powered interfaces: agent workflows, generative UI, AI-driven development for design systems. Grounded in specialized trainings at angulararchitects.io and my own AI projects.',
+      de: 'Agentic UI heißt: KI-Agenten werden Teil der Oberfläche — sie schlagen Aktionen vor, füllen Formulare vor und führen Workflows aus, immer unter Kontrolle der Nutzer. Ich konzipiere und baue solche Oberflächen: Agent-Workflows, generative UI, AI-Driven Development in Design Systems — fundiert durch spezialisierte Weiterbildungen bei angulararchitects.io und eigene KI-Projekte.',
+      en: 'Agentic UI means AI agents become part of the interface — proposing actions, pre-filling forms and running workflows, always under user control. I design and build these interfaces: agent workflows, generative UI, AI-driven development for design systems — grounded in specialized trainings at angulararchitects.io and my own AI projects.',
+    },
+    outcome: {
+      de: 'Macht Enterprise-Anwendungen bereit für KI-gestützte Bedienung — als Vorsprung, nicht als nachträglicher Aufsatz.',
+      en: 'Gets enterprise applications ready for AI-assisted operation — as a head start, not a bolt-on.',
     },
     tags: ['Agentic AI', 'Generative UI', 'AI-Driven Development', 'LLM-Integration'],
   },
   {
     icon: '△',
-    title: { de: 'Frontend-Architektur', en: 'Frontend Architecture' },
-    text: {
-      de: 'Architektur-Verantwortung über Team-Grenzen hinweg: Micro-Frontends, Nx Workspaces, Modularisierung mit Sheriff, Component Libraries, Design Systems und Barrierefreiheit (A11y).',
-      en: 'Architecture ownership across team boundaries: micro frontends, Nx workspaces, modularization with Sheriff, component libraries, design systems and accessibility (a11y).',
+    title: {
+      de: 'Design Systems & Frontend-Architektur',
+      en: 'Design Systems & Frontend Architecture',
     },
-    tags: ['Micro-Frontends', 'Nx', 'Design Systems', 'A11y'],
+    text: {
+      de: 'Design Systems und Barrierefreiheit als Fundament — getragen von einer klaren Architektur über Team-Grenzen hinweg: Component Libraries mit konsistentem, barrierefreiem (A11y) Verhalten, Micro-Frontends, Nx Workspaces und Modularisierung mit Sheriff.',
+      en: 'Design systems and accessibility as the foundation — carried by a clear architecture across team boundaries: component libraries with consistent, accessible (a11y) behavior, micro frontends, Nx workspaces and modularization with Sheriff.',
+    },
+    outcome: {
+      de: 'Barrierefreie, konsistente Oberflächen über alle Teams — Pflicht im öffentlichen Sektor, bei mir Standard.',
+      en: 'Accessible, consistent interfaces across every team — mandatory in the public sector, standard in my work.',
+    },
+    tags: ['Design Systems', 'A11y', 'Micro-Frontends', 'Nx'],
   },
   {
     icon: '↻',
@@ -130,6 +143,10 @@ export const FOCUS_AREAS: FocusArea[] = [
     text: {
       de: 'Migration laufender Produkte auf Modern Angular: Signals, SignalStore, Standalone Components, zoneless — Upgrades über viele Major-Versionen hinweg, ohne den Betrieb zu gefährden.',
       en: 'Migrating live products to modern Angular: signals, SignalStore, standalone components, zoneless — upgrades across many major versions without endangering operations.',
+    },
+    outcome: {
+      de: 'Modernisierung im laufenden Betrieb — weniger technische Schulden, ohne Big-Bang-Risiko.',
+      en: 'Modernization while live — less technical debt, without big-bang risk.',
     },
     tags: ['Signals', 'SignalStore', 'Standalone', 'Upgrades'],
   },
@@ -139,6 +156,10 @@ export const FOCUS_AREAS: FocusArea[] = [
     text: {
       de: 'Teams führen und weiterentwickeln: Schulungen, Vorträge, Pairing, Architektur-Reviews und die Kommunikation zwischen Entwicklung, UX- und Plattform-Teams.',
       en: 'Leading and growing teams: trainings, talks, pairing, architecture reviews and the communication between development, UX and platform teams.',
+    },
+    outcome: {
+      de: 'Teams, die nach dem Einsatz eigenständig auf hohem Niveau weiterliefern.',
+      en: 'Teams that keep delivering at a high level on their own after the engagement.',
     },
     tags: ['Schulungen', 'Reviews', 'Team Lead', 'Mentoring'],
   },
@@ -334,7 +355,10 @@ export const HISTORY: HistoryEntry[] = [
     period: { de: '01/2015 – 12/2016', en: '01/2015 – 12/2016' },
     client: 'Airbus Defence & Space',
     project: { de: 'ASSET Future ILS — Eurofighter', en: 'ASSET Future ILS — Eurofighter' },
-    role: { de: 'Senior Full Stack Entwickler · Team Lead', en: 'Senior full stack developer · team lead' },
+    role: {
+      de: 'Senior Full Stack Entwickler · Team Lead',
+      en: 'Senior full stack developer · team lead',
+    },
     text: {
       de: 'Logistic-Support-Plattform für den Eurofighter: technisches Design, Team-Leitung und Umsetzung.',
       en: 'Logistic support platform for the Eurofighter: technical design, team lead and implementation.',
@@ -366,7 +390,10 @@ export const HISTORY: HistoryEntry[] = [
   {
     period: { de: '2006 – 2009', en: '2006 – 2009' },
     client: 'AGCS · LEONI (Festanstellung)',
-    project: { de: 'Location Mgmt. System & diverse Tools', en: 'Location mgmt. system & various tools' },
+    project: {
+      de: 'Location Mgmt. System & diverse Tools',
+      en: 'Location mgmt. system & various tools',
+    },
     role: { de: 'Full Stack Entwickler', en: 'Full stack developer' },
     text: {
       de: 'Erste Berufsjahre als IT-Berater: Administrationssystem für die Sachversicherung und mehrere interne IT-Systeme.',
