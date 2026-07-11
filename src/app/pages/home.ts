@@ -60,7 +60,10 @@ export class Home {
         '@context': 'https://schema.org',
         '@type': 'Person',
         name: HERO.name,
-        jobTitle: HERO.headline[lang],
+        // Bewusst als stabile Rolle gepflegt, entkoppelt von der Hero-Headline
+        // (die gerade als Positionierungs-Test variiert wird).
+        jobTitle:
+          lang === 'de' ? 'Frontend-Architekt & Angular Lead' : 'Frontend Architect & Angular Lead',
         description: HERO.tagline[lang],
         url: ORIGIN,
         email: 'mailto:info@prime-ux.de',

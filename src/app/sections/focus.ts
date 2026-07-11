@@ -41,6 +41,15 @@ import { FOCUS_AREAS, FOCUS_INTRO, FOCUS_NOTE, FOCUS_TITLE } from '../data/conte
                 {{ i18n.t(area.title) }}
               </h3>
               <p class="mt-2 text-sm leading-relaxed md:text-base">{{ i18n.t(area.text) }}</p>
+
+              <!-- Geschäftlicher Nutzen — hebt die Karte über die reine Technik -->
+              <p
+                class="mt-4 flex gap-2 border-t border-slate-200 pt-4 text-sm font-medium text-slate-700 dark:border-ink-700 dark:text-slate-200"
+              >
+                <span class="text-accent-600 dark:text-accent-400" aria-hidden="true">→</span>
+                <span>{{ i18n.t(area.outcome) }}</span>
+              </p>
+
               <div class="mt-5 flex flex-wrap gap-1.5">
                 @for (tag of area.tags; track tag) {
                   <px-tech-chip [label]="tag" />
