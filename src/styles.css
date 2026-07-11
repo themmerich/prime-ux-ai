@@ -16,7 +16,11 @@
   --color-accent-300: #6ee7b7;
   --color-accent-400: #34d399;
   --color-accent-500: #10b981;
-  --color-accent-600: #059669;
+  /* accent-600 dient als Textfarbe auf Weiß — #059669 lag bei nur 3,77:1.
+     #047857 erreicht 5,48:1 und damit WCAG AA. */
+  --color-accent-600: #047857;
+  /* Bislang undefiniert: text-accent-700 renderte ins Leere. Emphasis-Grün, 7,68:1 auf Weiß. */
+  --color-accent-700: #065f46;
 }
 
 html {
@@ -30,6 +34,35 @@ body {
 
 ::selection {
   @apply bg-accent-400/30 text-inherit;
+}
+
+/* Sichtbarer Fokus-Ring für Tastaturnutzer (WCAG 2.4.7 / 1.4.11).
+   accent-600 (#047857) hält 3:1 auf Weiß wie auf dunklem Grund; im Dark Mode
+   sorgt das hellere accent-400 für einen klar sichtbaren Ring. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-600);
+  outline-offset: 2px;
+}
+:where(.dark) :focus-visible {
+  outline-color: var(--color-accent-400);
+}
+/* Skip-Ziel: der Sprung in den Hauptbereich ist gewollt, kein Ring nötig. */
+main:focus {
+  outline: none;
+}
+
+/* Bewegungsempfindlichkeit respektieren: Pulse-Animationen und sanftes Scrollen. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Markdown-Artikel (Blog) — Inhalt kommt via [innerHTML], daher global gestylt */

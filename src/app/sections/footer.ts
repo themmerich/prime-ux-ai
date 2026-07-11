@@ -11,9 +11,7 @@ import { I18n } from '../core/i18n';
       <div
         class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm md:flex-row"
       >
-        <p class="font-mono text-xs text-slate-500">
-          © 2026 Thomas Hemmerich · PRIME UX
-        </p>
+        <p class="font-mono text-xs text-slate-500">© 2026 Thomas Hemmerich · PRIME UX</p>
         <p class="font-mono text-xs text-slate-500">
           {{
             i18n.lang() === 'de'
@@ -21,7 +19,7 @@ import { I18n } from '../core/i18n';
               : 'Built with Angular 22 & Tailwind — no tracking, no cookies.'
           }}
         </p>
-        <nav class="flex gap-6" aria-label="Rechtliches">
+        <nav class="flex gap-6" [attr.aria-label]="i18n.lang() === 'de' ? 'Rechtliches' : 'Legal'">
           <a
             routerLink="/impressum"
             class="text-xs text-slate-500 transition-colors hover:text-accent-600 dark:hover:text-accent-400"

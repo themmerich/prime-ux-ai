@@ -21,7 +21,10 @@ import { NAV } from '../data/content';
           <span class="text-accent-600 dark:text-accent-400">~/</span>prime-ux
         </a>
 
-        <nav class="hidden items-center gap-6 md:flex" aria-label="Hauptnavigation">
+        <nav
+          class="hidden items-center gap-6 md:flex"
+          [attr.aria-label]="i18n.lang() === 'de' ? 'Hauptnavigation' : 'Main navigation'"
+        >
           @for (item of nav; track item.anchor) {
             <a
               routerLink="/"
@@ -38,7 +41,9 @@ import { NAV } from '../data/content';
             type="button"
             (click)="i18n.toggle()"
             class="rounded-md border border-slate-200 px-2.5 py-1.5 font-mono text-xs text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
-            [attr.aria-label]="i18n.lang() === 'de' ? 'Switch to English' : 'Auf Deutsch umschalten'"
+            [attr.aria-label]="
+              i18n.lang() === 'de' ? 'Switch to English' : 'Auf Deutsch umschalten'
+            "
           >
             {{ i18n.lang() === 'de' ? 'EN' : 'DE' }}
           </button>
@@ -46,7 +51,9 @@ import { NAV } from '../data/content';
             type="button"
             (click)="theme.toggle()"
             class="rounded-md border border-slate-200 px-2.5 py-1.5 font-mono text-xs text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
-            [attr.aria-label]="theme.theme() === 'dark' ? 'Helles Design aktivieren' : 'Dunkles Design aktivieren'"
+            [attr.aria-label]="
+              theme.theme() === 'dark' ? 'Helles Design aktivieren' : 'Dunkles Design aktivieren'
+            "
           >
             {{ theme.theme() === 'dark' ? '☀' : '☾' }}
           </button>
@@ -66,13 +73,22 @@ import { NAV } from '../data/content';
                   : 'Open menu'
             "
             [attr.aria-expanded]="menuOpen()"
+            aria-controls="mobile-menu"
           >
             @if (menuOpen()) {
-              <svg viewBox="0 0 20 20" class="size-4 fill-none stroke-current stroke-2" aria-hidden="true">
+              <svg
+                viewBox="0 0 20 20"
+                class="size-4 fill-none stroke-current stroke-2"
+                aria-hidden="true"
+              >
                 <path d="M5 5l10 10M15 5L5 15" stroke-linecap="round" />
               </svg>
             } @else {
-              <svg viewBox="0 0 20 20" class="size-4 fill-none stroke-current stroke-2" aria-hidden="true">
+              <svg
+                viewBox="0 0 20 20"
+                class="size-4 fill-none stroke-current stroke-2"
+                aria-hidden="true"
+              >
                 <path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round" />
               </svg>
             }
@@ -83,8 +99,9 @@ import { NAV } from '../data/content';
       <!-- Mobiles Aufklapp-Menü -->
       @if (menuOpen()) {
         <nav
+          id="mobile-menu"
           class="border-t border-slate-200/70 bg-white/95 px-6 py-4 md:hidden dark:border-ink-700/70 dark:bg-ink-950/95"
-          aria-label="Mobile Navigation"
+          [attr.aria-label]="i18n.lang() === 'de' ? 'Mobile Navigation' : 'Mobile navigation'"
         >
           <ul class="flex flex-col gap-1">
             @for (item of nav; track item.anchor) {

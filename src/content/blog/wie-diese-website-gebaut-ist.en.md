@@ -91,6 +91,10 @@ Prerendering lays the foundation — finished HTML — but only metadata makes i
 
 The `sitemap.xml` is generated after the build from the prerender output itself — a script collects the produced `index.html` files. That way the sitemap can never drift from the real routes: a new article in the article list gets prerendered and therefore shows up automatically.
 
+## Accessibility
+
+Prerendering pays off here too: because valid, semantic HTML exists before any JavaScript runs, assistive technology has a clean foundation from the first second. On top of that sit the usual WCAG duties — colour contrasts of at least 4.5:1, a visible focus ring for keyboard use, a skip link to the main content, respected `prefers-reduced-motion`, and consistent landmark and heading structure. The site thus meets the **WCAG 2.1 AA** standard — the bar the public sector applies through BITV and the BFSG.
+
 ## What comes next
 
 This site is deliberately phase one. On the roadmap is an agentic assistant answering questions about my profile and projects right here — not a bolted-on chat window, but part of the page. The architecture for it is in place: typed content as a knowledge base, signals as the state model, and infrastructure that grows by pull request.
