@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" font-family="ui-monospace, 'Cascadia Code', Consolas, Menlo, monospace" role="img" aria-label="The typed content model carries both languages per field; the language signal selects one at runtime; a missing translation is a compile error.">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow2Accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="520" fill="#0b1120"/>
+
+  <text x="60" y="52" fill="#64748b" font-size="15" letter-spacing="5">CONTENT MODEL — ONE FILE, BOTH LANGUAGES</text>
+
+  <!-- Code panel -->
+  <rect x="60" y="86" width="430" height="290" rx="10" fill="#070b14" stroke="#1b2a44"/>
+  <text x="90" y="130" fill="#64748b" font-size="16">interface <tspan fill="#e2e8f0">L</tspan>&lt;T = string&gt; {</text>
+  <text x="118" y="160" fill="#34d399" font-size="16">de<tspan fill="#64748b">: T;</tspan></text>
+  <text x="118" y="190" fill="#34d399" font-size="16">en<tspan fill="#64748b">: T;</tspan></text>
+  <text x="90" y="220" fill="#64748b" font-size="16">}</text>
+  <text x="90" y="270" fill="#e2e8f0" font-size="16">headline<tspan fill="#64748b">: {</tspan></text>
+  <text x="118" y="300" fill="#34d399" font-size="16">de<tspan fill="#64748b">: 'Frontend-Architekt',</tspan></text>
+  <text x="118" y="330" fill="#34d399" font-size="16">en<tspan fill="#64748b">: 'Frontend Architect',</tspan></text>
+  <text x="90" y="360" fill="#64748b" font-size="16">}</text>
+
+  <!-- lang signal -->
+  <rect x="610" y="86" width="250" height="86" rx="10" fill="#10b98114" stroke="#10b981"/>
+  <text x="735" y="122" fill="#34d399" font-size="19" font-weight="600" text-anchor="middle">lang signal</text>
+  <text x="735" y="150" fill="#34d399" font-size="14" opacity="0.75" text-anchor="middle">'de' | 'en' · toggle</text>
+
+  <!-- t() -->
+  <rect x="590" y="240" width="290" height="100" rx="10" fill="#111a2e" stroke="#1b2a44"/>
+  <text x="735" y="282" fill="#e2e8f0" font-size="19" font-weight="600" text-anchor="middle">i18n.t(text)</text>
+  <text x="735" y="311" fill="#64748b" font-size="14" text-anchor="middle">return text[lang()]</text>
+
+  <!-- connectors -->
+  <line x1="494" y1="290" x2="582" y2="290" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="735" y1="176" x2="735" y2="232" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow2Accent)"/>
+
+  <!-- results -->
+  <rect x="960" y="200" width="180" height="74" rx="10" fill="#10b98114" stroke="#10b981"/>
+  <text x="1050" y="232" fill="#34d399" font-size="19" font-weight="600" text-anchor="middle">DE</text>
+  <text x="1050" y="257" fill="#34d399" font-size="13" opacity="0.75" text-anchor="middle">rendered</text>
+
+  <rect x="960" y="306" width="180" height="74" rx="10" fill="#111a2e" stroke="#1b2a44" opacity="0.6"/>
+  <text x="1050" y="338" fill="#64748b" font-size="19" font-weight="600" text-anchor="middle">EN</text>
+  <text x="1050" y="363" fill="#64748b" font-size="13" text-anchor="middle">in bundle</text>
+
+  <line x1="884" y1="276" x2="952" y2="245" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow2Accent)"/>
+  <line x1="884" y1="304" x2="952" y2="335" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrow2)"/>
+
+  <!-- footnote -->
+  <line x1="60" y1="432" x2="1140" y2="432" stroke="#1b2a44" stroke-dasharray="4 6"/>
+  <text x="600" y="478" fill="#e2e8f0" font-size="16" text-anchor="middle">missing translation <tspan fill="#34d399">⇒</tspan> compile error — completeness is checked by the compiler</text>
+</svg>

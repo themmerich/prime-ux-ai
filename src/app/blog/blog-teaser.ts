@@ -16,7 +16,8 @@ import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
 
         <div class="grid gap-6 md:grid-cols-2">
           @for (post of posts; track post.slug) {
-            <px-blog-card [post]="post" />
+            <!-- $first = neuester Artikel, da BLOG_POSTS nach Datum sortiert ist -->
+            <px-blog-card [post]="post" [featured]="$first" />
           }
         </div>
 
