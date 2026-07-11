@@ -91,6 +91,10 @@ Prerendering liefert das Fundament — fertiges HTML —, aber erst die Metadate
 
 Die `sitemap.xml` entsteht nach dem Build aus dem Prerender-Output selbst — ein Skript sammelt die erzeugten `index.html`-Dateien ein. Dadurch kann die Sitemap nie von den echten Routen abweichen: Ein neuer Artikel in der Artikelliste wird prerendert und taucht damit automatisch auf.
 
+## Barrierefreiheit
+
+Prerendering zahlt auch hier ein: Weil valides, semantisches HTML schon vor dem JavaScript steht, hat assistive Technologie von der ersten Sekunde an eine saubere Grundlage. Darauf sitzen die üblichen WCAG-Pflichten — Farbkontraste von mindestens 4,5:1, ein sichtbarer Fokus-Ring für die Tastaturbedienung, ein Skip-Link in den Hauptinhalt, respektiertes `prefers-reduced-motion` sowie durchgängige Landmark- und Überschriften-Struktur. Die Seite erfüllt damit den Standard **WCAG 2.1 AA** — die Messlatte, die auch der öffentliche Sektor über BITV und BFSG anlegt.
+
 ## Was noch kommt
 
 Die Seite ist bewusst Phase 1. Auf der Roadmap steht ein agentischer Assistent, der Fragen zu Profil und Projekten direkt hier beantwortet — nicht als aufgesetztes Chat-Fenster, sondern als Teil der Seite. Die Architektur dafür ist vorbereitet: typisierter Content als Wissensbasis, Signals als Zustandsmodell, und eine Infrastruktur, die sich per Pull Request erweitern lässt.

@@ -587,8 +587,8 @@ export const EMPLOYMENT: BackgroundEntry[] = [
 export const SITE = {
   title: { de: 'Diese Seite ist ein Projekt', en: 'This Site Is a Project' } as L,
   text: {
-    de: 'Kein Baukasten, kein Template — diese Seite ist selbst ein kleiner Showcase dafür, wie ich Software baue. Frontend: Angular 22 mit zoneless Change Detection, Signal-basiertem i18n und Theming, Tailwind CSS 4, selbst gehostete Fonts, kein Tracking. Betrieb: Die komplette AWS-Infrastruktur (S3, CloudFront, Route 53, ACM) ist mit Terraform beschrieben; jeder Push auf main durchläuft einen Trivy-Security-Scan, Terraform Apply und das Deployment — vollautomatisch per GitHub Actions.',
-    en: 'No site builder, no template — this page is itself a small showcase of how I build software. Frontend: Angular 22 with zoneless change detection, signal-based i18n and theming, Tailwind CSS 4, self-hosted fonts, no tracking. Operations: the entire AWS infrastructure (S3, CloudFront, Route 53, ACM) is described in Terraform; every push to main runs through a Trivy security scan, Terraform apply and deployment — fully automated via GitHub Actions.',
+    de: 'Kein Baukasten, kein Template — diese Seite ist selbst ein kleiner Showcase dafür, wie ich Software baue. Frontend: Angular 22 mit zoneless Change Detection, Signal-basiertem i18n und Theming, Tailwind CSS 4, selbst gehostete Fonts, kein Tracking. Jede Route wird beim Build zu statischem HTML vorgerendert (SSR) und im Browser hydriert — für schnelle Anzeige, sauberes SEO und Barrierefreiheit nach WCAG 2.1 AA. Betrieb: Die komplette AWS-Infrastruktur (S3, CloudFront, Route 53, ACM) ist mit Terraform beschrieben; jeder Push auf main durchläuft einen Trivy-Security-Scan, Terraform Apply und das Deployment — vollautomatisch per GitHub Actions.',
+    en: 'No site builder, no template — this page is itself a small showcase of how I build software. Frontend: Angular 22 with zoneless change detection, signal-based i18n and theming, Tailwind CSS 4, self-hosted fonts, no tracking. Every route is prerendered to static HTML at build time (SSR) and hydrated in the browser — for fast first paint, clean SEO and accessibility to WCAG 2.1 AA. Operations: the entire AWS infrastructure (S3, CloudFront, Route 53, ACM) is described in Terraform; every push to main runs through a Trivy security scan, Terraform apply and deployment — fully automated via GitHub Actions.',
   } as L,
   repo: { label: 'prime-ux-ai', url: 'https://github.com/themmerich/prime-ux-ai' },
   actionsUrl: 'https://github.com/themmerich/prime-ux-ai/actions/workflows/deploy.yml',
@@ -600,6 +600,8 @@ export const SITE = {
 
 export const SITE_CATEGORIES: { title: string; items: string[] }[] = [
   { title: 'Frontend', items: ['Angular 22', 'zoneless', 'Signals', 'Tailwind CSS 4'] },
+  { title: 'Rendering', items: ['SSR', 'Prerendering', 'Hydration'] },
+  { title: 'A11y', items: ['WCAG 2.1 AA'] },
   { title: 'Cloud', items: ['AWS S3', 'CloudFront', 'Route 53', 'ACM'] },
   { title: 'IaC', items: ['Terraform', 'Remote State', 'State Lock'] },
   { title: 'CI/CD', items: ['GitHub Actions'] },
