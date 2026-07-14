@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
@@ -175,7 +184,7 @@ export class FlowBox {
           >
             <div class="px-5 py-4">
               <p class="font-mono text-[10px] tracking-[0.2em] text-slate-500 uppercase">
-                {{ i18n.lang() === 'de' ? 'Letztes Deployment' : 'Last deployment' }}
+                {{ i18n.t({ de: 'Letztes Deployment', en: 'Last deployment' }) }}
               </p>
               <p class="mt-1 font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">
                 {{ deployDate() ?? '—' }}
@@ -188,7 +197,7 @@ export class FlowBox {
                 {{ uptime() ?? '—' }}
               </p>
               <p class="mt-0.5 font-mono text-[10px] text-slate-500">
-                {{ i18n.lang() === 'de' ? 'seit letztem Deploy' : 'since last deploy' }}
+                {{ i18n.t({ de: 'seit letztem Deploy', en: 'since last deploy' }) }}
               </p>
             </div>
             <div class="px-5 py-4">
@@ -223,7 +232,7 @@ export class FlowBox {
                       failing
                     }
                     @case ('unknown') {
-                      {{ i18n.lang() === 'de' ? 'Status n/v' : 'status n/a' }}
+                      {{ i18n.t({ de: 'Status n/v', en: 'status n/a' }) }}
                     }
                   }
                 </span>
@@ -281,7 +290,7 @@ export class SiteProject {
     if (!date) {
       return null;
     }
-    const locale = this.i18n.lang() === 'de' ? 'de-DE' : 'en-GB';
+    const locale = this.i18n.locale();
     const day = date.toLocaleDateString(locale, {
       timeZone: 'UTC',
       day: '2-digit',
@@ -296,35 +305,42 @@ export class SiteProject {
     return `${day} ${time} UTC`;
   });
 
-  protected readonly deployAgo = computed(() => {
+  /** Minuten seit dem letzten Deploy — gemeinsame Basis für deployAgo und uptime. */
+  private readonly minutesSinceDeploy = computed(() => {
     const date = this.deployedAt();
-    if (!date) {
+    return date ? Math.max(0, Math.floor((Date.now() - date.getTime()) / 60_000)) : null;
+  });
+
+  protected readonly deployAgo = computed(() => {
+    const minutes = this.minutesSinceDeploy();
+    if (minutes === null) {
       return '';
     }
-    const de = this.i18n.lang() === 'de';
-    const minutes = Math.max(0, Math.floor((Date.now() - date.getTime()) / 60_000));
     if (minutes < 60) {
-      return de ? `vor ${minutes} Min.` : `${minutes} min ago`;
+      return this.i18n.t({ de: `vor ${minutes} Min.`, en: `${minutes} min ago` });
     }
     const hours = Math.floor(minutes / 60);
     if (hours < 48) {
-      return de ? `vor ${hours} Std.` : `${hours} hrs ago`;
+      return this.i18n.t({ de: `vor ${hours} Std.`, en: `${hours} hrs ago` });
     }
     const days = Math.floor(hours / 24);
-    return de ? `vor ${days} Tagen` : `${days} days ago`;
+    return this.i18n.t({ de: `vor ${days} Tagen`, en: `${days} days ago` });
   });
 
   protected readonly uptime = computed(() => {
-    const date = this.deployedAt();
-    if (!date || this.state() !== 'passing') {
+    const minutes = this.minutesSinceDeploy();
+    if (minutes === null || this.state() !== 'passing') {
       return null;
     }
-    const minutes = Math.max(0, Math.floor((Date.now() - date.getTime()) / 60_000));
     return `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
   });
 
   constructor() {
-    this.loadPipelineStatus();
+    // Nur im Browser: beim Prerendern würde der Status stale ins HTML gebacken
+    // und der Build von der GitHub-API abhängen — die Seite hydriert ohnehin.
+    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+      this.loadPipelineStatus();
+    }
   }
 
   private async loadPipelineStatus(): Promise<void> {

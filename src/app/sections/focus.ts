@@ -33,7 +33,7 @@ import { FOCUS_AREAS, FOCUS_INTRO, FOCUS_NOTE, FOCUS_TITLE } from '../data/conte
                   <span
                     class="rounded-full bg-accent-600/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-accent-700 dark:bg-accent-400/10 dark:text-accent-300"
                   >
-                    {{ i18n.lang() === 'de' ? 'Zukunfts-Fokus' : 'future focus' }}
+                    {{ i18n.t({ de: 'Zukunfts-Fokus', en: 'future focus' }) }}
                   </span>
                 }
               </div>
