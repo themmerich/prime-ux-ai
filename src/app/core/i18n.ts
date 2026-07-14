@@ -1,7 +1,12 @@
-import { effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 export type Lang = 'de' | 'en';
+
+/** Locale pro Sprache — einzige Stelle, an der diese Zuordnung getroffen wird. */
+export function localeFor(lang: Lang): string {
+  return lang === 'de' ? 'de-DE' : 'en-GB';
+}
 
 /** Ein zweisprachiger Text — die gesamte Seite ist über dieses Modell lokalisiert. */
 export interface L<T = string> {
@@ -37,6 +42,14 @@ export class I18n {
 
   /** Löst einen zweisprachigen Text zur aktuell gewählten Sprache auf. */
   readonly t = <T>(text: L<T>): T => text[this.lang()];
+
+  /** Locale zur aktuellen Sprache — für Datums-/Zeitformatierung und Structured Data. */
+  readonly locale = computed(() => localeFor(this.lang()));
+
+  /** Formatiert ein Datum in der Locale der aktuellen Sprache (reaktiv in computeds nutzbar). */
+  formatDate(date: string | Date, options: Intl.DateTimeFormatOptions): string {
+    return new Date(date).toLocaleDateString(this.locale(), options);
+  }
 
   toggle(): void {
     this.lang.update((l) => (l === 'de' ? 'en' : 'de'));

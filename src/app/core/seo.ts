@@ -2,13 +2,14 @@ import { DOCUMENT } from '@angular/common';
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { I18n, L, Lang } from './i18n';
+import { I18n, L, Lang, localeFor } from './i18n';
 
 /** Kanonische Basis-URL (Apex, ohne www) — Grundlage für Canonical, OG und Sitemap. */
 export const ORIGIN = 'https://prime-ux.de';
 const SITE_NAME = 'PRIME UX';
 
 export interface SeoConfig {
+  /** Seitentitel ohne Site-Suffix — „ | PRIME UX" wird zentral angehängt. */
   title: L;
   description: L;
   /** OG-Typ: 'website' (Standard) oder 'article' für Blogposts. */
@@ -39,7 +40,7 @@ export class Seo {
         return;
       }
       const lang = this.i18n.lang();
-      const title = this.i18n.t(cfg.title);
+      const title = `${this.i18n.t(cfg.title)} | ${SITE_NAME}`;
       const description = this.i18n.t(cfg.description);
       const url = this.canonicalUrl();
 
@@ -51,7 +52,10 @@ export class Seo {
       this.meta.updateTag({ property: 'og:type', content: cfg.type ?? 'website' });
       this.meta.updateTag({ property: 'og:url', content: url });
       this.meta.updateTag({ property: 'og:site_name', content: SITE_NAME });
-      this.meta.updateTag({ property: 'og:locale', content: lang === 'de' ? 'de_DE' : 'en_US' });
+      this.meta.updateTag({
+        property: 'og:locale',
+        content: localeFor(lang).replace('-', '_'),
+      });
 
       this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
       this.meta.updateTag({ name: 'twitter:title', content: title });

@@ -3,10 +3,16 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { marked } from 'marked';
-import { I18n } from '../core/i18n';
+import { I18n, L, localeFor } from '../core/i18n';
 import { ORIGIN, Seo } from '../core/seo';
 import { TechChip } from '../shared/tech-chip';
 import { findPost } from '../data/blog';
+import { postBody } from '../data/blog-bodies';
+
+const NOT_FOUND: L = {
+  de: 'Diesen Artikel gibt es nicht (mehr).',
+  en: 'This article does not exist (anymore).',
+};
 
 @Component({
   selector: 'px-blog-post',
@@ -18,7 +24,7 @@ import { findPost } from '../data/blog';
         routerLink="/blog"
         class="font-mono text-sm text-slate-500 transition-colors hover:text-accent-600 dark:hover:text-accent-400"
       >
-        ← {{ i18n.lang() === 'de' ? 'Alle Artikel' : 'All articles' }}
+        ← {{ i18n.t({ de: 'Alle Artikel', en: 'All articles' }) }}
       </a>
 
       @if (post(); as p) {
@@ -27,8 +33,7 @@ import { findPost } from '../data/blog';
             <span>{{ formattedDate() }}</span>
             <span aria-hidden="true">·</span>
             <span
-              >{{ p.readingMinutes }}
-              {{ i18n.lang() === 'de' ? 'Min. Lesezeit' : 'min read' }}</span
+              >{{ p.readingMinutes }} {{ i18n.t({ de: 'Min. Lesezeit', en: 'min read' }) }}</span
             >
           </div>
           <h1
@@ -46,13 +51,7 @@ import { findPost } from '../data/blog';
         <div class="prose mt-10" [innerHTML]="body()"></div>
       } @else {
         <h1 class="mt-6 text-3xl font-bold text-slate-900 dark:text-white">404</h1>
-        <p class="mt-4 text-sm">
-          {{
-            i18n.lang() === 'de'
-              ? 'Diesen Artikel gibt es nicht (mehr).'
-              : 'This article does not exist (anymore).'
-          }}
-        </p>
+        <p class="mt-4 text-sm">{{ i18n.t(notFound) }}</p>
       }
     </article>
   `,
@@ -61,6 +60,8 @@ export class BlogPost {
   protected readonly i18n = inject(I18n);
   private readonly route = inject(ActivatedRoute);
   private readonly seo = inject(Seo);
+
+  protected readonly notFound = NOT_FOUND;
 
   private readonly slug = toSignal(this.route.paramMap.pipe(map((p) => p.get('slug') ?? '')), {
     initialValue: '',
@@ -74,19 +75,13 @@ export class BlogPost {
       const p = this.post();
       if (!p) {
         this.seo.set({
-          title: { de: 'Artikel nicht gefunden | PRIME UX', en: 'Article not found | PRIME UX' },
-          description: {
-            de: 'Diesen Artikel gibt es nicht (mehr).',
-            en: 'This article does not exist (anymore).',
-          },
+          title: { de: 'Artikel nicht gefunden', en: 'Article not found' },
+          description: NOT_FOUND,
         });
         return;
       }
       this.seo.set({
-        title: {
-          de: `${p.title.de} | PRIME UX`,
-          en: `${p.title.en} | PRIME UX`,
-        },
+        title: p.title,
         description: p.excerpt,
         type: 'article',
         jsonLd: (lang) => ({
@@ -95,7 +90,7 @@ export class BlogPost {
           headline: p.title[lang],
           description: p.excerpt[lang],
           datePublished: p.date,
-          inLanguage: lang === 'de' ? 'de-DE' : 'en-US',
+          inLanguage: localeFor(lang),
           keywords: p.tags.join(', '),
           url: `${ORIGIN}/blog/${p.slug}`,
           author: { '@type': 'Person', name: 'Thomas Hemmerich', url: ORIGIN },
@@ -107,7 +102,8 @@ export class BlogPost {
   // roher HTML-String — Angular sanitisiert beim [innerHTML]-Binding
   protected readonly body = computed(() => {
     const p = this.post();
-    return p ? marked.parse(this.i18n.t(p.body), { async: false }) : '';
+    const md = p && postBody(p.slug);
+    return md ? marked.parse(this.i18n.t(md), { async: false }) : '';
   });
 
   protected readonly formattedDate = computed(() => {
@@ -115,10 +111,6 @@ export class BlogPost {
     if (!p) {
       return '';
     }
-    return new Date(p.date).toLocaleDateString(this.i18n.lang() === 'de' ? 'de-DE' : 'en-GB', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    });
+    return this.i18n.formatDate(p.date, { day: '2-digit', month: 'long', year: 'numeric' });
   });
 }

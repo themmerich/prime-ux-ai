@@ -23,7 +23,7 @@ import { NAV } from '../data/content';
 
         <nav
           class="hidden items-center gap-6 md:flex"
-          [attr.aria-label]="i18n.lang() === 'de' ? 'Hauptnavigation' : 'Main navigation'"
+          [attr.aria-label]="i18n.t({ de: 'Hauptnavigation', en: 'Main navigation' })"
         >
           @for (item of nav; track item.anchor) {
             <a
@@ -64,13 +64,11 @@ import { NAV } from '../data/content';
             (click)="toggleMenu()"
             class="flex size-8 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 md:hidden dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
             [attr.aria-label]="
-              menuOpen()
-                ? i18n.lang() === 'de'
-                  ? 'Menü schließen'
-                  : 'Close menu'
-                : i18n.lang() === 'de'
-                  ? 'Menü öffnen'
-                  : 'Open menu'
+              i18n.t(
+                menuOpen()
+                  ? { de: 'Menü schließen', en: 'Close menu' }
+                  : { de: 'Menü öffnen', en: 'Open menu' }
+              )
             "
             [attr.aria-expanded]="menuOpen()"
             aria-controls="mobile-menu"
@@ -101,7 +99,7 @@ import { NAV } from '../data/content';
         <nav
           id="mobile-menu"
           class="border-t border-slate-200/70 bg-white/95 px-6 py-4 md:hidden dark:border-ink-700/70 dark:bg-ink-950/95"
-          [attr.aria-label]="i18n.lang() === 'de' ? 'Mobile Navigation' : 'Mobile navigation'"
+          [attr.aria-label]="i18n.t({ de: 'Mobile Navigation', en: 'Mobile navigation' })"
         >
           <ul class="flex flex-col gap-1">
             @for (item of nav; track item.anchor) {

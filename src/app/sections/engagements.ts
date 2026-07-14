@@ -26,7 +26,7 @@ import { ENGAGEMENTS, ENGAGEMENTS_INTRO, ENGAGEMENTS_TITLE } from '../data/conte
                   class="inline-flex items-center gap-1.5 rounded-full border border-accent-500/30 px-2.5 py-0.5 font-mono text-[11px] text-accent-700 dark:text-accent-300"
                 >
                   <span class="size-1.5 animate-pulse rounded-full bg-accent-500"></span>
-                  {{ i18n.lang() === 'de' ? 'aktiv' : 'active' }}
+                  {{ i18n.t({ de: 'aktiv', en: 'active' }) }}
                 </span>
               </div>
               <h3 class="mt-3 text-lg font-semibold text-slate-900 dark:text-white">
@@ -45,7 +45,9 @@ import { ENGAGEMENTS, ENGAGEMENTS_INTRO, ENGAGEMENTS_TITLE } from '../data/conte
                   </li>
                 }
               </ul>
-              <div class="mt-6 flex flex-wrap gap-1.5 border-t border-slate-100 pt-5 dark:border-ink-800">
+              <div
+                class="mt-6 flex flex-wrap gap-1.5 border-t border-slate-100 pt-5 dark:border-ink-800"
+              >
                 @for (t of e.tech; track t) {
                   <px-tech-chip [label]="t" />
                 }

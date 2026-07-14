@@ -17,19 +17,15 @@ import { HISTORY, HISTORY_INTRO, HISTORY_TITLE } from '../data/content';
           @for (entry of history; track $index) {
             <li class="relative">
               <span
-                class="absolute top-1.5 -left-[37px] size-2.5 rounded-full border-2 border-white dark:border-ink-950"
-                [class]="
-                  entry.active
-                    ? 'animate-pulse bg-accent-500 dark:bg-accent-400'
-                    : 'bg-accent-500 dark:bg-accent-400'
-                "
+                class="absolute top-1.5 -left-[37px] size-2.5 rounded-full border-2 border-white bg-accent-500 dark:border-ink-950 dark:bg-accent-400"
+                [class.animate-pulse]="entry.active"
                 aria-hidden="true"
               ></span>
               <p class="font-mono text-xs text-slate-500">
                 {{ i18n.t(entry.period) }}
                 @if (entry.active) {
-                  <span class="ml-2 text-accent-600 dark:text-accent-400">●
-                    {{ i18n.lang() === 'de' ? 'aktiv' : 'active' }}</span
+                  <span class="ml-2 text-accent-600 dark:text-accent-400"
+                    >● {{ i18n.t({ de: 'aktiv', en: 'active' }) }}</span
                   >
                 }
               </p>

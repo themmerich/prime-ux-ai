@@ -52,8 +52,8 @@ export class Home {
   constructor() {
     this.seo.set({
       title: {
-        de: 'Thomas Hemmerich — Frontend-Architekt & Angular Lead | PRIME UX',
-        en: 'Thomas Hemmerich — Frontend Architect & Angular Lead | PRIME UX',
+        de: 'Thomas Hemmerich — Frontend-Architekt & Angular Lead',
+        en: 'Thomas Hemmerich — Frontend Architect & Angular Lead',
       },
       description: HERO.tagline,
       jsonLd: (lang) => ({

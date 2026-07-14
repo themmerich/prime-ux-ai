@@ -25,7 +25,7 @@ import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
           routerLink="/blog"
           class="mt-8 inline-flex items-center gap-2 font-mono text-sm text-accent-600 transition-colors hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300"
         >
-          {{ i18n.lang() === 'de' ? 'Alle Artikel' : 'All articles' }} →
+          {{ i18n.t({ de: 'Alle Artikel', en: 'All articles' }) }} →
         </a>
       </div>
     </section>

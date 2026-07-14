@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
 import { TechChip } from '../shared/tech-chip';
-import { BlogPost } from '../data/blog';
+import { BlogPostMeta } from '../data/blog';
 
 @Component({
   selector: 'px-blog-card',
@@ -23,12 +23,12 @@ import { BlogPost } from '../data/blog';
           <span
             class="rounded-full border border-accent-500/40 bg-accent-500/10 px-2 py-0.5 text-[10px] font-semibold tracking-[0.15em] text-accent-600 uppercase dark:text-accent-400"
           >
-            {{ i18n.lang() === 'de' ? 'Neu' : 'New' }}
+            {{ i18n.t({ de: 'Neu', en: 'New' }) }}
           </span>
         }
         <span>{{ formattedDate() }}</span>
         <span aria-hidden="true">·</span>
-        <span>{{ post().readingMinutes }} {{ i18n.lang() === 'de' ? 'Min.' : 'min' }}</span>
+        <span>{{ post().readingMinutes }} {{ i18n.t({ de: 'Min.', en: 'min' }) }}</span>
       </div>
 
       <h3
@@ -46,22 +46,18 @@ import { BlogPost } from '../data/blog';
       </div>
 
       <span class="mt-5 font-mono text-sm text-accent-600 dark:text-accent-400" aria-hidden="true">
-        {{ i18n.lang() === 'de' ? 'Weiterlesen' : 'Read more' }} →
+        {{ i18n.t({ de: 'Weiterlesen', en: 'Read more' }) }} →
       </span>
     </a>
   `,
 })
 export class BlogCard {
   protected readonly i18n = inject(I18n);
-  readonly post = input.required<BlogPost>();
+  readonly post = input.required<BlogPostMeta>();
   /** Hebt die Karte hervor (Akzent-Rahmen + Badge) — für den neuesten Artikel. */
   readonly featured = input(false);
 
   protected readonly formattedDate = computed(() =>
-    new Date(this.post().date).toLocaleDateString(this.i18n.lang() === 'de' ? 'de-DE' : 'en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    }),
+    this.i18n.formatDate(this.post().date, { day: '2-digit', month: 'short', year: 'numeric' }),
   );
 }

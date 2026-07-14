@@ -13,7 +13,7 @@ import { SKILL_GROUPS, SKILLS_TITLE } from '../data/content';
         <px-section-heading index="05" [title]="i18n.t(title)" />
 
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          @for (group of groups; track i18n.t(group.title)) {
+          @for (group of groups; track group.title.de) {
             <div
               class="rounded-xl border p-6"
               [class]="
