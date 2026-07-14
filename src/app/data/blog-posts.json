@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "wie-diese-website-gebaut-ist",
+    "date": "2026-07-11",
+    "readingMinutes": 8,
+    "title": {
+      "de": "Kein Template: Wie diese Website gebaut ist",
+      "en": "No Template: How This Site Is Built"
+    },
+    "excerpt": {
+      "de": "Angular 22 ohne Zone.js, Zweisprachigkeit als Datenmodell, Prerendering statt Node-Server und Infrastruktur als Terraform — ein Rundgang durch die Architektur dieser Seite.",
+      "en": "Angular 22 without Zone.js, bilingualism as a data model, prerendering instead of a Node server and infrastructure as Terraform — a tour of this site’s architecture."
+    },
+    "tags": ["Angular", "SSG", "Terraform", "Making-of"]
+  },
+  {
+    "slug": "micro-frontends-mit-nx",
+    "date": "2026-05-08",
+    "readingMinutes": 7,
+    "title": {
+      "de": "Micro-Frontends mit Nx: Wann es sich lohnt — und wann nicht",
+      "en": "Micro Frontends with Nx: When It Pays Off — and When It Does Not"
+    },
+    "excerpt": {
+      "de": "Micro-Frontends lösen ein Organisations-, kein Technikproblem. Eine ehrliche Entscheidungshilfe aus mehreren Enterprise-Projekten.",
+      "en": "Micro frontends solve an organizational problem, not a technical one. An honest decision guide from several enterprise projects."
+    },
+    "tags": ["Micro-Frontends", "Nx", "Architektur"]
+  }
+]
