@@ -1,11 +1,15 @@
 import { L } from '../core/i18n';
 
+import postsMeta from './blog-posts.json';
+
 import makingOfDe from '../../content/blog/wie-diese-website-gebaut-ist.de.md';
 import makingOfEn from '../../content/blog/wie-diese-website-gebaut-ist.en.md';
 import microFrontendsDe from '../../content/blog/micro-frontends-mit-nx.de.md';
 import microFrontendsEn from '../../content/blog/micro-frontends-mit-nx.en.md';
 
-export interface BlogPost {
+/** Metadaten eines Artikels ohne Body — Single Source ist blog-posts.json, damit
+ *  der RSS-Generator (scripts/generate-rss.mjs) dieselben Daten lesen kann. */
+export interface BlogPostMeta {
   slug: string;
   /** ISO-Datum yyyy-mm-dd */
   date: string;
@@ -14,6 +18,9 @@ export interface BlogPost {
   title: L;
   excerpt: L;
   tags: string[];
+}
+
+export interface BlogPost extends BlogPostMeta {
   /** Roher Markdown-Text, zur Buildzeit eingebunden */
   body: L;
 }
@@ -25,41 +32,19 @@ export const BLOG_INTRO = {
 } as L;
 
 /**
- * Wird nach Datum sortiert (neueste zuerst) — die Reihenfolge hier ist egal.
- * Der Artikeltext liegt als Markdown unter src/content/blog/<slug>.<lang>.md
+ * Artikeltexte pro Slug — als Markdown zur Buildzeit eingebunden (src/content/blog/<slug>.<lang>.md).
+ * Die übrigen Metadaten kommen aus blog-posts.json (gemeinsame Quelle mit dem RSS-Generator).
  */
-const POSTS: BlogPost[] = [
-  {
-    slug: 'wie-diese-website-gebaut-ist',
-    date: '2026-07-11',
-    readingMinutes: 8,
-    title: {
-      de: 'Kein Template: Wie diese Website gebaut ist',
-      en: 'No Template: How This Site Is Built',
-    },
-    excerpt: {
-      de: 'Angular 22 ohne Zone.js, Zweisprachigkeit als Datenmodell, Prerendering statt Node-Server und Infrastruktur als Terraform — ein Rundgang durch die Architektur dieser Seite.',
-      en: 'Angular 22 without Zone.js, bilingualism as a data model, prerendering instead of a Node server and infrastructure as Terraform — a tour of this site’s architecture.',
-    },
-    tags: ['Angular', 'SSG', 'Terraform', 'Making-of'],
-    body: { de: makingOfDe, en: makingOfEn },
-  },
-  {
-    slug: 'micro-frontends-mit-nx',
-    date: '2026-05-08',
-    readingMinutes: 7,
-    title: {
-      de: 'Micro-Frontends mit Nx: Wann es sich lohnt — und wann nicht',
-      en: 'Micro Frontends with Nx: When It Pays Off — and When It Does Not',
-    },
-    excerpt: {
-      de: 'Micro-Frontends lösen ein Organisations-, kein Technikproblem. Eine ehrliche Entscheidungshilfe aus mehreren Enterprise-Projekten.',
-      en: 'Micro frontends solve an organizational problem, not a technical one. An honest decision guide from several enterprise projects.',
-    },
-    tags: ['Micro-Frontends', 'Nx', 'Architektur'],
-    body: { de: microFrontendsDe, en: microFrontendsEn },
-  },
-];
+const BODIES: Record<string, L> = {
+  'wie-diese-website-gebaut-ist': { de: makingOfDe, en: makingOfEn },
+  'micro-frontends-mit-nx': { de: microFrontendsDe, en: microFrontendsEn },
+};
+
+/** Reihenfolge in der JSON ist egal — es wird nach Datum sortiert (neueste zuerst). */
+const POSTS: BlogPost[] = (postsMeta as BlogPostMeta[]).map((meta) => ({
+  ...meta,
+  body: BODIES[meta.slug],
+}));
 
 /** Anzeige-Reihenfolge: neuester Artikel zuerst (ISO-Daten sortieren lexikografisch). */
 export const BLOG_POSTS: BlogPost[] = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));

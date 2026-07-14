@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://prime-ux.de/sitemap.xml
+
+# RSS-Feeds (DE / EN)
+# https://prime-ux.de/rss.xml
+# https://prime-ux.de/rss.en.xml
