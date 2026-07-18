@@ -633,6 +633,12 @@ export const ABOUT = {
 /* Kontakt                                                             */
 /* ------------------------------------------------------------------ */
 
+export interface SocialLink {
+  label: string;
+  url: string;
+  icon: 'github' | 'linkedin';
+}
+
 export const CONTACT = {
   title: { de: 'Kontakt', en: 'Contact' } as L,
   text: {
@@ -646,9 +652,13 @@ export const CONTACT = {
     en: 'Grafenrheinfeld, Bavaria, Germany · remote / DACH',
   } as L,
   links: [
-    { label: 'GitHub', url: 'https://github.com/themmerich' },
-    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/thomas-hemmerich-83b29831b/' },
-  ],
+    { label: 'GitHub', url: 'https://github.com/themmerich', icon: 'github' },
+    {
+      label: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/thomas-hemmerich-83b29831b/',
+      icon: 'linkedin',
+    },
+  ] as SocialLink[],
 };
 
 /* ------------------------------------------------------------------ */

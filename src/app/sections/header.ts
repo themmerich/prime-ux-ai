@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
 import { ThemeStore } from '../core/theme';
 import { NAV } from '../data/content';
+import { SocialLinks } from '../shared/social-links';
 
 @Component({
   selector: 'px-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, SocialLinks],
   template: `
     <header
       class="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-md dark:border-ink-700/70 dark:bg-ink-950/80"
@@ -16,13 +17,13 @@ import { NAV } from '../data/content';
         <a
           routerLink="/"
           (click)="closeMenu()"
-          class="font-mono text-sm font-semibold text-slate-900 dark:text-white"
+          class="shrink-0 font-mono text-sm font-semibold whitespace-nowrap text-slate-900 dark:text-white"
         >
           <span class="text-accent-600 dark:text-accent-400">~/</span>prime-ux
         </a>
 
         <nav
-          class="hidden items-center gap-6 md:flex"
+          class="mx-4 hidden items-center gap-4 md:flex lg:gap-6"
           [attr.aria-label]="i18n.t({ de: 'Hauptnavigation', en: 'Main navigation' })"
         >
           @for (item of nav; track item.anchor) {
@@ -37,6 +38,14 @@ import { NAV } from '../data/content';
         </nav>
 
         <div class="flex items-center gap-2">
+          <div class="hidden items-center gap-1 md:flex">
+            <px-social-links />
+          </div>
+          <span
+            class="hidden h-5 w-px shrink-0 bg-slate-200 md:block dark:bg-ink-700"
+            aria-hidden="true"
+          ></span>
+
           <button
             type="button"
             (click)="i18n.toggle()"
@@ -52,7 +61,11 @@ import { NAV } from '../data/content';
             (click)="theme.toggle()"
             class="rounded-md border border-slate-200 px-2.5 py-1.5 font-mono text-xs text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
             [attr.aria-label]="
-              theme.theme() === 'dark' ? 'Helles Design aktivieren' : 'Dunkles Design aktivieren'
+              i18n.t(
+                theme.theme() === 'dark'
+                  ? { de: 'Helles Design aktivieren', en: 'Switch to light theme' }
+                  : { de: 'Dunkles Design aktivieren', en: 'Switch to dark theme' }
+              )
             "
           >
             {{ theme.theme() === 'dark' ? '☀' : '☾' }}
@@ -115,6 +128,12 @@ import { NAV } from '../data/content';
               </li>
             }
           </ul>
+
+          <div
+            class="mt-3 flex items-center gap-1 border-t border-slate-200/70 px-2 pt-3 dark:border-ink-700/70"
+          >
+            <px-social-links />
+          </div>
         </nav>
       }
     </header>
