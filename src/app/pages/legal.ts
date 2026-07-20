@@ -8,7 +8,7 @@ import { CONTACT } from '../data/content';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="mx-auto max-w-3xl px-6 pt-36 pb-24">
-      <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Impressum</h1>
+      <h1 class="display-caps text-3xl font-extrabold text-slate-900 dark:text-white">Impressum</h1>
       <div class="mt-8 space-y-4 text-sm leading-relaxed">
         <p>Angaben gemäß § 5 DDG</p>
         <p>
@@ -58,7 +58,11 @@ const PRIVACY_PARAGRAPHS: L[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="mx-auto max-w-3xl px-6 pt-36 pb-24">
-      <h1 class="text-3xl font-bold text-slate-900 dark:text-white">{{ i18n.t(title) }}</h1>
+      <!-- „Datenschutzerklärung" ist als Versal-Einzelwort zu breit für schmale
+           Screens — daher kleinere Einstiegsgröße als beim Impressum. -->
+      <h1 class="display-caps text-xl font-extrabold text-slate-900 sm:text-2xl md:text-3xl dark:text-white">
+        {{ i18n.t(title) }}
+      </h1>
       <div class="mt-8 space-y-4 text-sm leading-relaxed">
         @for (paragraph of paragraphs; track $index) {
           <p>{{ i18n.t(paragraph) }}</p>

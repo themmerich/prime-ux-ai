@@ -17,9 +17,19 @@ import { SocialLinks } from '../shared/social-links';
         <a
           routerLink="/"
           (click)="closeMenu()"
-          class="shrink-0 font-mono text-sm font-semibold whitespace-nowrap text-slate-900 dark:text-white"
+          class="flex shrink-0 items-center gap-2 font-mono text-sm font-semibold tracking-widest whitespace-nowrap text-slate-900 uppercase dark:text-white"
         >
-          <span class="text-accent-600 dark:text-accent-400">~/</span>prime-ux
+          <!-- Plansymbol: Quadrat mit Diagonale -->
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            class="text-accent-600 dark:text-accent-400"
+            aria-hidden="true"
+          >
+            <path d="M.5.5h11v11H.5zM.5 11.5 11.5.5" stroke="currentColor" fill="none" />
+          </svg>
+          prime-ux
         </a>
 
         <nav

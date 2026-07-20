@@ -20,7 +20,7 @@ import { SocialIcon } from '../shared/social-icon';
         <div class="flex flex-wrap items-center gap-4">
           <a
             href="mailto:{{ contact.email }}"
-            class="rounded-lg bg-accent-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-500 dark:bg-accent-500 dark:text-ink-950 dark:hover:bg-accent-400"
+            class="rounded-lg bg-accent-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-500 dark:bg-accent-400 dark:text-ink-950 dark:hover:bg-accent-300"
           >
             {{ contact.email }}
           </a>

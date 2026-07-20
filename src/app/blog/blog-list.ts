@@ -18,7 +18,7 @@ import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
         ← {{ i18n.t({ de: 'Zur Startseite', en: 'Back to home' }) }}
       </a>
 
-      <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
+      <h1 class="display-caps mt-6 text-4xl font-extrabold text-slate-900 md:text-5xl dark:text-white">
         {{ i18n.t(title) }}
       </h1>
       <p class="mt-4 max-w-2xl text-base leading-relaxed md:text-lg">{{ i18n.t(intro) }}</p>

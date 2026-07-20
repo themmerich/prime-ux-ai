@@ -1,26 +1,40 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/archivo';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+  /* Display-Schrift für Headlines: Archivo im expanded-Schnitt (Plan-Beschriftung) */
+  --font-display: 'Archivo Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 
-  /* Eigene Farbwelt: tiefes Blau-Schwarz + Smaragd-Akzent */
-  --color-ink-950: #070b14;
-  --color-ink-900: #0b1120;
-  --color-ink-800: #111a2e;
-  --color-ink-700: #1b2a44;
-  --color-accent-300: #6ee7b7;
-  --color-accent-400: #34d399;
-  --color-accent-500: #10b981;
-  /* accent-600 dient als Textfarbe auf Weiß — #059669 lag bei nur 3,77:1.
-     #047857 erreicht 5,48:1 und damit WCAG AA. */
-  --color-accent-600: #047857;
-  /* Bislang undefiniert: text-accent-700 renderte ins Leere. Emphasis-Grün, 7,68:1 auf Weiß. */
-  --color-accent-700: #065f46;
+  /* Farbwelt „Bauplan": Light = Tusche auf Zeichenpapier, Dark = Blaupause.
+     ink-* = tiefes Ultramarin-Navy, accent-* = Kobalt/Ultramarin. */
+  --color-ink-950: #070a19;
+  --color-ink-900: #0c1230;
+  --color-ink-800: #141b40;
+  --color-ink-700: #26305c;
+  --color-accent-300: #a8b6ff;
+  --color-accent-400: #8b9dff;
+  --color-accent-500: #4353ff;
+  /* accent-600 dient als Textfarbe auf Weiß: 8,9:1 (WCAG AA). */
+  --color-accent-600: #2438d6;
+  /* Emphasis auf Weiß, 11:1. */
+  --color-accent-700: #1b2aab;
+
+  /* „Rotstift" — Korrekturfarbe des Zeichners. Nur für Sektionsnummern
+     und Status-Marker, nie flächig. 600 hält 4,9:1 auf Weiß, 400 ~7:1 auf ink-950. */
+  --color-redline-400: #ff7a5c;
+  --color-redline-500: #e8442e;
+  --color-redline-600: #c93418;
+
+  /* Spitzere Radien: technische Zeichnung statt Software-Kärtchen. */
+  --radius-md: 0.125rem;
+  --radius-lg: 0.1875rem;
+  --radius-xl: 0.25rem;
 }
 
 html {
@@ -34,6 +48,55 @@ body {
 
 ::selection {
   @apply bg-accent-400/30 text-inherit;
+}
+
+/* Display-Beschriftung: expanded + uppercase, wie Plankopf-Lettering.
+   font-stretch mappt auf die wdth-Achse der Variable Font. */
+.display-caps {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Feines Zeichenraster hinter dem Hero — Ultramarin-Linien auf Papier,
+   helle Linien auf der Blaupause. Läuft nach unten weich aus. */
+.blueprint-grid {
+  --grid-line: color-mix(in srgb, var(--color-accent-600) 7%, transparent);
+  --grid-line-major: color-mix(in srgb, var(--color-accent-600) 13%, transparent);
+  background-image:
+    linear-gradient(to right, var(--grid-line-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-major) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size:
+    200px 200px,
+    200px 200px,
+    40px 40px,
+    40px 40px;
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+:where(.dark) .blueprint-grid {
+  --grid-line: color-mix(in srgb, var(--color-accent-400) 8%, transparent);
+  --grid-line-major: color-mix(in srgb, var(--color-accent-400) 15%, transparent);
+}
+
+/* Hero-Ladesequenz: ein orchestrierter Moment, per CSS auch ohne JS lauffähig.
+   prefers-reduced-motion wird global auf 0.01ms gekappt. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+.rise {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--rise-step, 0) * 90ms);
 }
 
 /* Sichtbarer Fokus-Ring für Tastaturnutzer (WCAG 2.4.7 / 1.4.11).

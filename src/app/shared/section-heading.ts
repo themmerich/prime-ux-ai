@@ -5,8 +5,22 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="mb-10 md:mb-14">
-      <p class="font-mono text-sm text-accent-600 dark:text-accent-400">// {{ index() }}</p>
-      <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl dark:text-white">
+      <!-- Zeichnungs-Annotation: Bemaßungslinie + Blattnummer im Rotstift -->
+      <p class="flex items-center gap-3 font-mono text-xs tracking-widest">
+        <svg
+          width="72"
+          height="10"
+          viewBox="0 0 72 10"
+          class="text-accent-600 dark:text-accent-400"
+          aria-hidden="true"
+        >
+          <path d="M1 1v8M1 5h70M71 1v8" stroke="currentColor" fill="none" />
+        </svg>
+        <span class="text-redline-600 dark:text-redline-400">{{ index() }}</span>
+      </p>
+      <h2
+        class="display-caps mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl dark:text-white"
+      >
         {{ title() }}
       </h2>
       @if (intro()) {
