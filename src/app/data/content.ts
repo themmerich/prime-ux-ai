@@ -64,7 +64,7 @@ export const HERO = {
   chips: {
     de: [
       'Angular Lead @ parcIT & BAMF',
-      'Dipl.-Inf. (Univ. Würzburg)',
+      'Diplom-Informatiker (Univ. Würzburg)',
       '20+ Jahre Erfahrung',
       'Freelancer · Remote / DACH',
     ],
