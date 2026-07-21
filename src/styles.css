@@ -33,6 +33,11 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Scrollbars und Form-Controls folgen dem Theme statt dem OS-Default. */
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
