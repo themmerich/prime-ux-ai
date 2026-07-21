@@ -107,23 +107,22 @@ import {
             </p>
           </a>
 
-          <!-- Ausbildung: das Diplom als Bento-Highlight -->
+          <!-- Ausbildung: präsent im ersten Viewport, aber im Standard-Kartenstil —
+               der Verlaufsrahmen bleibt der Diplom-Kachel in der Profil-Sektion vorbehalten. -->
           <a
             href="#profil"
-            class="rise group rounded-3xl bg-gradient-to-br from-accent-500 to-aurora-500 p-px transition-[translate] duration-200 hover:-translate-y-0.5"
+            class="rise group flex flex-col rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm transition-[border-color,translate] duration-200 hover:-translate-y-0.5 hover:border-accent-500/60 dark:border-ink-700 dark:bg-ink-900/70 dark:hover:border-accent-400/60"
             style="--rise-step: 3"
           >
-            <span class="flex h-full flex-col rounded-[calc(1.5rem-1px)] bg-white p-6 dark:bg-ink-900">
-              <span
-                class="font-mono text-xs tracking-widest text-slate-400 uppercase dark:text-slate-500"
-              >
-                {{ i18n.t(educationTitle) }}
-              </span>
-              <span class="display mt-3 text-2xl font-bold text-slate-900 dark:text-white">
-                {{ diplomFact().value }}
-              </span>
-              <span class="mt-1 text-sm">{{ diplomFact().label }}</span>
+            <span
+              class="font-mono text-xs tracking-widest text-slate-400 uppercase dark:text-slate-500"
+            >
+              {{ i18n.t(educationTitle) }}
             </span>
+            <span class="display mt-3 text-2xl font-bold">
+              <span class="signal-text">{{ diplomFact().value }}</span>
+            </span>
+            <span class="mt-1 text-sm">{{ diplomFact().label }}</span>
           </a>
 
           <!-- Status / Verfügbarkeit -->
