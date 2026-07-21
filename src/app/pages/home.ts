@@ -13,6 +13,7 @@ import { SiteProject } from '../sections/site-project';
 import { BlogTeaser } from '../blog/blog-teaser';
 import { About } from '../sections/about';
 import { Contact } from '../sections/contact';
+import { SectionRail } from '../shared/section-rail';
 
 @Component({
   selector: 'px-home',
@@ -30,8 +31,10 @@ import { Contact } from '../sections/contact';
     BlogTeaser,
     About,
     Contact,
+    SectionRail,
   ],
   template: `
+    <px-section-rail />
     <px-hero />
     <px-profile />
     <px-focus />

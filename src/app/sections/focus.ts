@@ -16,7 +16,7 @@ import { FOCUS_AREAS, FOCUS_INTRO, FOCUS_NOTE, FOCUS_TITLE } from '../data/conte
         <div class="grid gap-6 md:grid-cols-2">
           @for (area of areas; track area.icon; let first = $first) {
             <article
-              class="group rounded-xl border p-6 transition-colors md:p-8"
+              class="group rounded-2xl border p-6 transition-[border-color,translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-500/5 md:p-8"
               [class]="
                 first
                   ? 'border-accent-500/40 bg-accent-500/[0.04] dark:border-accent-400/40 dark:bg-accent-400/[0.04]'

@@ -20,7 +20,7 @@ import { SocialIcon } from '../shared/social-icon';
         <div class="flex flex-wrap items-center gap-4">
           <a
             href="mailto:{{ contact.email }}"
-            class="rounded-lg bg-accent-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-500 dark:bg-accent-500 dark:text-ink-950 dark:hover:bg-accent-400"
+            class="signal-cta rounded-full px-6 py-3 text-sm font-semibold text-white"
           >
             {{ contact.email }}
           </a>
@@ -29,7 +29,7 @@ import { SocialIcon } from '../shared/social-icon';
               [href]="link.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-200 dark:hover:border-accent-400 dark:hover:text-accent-400"
+              class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-200 dark:hover:border-accent-400 dark:hover:text-accent-400"
             >
               <px-social-icon [icon]="link.icon" />
               {{ link.label }} ↗

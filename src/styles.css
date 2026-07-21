@@ -1,31 +1,43 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/bricolage-grotesque';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+  /* Display-Schrift für Headlines — charaktervoll, ohne ins Verspielte zu kippen. */
+  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, sans-serif;
 
-  /* Eigene Farbwelt: tiefes Blau-Schwarz + Smaragd-Akzent */
-  --color-ink-950: #070b14;
-  --color-ink-900: #0b1120;
-  --color-ink-800: #111a2e;
-  --color-ink-700: #1b2a44;
-  --color-accent-300: #6ee7b7;
-  --color-accent-400: #34d399;
-  --color-accent-500: #10b981;
-  /* accent-600 dient als Textfarbe auf Weiß — #059669 lag bei nur 3,77:1.
-     #047857 erreicht 5,48:1 und damit WCAG AA. */
-  --color-accent-600: #047857;
-  /* Bislang undefiniert: text-accent-700 renderte ins Leere. Emphasis-Grün, 7,68:1 auf Weiß. */
-  --color-accent-700: #065f46;
+  /* Farbwelt „Signal": ruhiges Zinc als Bühne, ein Sky-Akzent als Stimme.
+     Das Cyan→Violett-Signal existiert nur als Verlauf (--aurora-*), nie als Fläche. */
+  --color-ink-950: #09090b;
+  --color-ink-900: #131317;
+  --color-ink-800: #1c1c22;
+  --color-ink-700: #2e2e38;
+  --color-accent-300: #7dd3fc;
+  --color-accent-400: #38bdf8;
+  --color-accent-500: #0ea5e9;
+  /* accent-600 dient als Text- und Buttonfarbe auf Weiß: 5,9:1 (WCAG AA).
+     Sky-600 (#0284c7) läge bei nur 3,9:1 — daher eine Stufe dunkler. */
+  --color-accent-600: #0369a1;
+  --color-accent-700: #075985;
+
+  /* Gradient-Partner des Signals — ausschließlich in Verläufen einsetzen. */
+  --color-aurora-500: #8b5cf6;
+  --color-aurora-700: #6d28d9;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Scrollbars und Form-Controls folgen dem Theme statt dem OS-Default. */
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -34,6 +46,66 @@ body {
 
 ::selection {
   @apply bg-accent-400/30 text-inherit;
+}
+
+/* Headline-Stimme der Seite: Bricolage Grotesque, eng geführt. */
+.display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+/* Das „Signal" als Textverlauf — für die Hero-Subline und Wortmarken-Akzente.
+   Light startet bei accent-600 (5,9:1): Sky-500 läge unter 3:1 für große Schrift. */
+.signal-text {
+  background-image: linear-gradient(90deg, var(--color-accent-600), var(--color-aurora-500));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+:where(.dark) .signal-text {
+  background-image: linear-gradient(90deg, var(--color-accent-400), #a78bfa);
+}
+
+/* Primär-CTA: Signal-Verlauf mit AA-sicheren, dunklen Stufen unter weißem Text. */
+.signal-cta {
+  background-image: linear-gradient(105deg, var(--color-accent-600), var(--color-aurora-700));
+  transition:
+    filter 0.2s ease,
+    translate 0.2s ease;
+}
+.signal-cta:hover {
+  filter: brightness(1.15);
+  translate: 0 -1px;
+}
+
+/* Aurora hinter dem Hero: zwei weiche Lichtquellen, unten auslaufend.
+   Bewusst leise — die Fläche bleibt neutral, nur das Licht ist farbig. */
+.aurora {
+  background-image:
+    radial-gradient(38rem 22rem at 18% 12%, color-mix(in srgb, var(--color-accent-500) 14%, transparent), transparent 70%),
+    radial-gradient(30rem 20rem at 85% 30%, color-mix(in srgb, var(--color-aurora-500) 12%, transparent), transparent 70%);
+}
+:where(.dark) .aurora {
+  background-image:
+    radial-gradient(38rem 22rem at 18% 12%, color-mix(in srgb, var(--color-accent-500) 17%, transparent), transparent 70%),
+    radial-gradient(30rem 20rem at 85% 30%, color-mix(in srgb, var(--color-aurora-500) 15%, transparent), transparent 70%);
+}
+
+/* Hero-Ladesequenz: läuft rein per CSS, auch ohne JS; reduced-motion kappt global. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+.rise {
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--rise-step, 0) * 90ms);
 }
 
 /* Sichtbarer Fokus-Ring für Tastaturnutzer (WCAG 2.4.7 / 1.4.11).
