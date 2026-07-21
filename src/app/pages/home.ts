@@ -67,6 +67,19 @@ export class Home {
         description: HERO.tagline[lang],
         url: ORIGIN,
         email: 'mailto:info@prime-ux.de',
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: lang === 'de' ? 'Universität Würzburg' : 'University of Würzburg',
+          sameAs: 'https://www.uni-wuerzburg.de/',
+        },
+        hasCredential: {
+          '@type': 'EducationalOccupationalCredential',
+          credentialCategory: 'degree',
+          name:
+            lang === 'de'
+              ? 'Diplom-Informatiker, Univ.'
+              : 'Diploma in Computer Science (Dipl.-Inf.)',
+        },
         knowsAbout: [
           'Angular',
           'Frontend Architecture',

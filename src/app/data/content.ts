@@ -62,8 +62,18 @@ export const HERO = {
     en: 'I design and modernize frontend architectures for enterprise applications — with modern Angular, design systems and one clear focus: agentic UI, connecting AI agents with user interfaces.',
   } as L,
   chips: {
-    de: ['Angular Lead @ parcIT & BAMF', '20+ Jahre Erfahrung', 'Freelancer · Remote / DACH'],
-    en: ['Angular lead @ parcIT & BAMF', '20+ years of experience', 'Freelancer · remote / DACH'],
+    de: [
+      'Angular Lead @ parcIT & BAMF',
+      'Diplom-Informatiker (Univ. Würzburg)',
+      '20+ Jahre Erfahrung',
+      'Freelancer · Remote / DACH',
+    ],
+    en: [
+      'Angular lead @ parcIT & BAMF',
+      'Dipl.-Inf. (University of Würzburg)',
+      '20+ years of experience',
+      'Freelancer · remote / DACH',
+    ],
   } as L<string[]>,
   ctaContact: { de: 'Projekt anfragen', en: 'Start a conversation' } as L,
   ctaProjects: { de: 'Projekte ansehen', en: 'View projects' } as L,
@@ -83,14 +93,14 @@ export const PROFILE = {
   } as L,
   facts: {
     de: [
+      { value: 'Diplom', label: 'Informatik, Universität Würzburg' },
       { value: '20+', label: 'Jahre Softwareentwicklung' },
-      { value: '17', label: 'Jahre Freelancing' },
       { value: '12+', label: 'Enterprise-Projekte' },
       { value: '2', label: 'aktive Lead-Mandate' },
     ],
     en: [
+      { value: 'Diploma', label: 'computer science, Univ. of Würzburg' },
       { value: '20+', label: 'years in software engineering' },
-      { value: '17', label: 'years freelancing' },
       { value: '12+', label: 'enterprise projects' },
       { value: '2', label: 'active lead engagements' },
     ],
