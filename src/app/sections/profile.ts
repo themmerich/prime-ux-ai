@@ -15,17 +15,16 @@ import { PROFILE } from '../data/content';
 
         <dl class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
           @for (fact of i18n.t(profile.facts); track fact.label; let first = $first) {
-            <!-- Erste Kachel (Diplom) als Bento-Highlight: Signal-Rahmen, doppelte Breite -->
+            <!-- Erste Kachel (Diplom): doppelte Breite als stille Gewichtung,
+                 der Wert im Signal-Verlauf — bewusst kein Verlaufsrahmen. -->
             @if (first) {
               <div
-                class="col-span-2 rounded-2xl bg-gradient-to-br from-accent-500 to-aurora-500 p-px"
+                class="col-span-2 rounded-2xl border border-slate-200 bg-white/50 p-5 dark:border-ink-700 dark:bg-ink-900/50"
               >
-                <div class="h-full rounded-[calc(1rem-1px)] bg-white p-5 dark:bg-ink-900">
-                  <dd class="display text-3xl font-bold text-slate-900 dark:text-white">
-                    {{ fact.value }}
-                  </dd>
-                  <dt class="mt-1 text-sm">{{ fact.label }}</dt>
-                </div>
+                <dd class="display text-3xl font-bold">
+                  <span class="signal-text">{{ fact.value }}</span>
+                </dd>
+                <dt class="mt-1 text-sm">{{ fact.label }}</dt>
               </div>
             } @else {
               <div
