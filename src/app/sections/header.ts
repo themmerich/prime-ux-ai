@@ -17,9 +17,13 @@ import { SocialLinks } from '../shared/social-links';
         <a
           routerLink="/"
           (click)="closeMenu()"
-          class="shrink-0 font-mono text-sm font-semibold whitespace-nowrap text-slate-900 dark:text-white"
+          class="display flex shrink-0 items-center gap-2 text-base font-bold whitespace-nowrap text-slate-900 dark:text-white"
         >
-          <span class="text-accent-600 dark:text-accent-400">~/</span>prime-ux
+          <span
+            class="size-2.5 rounded-full bg-gradient-to-br from-accent-500 to-aurora-500"
+            aria-hidden="true"
+          ></span>
+          prime-ux
         </a>
 
         <nav
