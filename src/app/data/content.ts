@@ -176,8 +176,8 @@ export const FOCUS_AREAS: FocusArea[] = [
 ];
 
 export const FOCUS_NOTE = {
-  de: 'Und wenn es sein muss, auch gerne Fullstack: Java, Spring Boot, REST/OpenAPI, OAuth2 — seit über 20 Jahren.',
-  en: 'And full stack when needed: Java, Spring Boot, REST/OpenAPI, OAuth2 — for more than 20 years.',
+  de: 'Das Fundament darunter: 20+ Jahre Java und Spring Boot. Ich spreche die Sprache der Backend-Teams — von OpenAPI-Verträgen bis OAuth2 — und übernehme Backend-Aufgaben, wo es dem Projekt hilft.',
+  en: 'The foundation underneath: 20+ years of Java and Spring Boot. I speak the language of backend teams — from OpenAPI contracts to OAuth2 — and take on backend work where it helps the project.',
 } as L;
 
 /* ------------------------------------------------------------------ */
