@@ -665,7 +665,7 @@ export const CONTACT = {
     { label: 'GitHub', url: 'https://github.com/themmerich', icon: 'github' },
     {
       label: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/thomas-hemmerich-83b29831b/',
+      url: 'https://www.linkedin.com/in/thomas-hemmerich/',
       icon: 'linkedin',
     },
   ] as SocialLink[],

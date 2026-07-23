@@ -92,7 +92,7 @@ export class Home {
         ],
         sameAs: [
           'https://github.com/themmerich',
-          'https://www.linkedin.com/in/thomas-hemmerich-83b29831b/',
+          'https://www.linkedin.com/in/thomas-hemmerich/',
         ],
       }),
     });
