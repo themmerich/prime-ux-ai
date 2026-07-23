@@ -3,8 +3,8 @@ import { BLOG_POSTS } from './blog';
 
 import makingOfDe from '../../content/blog/wie-diese-website-gebaut-ist.de.md';
 import makingOfEn from '../../content/blog/wie-diese-website-gebaut-ist.en.md';
-import microFrontendsDe from '../../content/blog/micro-frontends-mit-nx.de.md';
-import microFrontendsEn from '../../content/blog/micro-frontends-mit-nx.en.md';
+import lizenzrisikoDe from '../../content/blog/lizenzrisiko-in-component-libraries.de.md';
+import lizenzrisikoEn from '../../content/blog/lizenzrisiko-in-component-libraries.en.md';
 
 /**
  * Artikeltexte pro Slug — als Markdown zur Buildzeit eingebunden (src/content/blog/<slug>.<lang>.md).
@@ -12,7 +12,7 @@ import microFrontendsEn from '../../content/blog/micro-frontends-mit-nx.en.md';
  */
 const BODIES: Record<string, L> = {
   'wie-diese-website-gebaut-ist': { de: makingOfDe, en: makingOfEn },
-  'micro-frontends-mit-nx': { de: microFrontendsDe, en: microFrontendsEn },
+  'lizenzrisiko-in-component-libraries': { de: lizenzrisikoDe, en: lizenzrisikoEn },
 };
 
 // Schlägt beim Prerendern (Build) fehl statt still einen leeren Artikel auszuliefern,

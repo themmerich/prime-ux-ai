@@ -1,5 +1,19 @@
 [
   {
+    "slug": "lizenzrisiko-in-component-libraries",
+    "date": "2026-07-23",
+    "readingMinutes": 7,
+    "title": {
+      "de": "Lizenzrisiko in Component Libraries: Was der PrimeNG-Wechsel Enterprise-Teams lehrt",
+      "en": "License Risk in Component Libraries: What the PrimeNG Shift Teaches Enterprise Teams"
+    },
+    "excerpt": {
+      "de": "PrimeNG wird ab Version 22 kostenpflichtig. Die eigentliche Lektion ist größer: Lizenzmodelle sind ein Architektur-Attribut — über Evaluierungskriterien, ehrliche Optionen und Exit-Fähigkeit als Design-Prinzip.",
+      "en": "PrimeNG goes commercial from version 22. The real lesson is bigger: license models are an architecture attribute — on evaluation criteria, honest options and exit capability as a design principle."
+    },
+    "tags": ["PrimeNG", "Design Systems", "Governance", "Enterprise UI"]
+  },
+  {
     "slug": "wie-diese-website-gebaut-ist",
     "date": "2026-07-11",
     "readingMinutes": 8,
@@ -12,19 +26,5 @@
       "en": "Angular 22 without Zone.js, bilingualism as a data model, prerendering instead of a Node server and infrastructure as Terraform — a tour of this site’s architecture."
     },
     "tags": ["Angular", "SSG", "Terraform", "Making-of"]
-  },
-  {
-    "slug": "micro-frontends-mit-nx",
-    "date": "2026-05-08",
-    "readingMinutes": 7,
-    "title": {
-      "de": "Micro-Frontends mit Nx: Wann es sich lohnt — und wann nicht",
-      "en": "Micro Frontends with Nx: When It Pays Off — and When It Does Not"
-    },
-    "excerpt": {
-      "de": "Micro-Frontends lösen ein Organisations-, kein Technikproblem. Eine ehrliche Entscheidungshilfe aus mehreren Enterprise-Projekten.",
-      "en": "Micro frontends solve an organizational problem, not a technical one. An honest decision guide from several enterprise projects."
-    },
-    "tags": ["Micro-Frontends", "Nx", "Architektur"]
   }
 ]
