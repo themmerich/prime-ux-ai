@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
+import { Reveal } from '../shared/reveal';
 import {
   BACKGROUND_INTRO,
   BACKGROUND_TITLE,
@@ -14,13 +15,13 @@ import {
 @Component({
   selector: 'px-background',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading],
+  imports: [SectionHeading, Reveal],
   template: `
     <section class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="07" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
-        <div class="grid gap-12 md:grid-cols-2">
+        <div class="grid gap-12 md:grid-cols-2" pxReveal="stagger">
           @for (col of columns; track col.heading.de) {
             <div>
               <h3

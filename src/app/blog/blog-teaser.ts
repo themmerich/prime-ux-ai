@@ -2,19 +2,20 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
+import { Reveal } from '../shared/reveal';
 import { BlogCard } from './blog-card';
 import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
 
 @Component({
   selector: 'px-blog-teaser',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, SectionHeading, BlogCard],
+  imports: [RouterLink, SectionHeading, BlogCard, Reveal],
   template: `
     <section id="blog" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="09" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
-        <div class="grid gap-6 md:grid-cols-2">
+        <div class="grid gap-6 md:grid-cols-2" pxReveal="stagger">
           @for (post of posts; track post.slug) {
             <!-- $first = neuester Artikel, da BLOG_POSTS nach Datum sortiert ist -->
             <px-blog-card [post]="post" [featured]="$first" />

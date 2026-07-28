@@ -92,6 +92,14 @@ body {
     radial-gradient(30rem 20rem at 85% 30%, color-mix(in srgb, var(--color-aurora-500) 15%, transparent), transparent 70%);
 }
 
+/* Punktraster hinter Hero und Kontakt — die „Bühne" des Signalfelds.
+   Rein dekorativ; Farbe kommt über currentColor aus Utility-Klassen. */
+.grid-dots {
+  background-image: radial-gradient(currentColor 1px, transparent 1.5px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(to bottom, black 20%, transparent 95%);
+}
+
 /* Hero-Ladesequenz: läuft rein per CSS, auch ohne JS; reduced-motion kappt global. */
 @keyframes rise {
   from {

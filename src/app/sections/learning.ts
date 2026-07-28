@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
+import { Reveal } from '../shared/reveal';
 import { LEARNING_INTRO, LEARNING_TITLE, TRAININGS } from '../data/content';
 
 @Component({
   selector: 'px-learning',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading],
+  imports: [SectionHeading, Reveal],
   template: `
     <section id="weiterbildung" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="06" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
-        <ol class="space-y-3">
+        <ol class="space-y-3" pxReveal="stagger">
           @for (t of trainings; track t.date) {
             <li
               class="flex flex-wrap items-center gap-x-4 gap-y-1 rounded-lg border px-5 py-3.5"

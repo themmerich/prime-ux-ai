@@ -3,21 +3,31 @@ import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { CONTACT } from '../data/content';
 import { SocialIcon } from '../shared/social-icon';
+import { Reveal } from '../shared/reveal';
+import { SignalScene } from '../shared/signal-scene';
 
+/**
+ * Kontakt als Ausklang: Das Signalfeld aus dem Hero kehrt hier leiser zurück
+ * (Variante 'panel') — die Seite endet mit demselben Motiv, mit dem sie
+ * beginnt.
+ */
 @Component({
   selector: 'px-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, SocialIcon],
+  imports: [SectionHeading, SocialIcon, Reveal, SignalScene],
   template: `
-    <section id="kontakt" class="border-t border-slate-200 dark:border-ink-800">
-      <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
+    <section id="kontakt" class="relative overflow-hidden border-t border-slate-200 dark:border-ink-800">
+      <div class="absolute inset-0" aria-hidden="true">
+        <px-signal-scene variant="panel" />
+      </div>
+      <div class="relative mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading
           index="11"
           [title]="i18n.t(contact.title)"
           [intro]="i18n.t(contact.text)"
         />
 
-        <div class="flex flex-wrap items-center gap-4">
+        <div class="flex flex-wrap items-center gap-4" pxReveal="stagger">
           <a
             href="mailto:{{ contact.email }}"
             class="signal-cta rounded-full px-6 py-3 text-sm font-semibold text-white"
