@@ -2,18 +2,19 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
+import { Reveal } from '../shared/reveal';
 import { ENGAGEMENTS, ENGAGEMENTS_INTRO, ENGAGEMENTS_TITLE } from '../data/content';
 
 @Component({
   selector: 'px-engagements',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, TechChip],
+  imports: [SectionHeading, TechChip, Reveal],
   template: `
     <section id="projekte" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="03" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
-        <div class="grid gap-6 lg:grid-cols-2">
+        <div class="grid gap-6 lg:grid-cols-2" pxReveal="stagger">
           @for (e of engagements; track e.client) {
             <article
               class="flex flex-col rounded-xl border border-slate-200 p-6 md:p-8 dark:border-ink-700 dark:bg-ink-900/50"

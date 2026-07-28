@@ -2,18 +2,19 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
+import { Reveal } from '../shared/reveal';
 import { FOCUS_AREAS, FOCUS_INTRO, FOCUS_NOTE, FOCUS_TITLE } from '../data/content';
 
 @Component({
   selector: 'px-focus',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, TechChip],
+  imports: [SectionHeading, TechChip, Reveal],
   template: `
     <section id="fokus" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="02" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
-        <div class="grid gap-6 md:grid-cols-2">
+        <div class="grid gap-6 md:grid-cols-2" pxReveal="stagger">
           @for (area of areas; track area.icon; let first = $first) {
             <article
               class="group rounded-2xl border p-6 transition-[border-color,translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-500/5 md:p-8"
@@ -59,7 +60,7 @@ import { FOCUS_AREAS, FOCUS_INTRO, FOCUS_NOTE, FOCUS_TITLE } from '../data/conte
           }
         </div>
 
-        <p class="mt-8 font-mono text-sm text-slate-500 dark:text-slate-500">
+        <p class="mt-8 font-mono text-sm text-slate-500 dark:text-slate-500" pxReveal="fade">
           → {{ i18n.t(note) }}
         </p>
       </div>

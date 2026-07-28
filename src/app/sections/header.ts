@@ -1,7 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
 import { ThemeStore } from '../core/theme';
+import { Motion } from '../core/motion';
 import { NAV } from '../data/content';
 import { SocialLinks } from '../shared/social-links';
 
@@ -13,6 +23,12 @@ import { SocialLinks } from '../shared/social-links';
     <header
       class="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-white/80 backdrop-blur-md dark:border-ink-700/70 dark:bg-ink-950/80"
     >
+      <!-- Scroll-Progress: der Signal-Faden läuft mit der Leseposition -->
+      <span
+        #progress
+        class="absolute inset-x-0 -bottom-px block h-0.5 origin-left scale-x-0 bg-gradient-to-r from-accent-500 to-aurora-500"
+        aria-hidden="true"
+      ></span>
       <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
         <a
           routerLink="/"
@@ -147,8 +163,39 @@ export class Header {
   protected readonly i18n = inject(I18n);
   protected readonly theme = inject(ThemeStore);
   protected readonly nav = NAV;
+  private readonly motion = inject(Motion);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly progress = viewChild.required<ElementRef<HTMLElement>>('progress');
 
   protected readonly menuOpen = signal(false);
+
+  constructor() {
+    afterNextRender(() => void this.initProgress());
+  }
+
+  /**
+   * Scroll-Progress per ScrollTrigger-Scrub — direkt an die Scrollposition
+   * gekoppelt. Bei reduzierter Bewegung bleibt der Faden aus (scale-x-0).
+   */
+  private async initProgress(): Promise<void> {
+    if (this.motion.reduced) {
+      return;
+    }
+    const ctx = await this.motion.load();
+    const el = this.progress().nativeElement;
+    if (!ctx || !el.isConnected) {
+      return;
+    }
+    const tween = ctx.gsap.to(el, {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: { start: 0, end: 'max', scrub: true },
+    });
+    this.destroyRef.onDestroy(() => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    });
+  }
 
   toggleMenu(): void {
     this.menuOpen.update((open) => !open);

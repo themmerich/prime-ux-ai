@@ -8,6 +8,11 @@ import { I18n } from '../core/i18n';
   imports: [RouterLink],
   template: `
     <footer class="border-t border-slate-200 dark:border-ink-800">
+      <!-- Der Signal-Faden schließt die Seite ab -->
+      <div
+        class="h-px bg-gradient-to-r from-transparent via-accent-500/50 to-aurora-500/40"
+        aria-hidden="true"
+      ></div>
       <div
         class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm md:flex-row"
       >

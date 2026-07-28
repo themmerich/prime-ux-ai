@@ -2,18 +2,22 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
+import { Reveal } from '../shared/reveal';
 import { HISTORY, HISTORY_INTRO, HISTORY_TITLE } from '../data/content';
 
 @Component({
   selector: 'px-history',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, TechChip],
+  imports: [SectionHeading, TechChip, Reveal],
   template: `
     <section class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="04" [title]="i18n.t(title)" [intro]="i18n.t(intro)" />
 
-        <ol class="relative space-y-10 border-l border-slate-200 pl-8 dark:border-ink-700">
+        <ol
+          class="relative space-y-10 border-l border-slate-200 pl-8 dark:border-ink-700"
+          pxReveal="stagger"
+        >
           @for (entry of history; track $index) {
             <li class="relative">
               <span

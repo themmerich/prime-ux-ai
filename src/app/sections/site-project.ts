@@ -11,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
+import { Reveal } from '../shared/reveal';
 import { SITE, SITE_CATEGORIES } from '../data/content';
 
 type PipelineState = 'loading' | 'passing' | 'failing' | 'unknown';
@@ -57,15 +58,18 @@ export class FlowBox {
 @Component({
   selector: 'px-site-project',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, TechChip, FlowBox],
+  imports: [SectionHeading, TechChip, FlowBox, Reveal],
   template: `
     <section id="diese-seite" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
         <px-section-heading index="08" [title]="i18n.t(site.title)" />
-        <p class="max-w-3xl text-base leading-relaxed md:text-lg">{{ i18n.t(site.text) }}</p>
+        <p class="max-w-3xl text-base leading-relaxed md:text-lg" pxReveal>
+          {{ i18n.t(site.text) }}
+        </p>
 
-        <!-- Vertikales Pipeline-Flowchart -->
-        <div class="mt-12 flex flex-col items-center">
+        <!-- Vertikales Pipeline-Flowchart (px-flow-box rendert display:contents,
+             daher Reveal auf dem Container statt Stagger auf den Kindern) -->
+        <div class="mt-12 flex flex-col items-center" pxReveal>
           <px-flow-box title="GitHub Repo" sub="TRIGGER: push to main" [accent]="true" />
           <div class="connector"></div>
 
@@ -141,7 +145,7 @@ export class FlowBox {
         </div>
 
         <!-- Kategorien -->
-        <div class="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div class="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5" pxReveal="stagger">
           @for (cat of categories; track cat.title) {
             <div
               class="rounded-xl border border-slate-200 p-4 dark:border-ink-700 dark:bg-ink-900/50"
@@ -161,7 +165,10 @@ export class FlowBox {
         </div>
 
         <!-- System-Status -->
-        <div class="mt-6 overflow-hidden rounded-xl border border-slate-200 dark:border-ink-700">
+        <div
+          class="mt-6 overflow-hidden rounded-xl border border-slate-200 dark:border-ink-700"
+          pxReveal
+        >
           <div
             class="flex items-center justify-between border-b border-slate-200 bg-slate-100 px-5 py-3 dark:border-ink-700 dark:bg-ink-800/60"
           >

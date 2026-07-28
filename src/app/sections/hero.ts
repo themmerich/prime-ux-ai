@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { I18n } from '../core/i18n';
+import { Motion } from '../core/motion';
+import { SignalScene } from '../shared/signal-scene';
 import {
   CONTACT,
   EDUCATION_TITLE,
@@ -15,14 +25,23 @@ import {
  * Bento-Landing: Die Seite öffnet als Kachel-Raster — großes Identitäts-Panel,
  * daneben kompakte Kacheln, die in ihre Sektionen verlinken. Alle Inhalte
  * stammen aus den bestehenden Content-Daten.
+ *
+ * Hinter dem Raster liegt das dreischichtige Signal-Backdrop (Aurora-Licht,
+ * Punktraster, Three.js-Signalfeld), das beim Scrollen als Ganzes sanft
+ * zurückweicht (GSAP-Parallax, scrub).
  */
 @Component({
   selector: 'px-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SignalScene],
   template: `
-    <section class="relative overflow-hidden">
-      <!-- Aurora: das Signal als Lichtquelle hinter dem Einstieg -->
-      <div class="aurora absolute inset-0" aria-hidden="true"></div>
+    <section #heroSection class="relative overflow-hidden">
+      <!-- Signal-Backdrop: Licht, Raster und Feld als eine Parallax-Ebene -->
+      <div #backdrop class="absolute inset-0" aria-hidden="true">
+        <div class="aurora absolute inset-0"></div>
+        <div class="grid-dots absolute inset-0 text-slate-900/15 dark:text-white/10"></div>
+        <px-signal-scene variant="hero" />
+      </div>
 
       <div class="relative mx-auto max-w-6xl px-6 pt-28 pb-16 md:pt-32">
         <p
@@ -207,6 +226,11 @@ import {
 })
 export class Hero {
   protected readonly i18n = inject(I18n);
+  private readonly motion = inject(Motion);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly section = viewChild.required<ElementRef<HTMLElement>>('heroSection');
+  private readonly backdrop = viewChild.required<ElementRef<HTMLElement>>('backdrop');
+
   protected readonly hero = HERO;
   protected readonly contact = CONTACT;
   protected readonly focusTitle = FOCUS_TITLE;
@@ -214,6 +238,38 @@ export class Hero {
   protected readonly educationTitle = EDUCATION_TITLE;
   protected readonly engagementsTitle = ENGAGEMENTS_TITLE;
   protected readonly engagements = ENGAGEMENTS;
+
+  constructor() {
+    // Parallax: das Backdrop weicht beim Scrollen zurück und blendet ab —
+    // die Bento-Kacheln bleiben stehen, das Signal „bleibt hinten".
+    afterNextRender(() => void this.initParallax());
+  }
+
+  private async initParallax(): Promise<void> {
+    if (this.motion.reduced) {
+      return;
+    }
+    const ctx = await this.motion.load();
+    const section = this.section().nativeElement;
+    if (!ctx || !section.isConnected) {
+      return;
+    }
+    const tween = ctx.gsap.to(this.backdrop().nativeElement, {
+      yPercent: 16,
+      opacity: 0.3,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+    this.destroyRef.onDestroy(() => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    });
+  }
 
   /** Erste Profil-Kachel (Diplom) — sprachabhängig aus den bestehenden Fakten. */
   protected diplomFact(): { value: string; label: string } {
