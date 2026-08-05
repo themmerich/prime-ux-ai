@@ -80,8 +80,8 @@ export const HERO = {
   photo: 'portrait-neu.jpg',
   photoCaption: 'thomas-hemmerich.jpg',
   available: {
-    de: 'aktuell ausgebucht bis 31.12.2026',
-    en: 'currently booked until Dec 31, 2026',
+    de: 'Buchbar ab Q1/2027',
+    en: 'Available from Q1 2027',
   } as L,
 };
 

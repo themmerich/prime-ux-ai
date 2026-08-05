@@ -150,7 +150,7 @@ import {
             style="--rise-step: 4"
           >
             <p class="flex items-center gap-2 font-mono text-xs tracking-widest text-slate-400 uppercase dark:text-slate-500">
-              <span class="size-2 animate-pulse rounded-full bg-amber-500" aria-hidden="true"></span>
+              <span class="size-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true"></span>
               {{ i18n.t({ de: 'Status', en: 'Status' }) }}
             </p>
             <p class="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">
