@@ -22,6 +22,12 @@ for (const post of BLOG_POSTS) {
     throw new Error(`Blogpost "${post.slug}" hat keinen Body in blog-bodies.ts`);
   }
 }
+// Und umgekehrt: ein Body ohne Metadaten (z.B. Tippfehler im Slug) wäre still tot.
+for (const slug of Object.keys(BODIES)) {
+  if (!BLOG_POSTS.some((post) => post.slug === slug)) {
+    throw new Error(`blog-bodies.ts hat einen Body für unbekannten Slug "${slug}"`);
+  }
+}
 
 export function postBody(slug: string): L | undefined {
   return BODIES[slug];

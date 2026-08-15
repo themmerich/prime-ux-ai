@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
 import { Seo } from '../core/seo';
@@ -23,8 +23,9 @@ import { BLOG_INTRO, BLOG_POSTS, BLOG_TITLE } from '../data/blog';
       </h1>
       <p class="mt-4 max-w-2xl text-base leading-relaxed md:text-lg">{{ i18n.t(intro) }}</p>
 
+      <!-- Feed passend zur UI-Sprache (statische Datei, daher href statt routerLink) -->
       <a
-        [href]="feedHref()"
+        [href]="i18n.t({ de: '/rss.xml', en: '/rss.en.xml' })"
         class="mt-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500 transition-colors hover:text-accent-600 dark:hover:text-accent-400"
       >
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -49,9 +50,6 @@ export class BlogList {
   protected readonly title = BLOG_TITLE;
   protected readonly intro = BLOG_INTRO;
   protected readonly posts = BLOG_POSTS;
-
-  /** Feed passend zur aktuellen UI-Sprache (statische Datei, daher href statt routerLink). */
-  protected readonly feedHref = computed(() => this.i18n.t({ de: '/rss.xml', en: '/rss.en.xml' }));
 
   constructor() {
     this.seo.set({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Seo, ORIGIN } from '../core/seo';
-import { HERO } from '../data/content';
+import { CONTACT, EDUCATION, HERO } from '../data/content';
 import { Hero } from '../sections/hero';
 import { Profile } from '../sections/profile';
 import { Focus } from '../sections/focus';
@@ -69,7 +69,7 @@ export class Home {
           lang === 'de' ? 'Frontend-Architekt & Angular Lead' : 'Frontend Architect & Angular Lead',
         description: HERO.tagline[lang],
         url: ORIGIN,
-        email: 'mailto:info@prime-ux.de',
+        email: `mailto:${CONTACT.email}`,
         alumniOf: {
           '@type': 'CollegeOrUniversity',
           name: lang === 'de' ? 'Universität Würzburg' : 'University of Würzburg',
@@ -78,10 +78,8 @@ export class Home {
         hasCredential: {
           '@type': 'EducationalOccupationalCredential',
           credentialCategory: 'degree',
-          name:
-            lang === 'de'
-              ? 'Diplom-Informatiker, Univ.'
-              : 'Diploma in Computer Science (Dipl.-Inf.)',
+          // Abschluss aus den Ausbildungsdaten — EDUCATION[0] ist das Diplom.
+          name: EDUCATION[0].title[lang],
         },
         knowsAbout: [
           'Angular',
@@ -90,10 +88,7 @@ export class Home {
           'Micro Frontends',
           'Design Systems',
         ],
-        sameAs: [
-          'https://github.com/themmerich',
-          'https://www.linkedin.com/in/thomas-hemmerich/',
-        ],
+        sameAs: CONTACT.links.map((link) => link.url),
       }),
     });
   }

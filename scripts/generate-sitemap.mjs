@@ -3,9 +3,7 @@
 // automatisch synchron zu den tatsächlich prerenderten Routen (inkl. Blog).
 import { readdir, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
-
-const ORIGIN = 'https://prime-ux.de';
-const BROWSER_DIR = 'dist/prime-ux/browser';
+import { BROWSER_DIR, ORIGIN } from './config.mjs';
 
 /** Alle index.html rekursiv einsammeln und in URL-Pfade übersetzen. */
 async function collectRoutes(dir, root = dir) {

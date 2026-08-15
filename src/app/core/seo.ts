@@ -3,10 +3,11 @@ import { effect, inject, Injectable, signal } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { I18n, L, Lang, localeFor } from './i18n';
+import site from '../data/site.json';
 
-/** Kanonische Basis-URL (Apex, ohne www) — Grundlage für Canonical, OG und Sitemap. */
-export const ORIGIN = 'https://prime-ux.de';
-const SITE_NAME = 'PRIME UX';
+/** Kanonische Basis-URL (Apex, ohne www) — gemeinsame Quelle mit den Build-Skripten (site.json). */
+export const ORIGIN = site.origin;
+const SITE_NAME = site.name;
 
 export interface SeoConfig {
   /** Seitentitel ohne Site-Suffix — „ | PRIME UX" wird zentral angehängt. */
