@@ -61,24 +61,9 @@ export const HERO = {
     de: 'Ich entwerfe und modernisiere Frontend-Architekturen für Enterprise-Anwendungen — mit Modern Angular, Design Systems und einem klaren Fokus: Agentic UI, die Verbindung von KI-Agenten und Benutzeroberflächen.',
     en: 'I design and modernize frontend architectures for enterprise applications — with modern Angular, design systems and one clear focus: agentic UI, connecting AI agents with user interfaces.',
   } as L,
-  chips: {
-    de: [
-      'Angular Lead @ parcIT & BAMF',
-      'Diplom-Informatiker (Univ. Würzburg)',
-      '20+ Jahre Erfahrung',
-      'Freelancer · Remote / DACH',
-    ],
-    en: [
-      'Angular lead @ parcIT & BAMF',
-      'Dipl.-Inf. (University of Würzburg)',
-      '20+ years of experience',
-      'Freelancer · remote / DACH',
-    ],
-  } as L<string[]>,
   ctaContact: { de: 'Projekt anfragen', en: 'Start a conversation' } as L,
   ctaProjects: { de: 'Projekte ansehen', en: 'View projects' } as L,
   photo: 'portrait-neu.jpg',
-  photoCaption: 'thomas-hemmerich.jpg',
   available: {
     de: 'Buchbar ab Q1/2027',
     en: 'Available from Q1 2027',
@@ -594,14 +579,21 @@ export const EMPLOYMENT: BackgroundEntry[] = [
 /* Diese Seite als Projekt                                             */
 /* ------------------------------------------------------------------ */
 
+const REPO_OWNER = 'themmerich';
+const REPO_NAME = 'prime-ux-ai';
+const WORKFLOW_FILE = 'deploy.yml';
+
 export const SITE = {
   title: { de: 'Diese Seite ist ein Projekt', en: 'This Site Is a Project' } as L,
   text: {
     de: 'Kein Baukasten, kein Template — diese Seite ist selbst ein kleiner Showcase dafür, wie ich Software baue. Frontend: Angular 22 mit zoneless Change Detection, Signal-basiertem i18n und Theming, Tailwind CSS 4, selbst gehostete Fonts, kein Tracking. Jede Route wird beim Build zu statischem HTML vorgerendert (SSR) und im Browser hydriert — für schnelle Anzeige, sauberes SEO und Barrierefreiheit nach WCAG 2.1 AA. Betrieb: Die komplette AWS-Infrastruktur (S3, CloudFront, Route 53, ACM) ist mit Terraform beschrieben; jeder Push auf main durchläuft einen Trivy-Security-Scan, Terraform Apply und das Deployment — vollautomatisch per GitHub Actions.',
     en: 'No site builder, no template — this page is itself a small showcase of how I build software. Frontend: Angular 22 with zoneless change detection, signal-based i18n and theming, Tailwind CSS 4, self-hosted fonts, no tracking. Every route is prerendered to static HTML at build time (SSR) and hydrated in the browser — for fast first paint, clean SEO and accessibility to WCAG 2.1 AA. Operations: the entire AWS infrastructure (S3, CloudFront, Route 53, ACM) is described in Terraform; every push to main runs through a Trivy security scan, Terraform apply and deployment — fully automated via GitHub Actions.',
   } as L,
-  repo: { label: 'prime-ux-ai', url: 'https://github.com/themmerich/prime-ux-ai' },
-  actionsUrl: 'https://github.com/themmerich/prime-ux-ai/actions/workflows/deploy.yml',
+  // Repo-Koordinaten einmal definiert — Links und GitHub-API-URL leiten sich ab,
+  // damit ein Umzug/Umbenennen des Repos nur eine Stelle betrifft.
+  repo: { label: REPO_NAME, url: `https://github.com/${REPO_OWNER}/${REPO_NAME}` },
+  actionsUrl: `https://github.com/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_FILE}`,
+  workflowRunsApiUrl: `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_FILE}/runs?per_page=1&status=completed`,
   roadmap: {
     de: 'Roadmap: ein agentischer Assistent, der Fragen zu Profil und Projekten direkt hier beantwortet.',
     en: 'Roadmap: an agentic assistant answering questions about my profile and projects right here.',

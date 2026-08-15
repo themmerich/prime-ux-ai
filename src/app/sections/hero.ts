@@ -2,6 +2,7 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   ElementRef,
   inject,
@@ -54,7 +55,8 @@ import {
         <div class="mt-6 grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-4">
           <!-- Identität: das große Panel -->
           <div
-            class="rise rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm sm:col-span-2 lg:row-span-2 lg:p-8 dark:border-ink-700 dark:bg-ink-900/70"
+            class="rise sm:col-span-2 lg:row-span-2 lg:p-8"
+            [class]="tile"
             style="--rise-step: 1"
           >
             <div class="flex h-full flex-col">
@@ -100,7 +102,8 @@ import {
           <!-- Fokus: die vier Schwerpunkte -->
           <a
             href="#fokus"
-            class="rise group rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm transition-[border-color,translate] duration-200 hover:-translate-y-0.5 hover:border-accent-500/60 lg:row-span-2 dark:border-ink-700 dark:bg-ink-900/70 dark:hover:border-accent-400/60"
+            class="rise group lg:row-span-2"
+            [class]="tileLink"
             style="--rise-step: 2"
           >
             <p class="font-mono text-xs tracking-widest text-slate-400 uppercase dark:text-slate-500">
@@ -130,7 +133,8 @@ import {
                der Verlaufsrahmen bleibt der Diplom-Kachel in der Profil-Sektion vorbehalten. -->
           <a
             href="#profil"
-            class="rise group flex flex-col rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm transition-[border-color,translate] duration-200 hover:-translate-y-0.5 hover:border-accent-500/60 dark:border-ink-700 dark:bg-ink-900/70 dark:hover:border-accent-400/60"
+            class="rise group flex flex-col"
+            [class]="tileLink"
             style="--rise-step: 3"
           >
             <span
@@ -146,7 +150,8 @@ import {
 
           <!-- Status / Verfügbarkeit -->
           <div
-            class="rise rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm dark:border-ink-700 dark:bg-ink-900/70"
+            class="rise"
+            [class]="tile"
             style="--rise-step: 4"
           >
             <p class="flex items-center gap-2 font-mono text-xs tracking-widest text-slate-400 uppercase dark:text-slate-500">
@@ -162,7 +167,8 @@ import {
           <!-- Erfahrung in Zahlen -->
           <a
             href="#profil"
-            class="rise group rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm transition-[border-color,translate] duration-200 hover:-translate-y-0.5 hover:border-accent-500/60 dark:border-ink-700 dark:bg-ink-900/70 dark:hover:border-accent-400/60"
+            class="rise group"
+            [class]="tileLink"
             style="--rise-step: 5"
           >
             <span class="flex h-full flex-col justify-center gap-2.5">
@@ -182,7 +188,8 @@ import {
           <!-- Aktuelle Mandate -->
           <a
             href="#projekte"
-            class="rise group rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm transition-[border-color,translate] duration-200 hover:-translate-y-0.5 hover:border-accent-500/60 sm:col-span-2 dark:border-ink-700 dark:bg-ink-900/70 dark:hover:border-accent-400/60"
+            class="rise group sm:col-span-2"
+            [class]="tileLink"
             style="--rise-step: 6"
           >
             <span
@@ -231,6 +238,14 @@ export class Hero {
   private readonly section = viewChild.required<ElementRef<HTMLElement>>('heroSection');
   private readonly backdrop = viewChild.required<ElementRef<HTMLElement>>('backdrop');
 
+  /** Gemeinsamer Look aller Bento-Kacheln — einmal definiert statt sechsmal kopiert. */
+  protected readonly tile =
+    'rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur-sm dark:border-ink-700 dark:bg-ink-900/70';
+  /** Kachel-Variante für verlinkte Kacheln: hebt sich beim Hover leicht an. */
+  protected readonly tileLink =
+    this.tile +
+    ' transition-[border-color,translate] duration-200 hover:-translate-y-0.5 hover:border-accent-500/60 dark:hover:border-accent-400/60';
+
   protected readonly hero = HERO;
   protected readonly contact = CONTACT;
   protected readonly focusTitle = FOCUS_TITLE;
@@ -246,38 +261,27 @@ export class Hero {
   }
 
   private async initParallax(): Promise<void> {
-    if (this.motion.reduced) {
-      return;
-    }
-    const ctx = await this.motion.load();
     const section = this.section().nativeElement;
-    if (!ctx || !section.isConnected) {
-      return;
-    }
-    const tween = ctx.gsap.to(this.backdrop().nativeElement, {
-      yPercent: 16,
-      opacity: 0.3,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-    this.destroyRef.onDestroy(() => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    });
+    await this.motion.scrollTween(section, this.destroyRef, (ctx) =>
+      ctx.gsap.to(this.backdrop().nativeElement, {
+        yPercent: 16,
+        opacity: 0.3,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }),
+    );
   }
+
+  private readonly facts = computed(() => this.i18n.t(PROFILE.facts));
 
   /** Erste Profil-Kachel (Diplom) — sprachabhängig aus den bestehenden Fakten. */
-  protected diplomFact(): { value: string; label: string } {
-    return this.i18n.t(PROFILE.facts)[0];
-  }
+  protected readonly diplomFact = computed(() => this.facts()[0]);
 
   /** Die drei Zahlen-Fakten (ohne Diplom) für die Erfahrungs-Kachel. */
-  protected numberFacts(): { value: string; label: string }[] {
-    return this.i18n.t(PROFILE.facts).slice(1);
-  }
+  protected readonly numberFacts = computed(() => this.facts().slice(1));
 }

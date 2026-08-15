@@ -58,9 +58,8 @@ import { SocialLinks } from '../shared/social-links';
         </nav>
 
         <div class="flex items-center gap-2">
-          <div class="hidden items-center gap-1 md:flex">
-            <px-social-links />
-          </div>
+          <!-- px-social-links bringt sein Flex-Layout als Host-Klasse selbst mit -->
+          <px-social-links class="hidden md:flex" />
           <span
             class="hidden h-5 w-px shrink-0 bg-slate-200 md:block dark:bg-ink-700"
             aria-hidden="true"
@@ -69,7 +68,7 @@ import { SocialLinks } from '../shared/social-links';
           <button
             type="button"
             (click)="i18n.toggle()"
-            class="rounded-md border border-slate-200 px-2.5 py-1.5 font-mono text-xs text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
+            [class]="toggleBtn"
             [attr.aria-label]="
               i18n.lang() === 'de' ? 'Switch to English' : 'Auf Deutsch umschalten'
             "
@@ -79,7 +78,7 @@ import { SocialLinks } from '../shared/social-links';
           <button
             type="button"
             (click)="theme.toggle()"
-            class="rounded-md border border-slate-200 px-2.5 py-1.5 font-mono text-xs text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400"
+            [class]="toggleBtn"
             [attr.aria-label]="
               i18n.t(
                 theme.theme() === 'dark'
@@ -106,23 +105,16 @@ import { SocialLinks } from '../shared/social-links';
             [attr.aria-expanded]="menuOpen()"
             aria-controls="mobile-menu"
           >
-            @if (menuOpen()) {
-              <svg
-                viewBox="0 0 20 20"
-                class="size-4 fill-none stroke-current stroke-2"
-                aria-hidden="true"
-              >
-                <path d="M5 5l10 10M15 5L5 15" stroke-linecap="round" />
-              </svg>
-            } @else {
-              <svg
-                viewBox="0 0 20 20"
-                class="size-4 fill-none stroke-current stroke-2"
-                aria-hidden="true"
-              >
-                <path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round" />
-              </svg>
-            }
+            <svg
+              viewBox="0 0 20 20"
+              class="size-4 fill-none stroke-current stroke-2"
+              aria-hidden="true"
+            >
+              <path
+                [attr.d]="menuOpen() ? 'M5 5l10 10M15 5L5 15' : 'M3 6h14M3 10h14M3 14h14'"
+                stroke-linecap="round"
+              />
+            </svg>
           </button>
         </div>
       </div>
@@ -149,11 +141,9 @@ import { SocialLinks } from '../shared/social-links';
             }
           </ul>
 
-          <div
-            class="mt-3 flex items-center gap-1 border-t border-slate-200/70 px-2 pt-3 dark:border-ink-700/70"
-          >
-            <px-social-links />
-          </div>
+          <px-social-links
+            class="mt-3 border-t border-slate-200/70 px-2 pt-3 dark:border-ink-700/70"
+          />
         </nav>
       }
     </header>
@@ -163,6 +153,9 @@ export class Header {
   protected readonly i18n = inject(I18n);
   protected readonly theme = inject(ThemeStore);
   protected readonly nav = NAV;
+  /** Gemeinsamer Look der beiden Toggle-Buttons (Sprache, Theme). */
+  protected readonly toggleBtn =
+    'rounded-md border border-slate-200 px-2.5 py-1.5 font-mono text-xs text-slate-600 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-300 dark:hover:border-accent-400 dark:hover:text-accent-400';
   private readonly motion = inject(Motion);
   private readonly destroyRef = inject(DestroyRef);
   private readonly progress = viewChild.required<ElementRef<HTMLElement>>('progress');
@@ -178,23 +171,14 @@ export class Header {
    * gekoppelt. Bei reduzierter Bewegung bleibt der Faden aus (scale-x-0).
    */
   private async initProgress(): Promise<void> {
-    if (this.motion.reduced) {
-      return;
-    }
-    const ctx = await this.motion.load();
     const el = this.progress().nativeElement;
-    if (!ctx || !el.isConnected) {
-      return;
-    }
-    const tween = ctx.gsap.to(el, {
-      scaleX: 1,
-      ease: 'none',
-      scrollTrigger: { start: 0, end: 'max', scrub: true },
-    });
-    this.destroyRef.onDestroy(() => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    });
+    await this.motion.scrollTween(el, this.destroyRef, (ctx) =>
+      ctx.gsap.to(el, {
+        scaleX: 1,
+        ease: 'none',
+        scrollTrigger: { start: 0, end: 'max', scrub: true },
+      }),
+    );
   }
 
   toggleMenu(): void {

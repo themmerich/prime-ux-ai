@@ -12,6 +12,7 @@ import { I18n } from '../core/i18n';
 import { SectionHeading } from '../shared/section-heading';
 import { TechChip } from '../shared/tech-chip';
 import { Reveal } from '../shared/reveal';
+import { SocialIcon } from '../shared/social-icon';
 import { SITE, SITE_CATEGORIES } from '../data/content';
 
 type PipelineState = 'loading' | 'passing' | 'failing' | 'unknown';
@@ -58,7 +59,7 @@ export class FlowBox {
 @Component({
   selector: 'px-site-project',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SectionHeading, TechChip, FlowBox, Reveal],
+  imports: [SectionHeading, TechChip, FlowBox, Reveal, SocialIcon],
   template: `
     <section id="diese-seite" class="border-t border-slate-200 dark:border-ink-800">
       <div class="mx-auto max-w-5xl px-6 py-20 md:py-28">
@@ -256,11 +257,7 @@ export class FlowBox {
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 font-mono text-sm text-slate-700 transition-colors hover:border-accent-500 hover:text-accent-600 dark:border-ink-700 dark:text-slate-200 dark:hover:border-accent-400 dark:hover:text-accent-400"
           >
-            <svg viewBox="0 0 16 16" class="size-4 fill-current" aria-hidden="true">
-              <path
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
-              />
-            </svg>
+            <px-social-icon icon="github" />
             {{ site.repo.label }} ↗
           </a>
           <span
@@ -297,14 +294,14 @@ export class SiteProject {
     if (!date) {
       return null;
     }
-    const locale = this.i18n.locale();
-    const day = date.toLocaleDateString(locale, {
+    const day = this.i18n.formatDate(date, {
       timeZone: 'UTC',
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
     });
-    const time = date.toLocaleTimeString(locale, {
+    // Für die Uhrzeit hat I18n keinen Helfer — hier direkt über die Locale.
+    const time = date.toLocaleTimeString(this.i18n.locale(), {
       timeZone: 'UTC',
       hour: '2-digit',
       minute: '2-digit',
@@ -353,9 +350,7 @@ export class SiteProject {
   private async loadPipelineStatus(): Promise<void> {
     try {
       // Öffentliche GitHub-API, ohne Auth (60 Requests/h pro IP genügen hier).
-      const response = await fetch(
-        'https://api.github.com/repos/themmerich/prime-ux-ai/actions/workflows/deploy.yml/runs?per_page=1&status=completed',
-      );
+      const response = await fetch(SITE.workflowRunsApiUrl);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }

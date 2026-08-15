@@ -8,6 +8,7 @@ import { ORIGIN, Seo } from '../core/seo';
 import { TechChip } from '../shared/tech-chip';
 import { findPost } from '../data/blog';
 import { postBody } from '../data/blog-bodies';
+import { HERO } from '../data/content';
 
 const NOT_FOUND: L = {
   de: 'Diesen Artikel gibt es nicht (mehr).',
@@ -93,17 +94,29 @@ export class BlogPost {
           inLanguage: localeFor(lang),
           keywords: p.tags.join(', '),
           url: `${ORIGIN}/blog/${p.slug}`,
-          author: { '@type': 'Person', name: 'Thomas Hemmerich', url: ORIGIN },
+          author: { '@type': 'Person', name: HERO.name, url: ORIGIN },
         }),
       });
     });
   }
 
+  // Einmal geparste Bodies pro Slug+Sprache — ein Sprach-Toggle parst nicht erneut.
+  private readonly bodyCache = new Map<string, string>();
+
   // roher HTML-String — Angular sanitisiert beim [innerHTML]-Binding
   protected readonly body = computed(() => {
     const p = this.post();
     const md = p && postBody(p.slug);
-    return md ? marked.parse(this.i18n.t(md), { async: false }) : '';
+    if (!p || !md) {
+      return '';
+    }
+    const key = `${p.slug}:${this.i18n.lang()}`;
+    let html = this.bodyCache.get(key);
+    if (html === undefined) {
+      html = marked.parse(this.i18n.t(md), { async: false });
+      this.bodyCache.set(key, html);
+    }
+    return html;
   });
 
   protected readonly formattedDate = computed(() => {

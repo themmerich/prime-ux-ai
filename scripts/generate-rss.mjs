@@ -5,9 +5,8 @@
 //   /rss.en.xml  — Englisch
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { BROWSER_DIR, ORIGIN } from './config.mjs';
 
-const ORIGIN = 'https://prime-ux.de';
-const BROWSER_DIR = 'dist/prime-ux/browser';
 const POSTS_JSON = 'src/app/data/blog-posts.json';
 
 /** Kanal-Metadaten pro Sprache. */

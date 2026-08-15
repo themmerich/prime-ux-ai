@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../core/i18n';
+import { HERO } from '../data/content';
 
 @Component({
   selector: 'px-footer',
@@ -16,7 +17,7 @@ import { I18n } from '../core/i18n';
       <div
         class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm md:flex-row"
       >
-        <p class="font-mono text-xs text-slate-500">© {{ year }} Thomas Hemmerich · PRIME UX</p>
+        <p class="font-mono text-xs text-slate-500">© {{ year }} {{ name }} · PRIME UX</p>
         <p class="font-mono text-xs text-slate-500">
           {{
             i18n.t({
@@ -45,6 +46,7 @@ import { I18n } from '../core/i18n';
 })
 export class Footer {
   protected readonly i18n = inject(I18n);
+  protected readonly name = HERO.name;
   // Beim Prerendern ausgewertet — entspricht dem Jahr des letzten Deploys.
   protected readonly year = new Date().getFullYear();
 }

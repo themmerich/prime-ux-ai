@@ -28,45 +28,30 @@ export class Reveal {
   private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
-    afterNextRender(() => void this.init());
-  }
-
-  private async init(): Promise<void> {
-    if (this.motion.reduced) {
-      return;
-    }
-    const ctx = await this.motion.load();
-    const host = this.el.nativeElement;
-    // Zwischen Render und GSAP-Load kann die Komponente zerstört worden sein.
-    if (!ctx || !host.isConnected) {
-      return;
-    }
-
-    const mode = this.mode() || 'rise';
-    const targets: HTMLElement | Element[] =
-      mode === 'stagger' ? Array.from(host.children) : host;
-    if (mode === 'stagger' && (targets as Element[]).length === 0) {
-      return;
-    }
-
-    const tween = ctx.gsap.from(targets, {
-      opacity: 0,
-      y: mode === 'fade' ? 0 : 28,
-      duration: 0.9,
-      ease: 'power3.out',
-      delay: this.delay(),
-      stagger: mode === 'stagger' ? 0.09 : 0,
-      clearProps: 'opacity,transform',
-      scrollTrigger: {
-        trigger: host,
-        start: 'top 86%',
-        once: true,
-      },
-    });
-
-    this.destroyRef.onDestroy(() => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+    afterNextRender(() => {
+      const host = this.el.nativeElement;
+      void this.motion.scrollTween(host, this.destroyRef, (ctx) => {
+        const mode = this.mode() || 'rise';
+        const targets: HTMLElement | Element[] =
+          mode === 'stagger' ? Array.from(host.children) : host;
+        if (mode === 'stagger' && (targets as Element[]).length === 0) {
+          return null;
+        }
+        return ctx.gsap.from(targets, {
+          opacity: 0,
+          y: mode === 'fade' ? 0 : 28,
+          duration: 0.9,
+          ease: 'power3.out',
+          delay: this.delay(),
+          stagger: mode === 'stagger' ? 0.09 : 0,
+          clearProps: 'opacity,transform',
+          scrollTrigger: {
+            trigger: host,
+            start: 'top 86%',
+            once: true,
+          },
+        });
+      });
     });
   }
 }

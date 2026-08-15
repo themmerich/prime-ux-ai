@@ -16,6 +16,9 @@ import { Motion } from '../core/motion';
 
 type ThreeModule = typeof import('three');
 
+/** Fester Zeitpunkt für das statische Frame bei reduzierter Bewegung. */
+const STATIC_FRAME_TIME = 2.4;
+
 /**
  * Das „Signalfeld" — ein flaches, wogendes Partikelfeld, dessen Farben vom
  * Sky-Akzent ins Aurora-Violett laufen. Es ist das eine 3D-Motiv der Seite
@@ -70,7 +73,7 @@ export class SignalScene {
       if (this.material) {
         this.applyTheme(dark);
         if (this.rafId === null) {
-          this.renderFrame(this.staticTime());
+          this.renderFrame(STATIC_FRAME_TIME);
         }
       }
     });
@@ -112,7 +115,7 @@ export class SignalScene {
     const resizeObserver = new ResizeObserver(() => {
       this.resize();
       if (this.rafId === null) {
-        this.renderFrame(this.staticTime());
+        this.renderFrame(STATIC_FRAME_TIME);
       }
     });
     resizeObserver.observe(host);
@@ -121,7 +124,7 @@ export class SignalScene {
     if (this.motion.reduced) {
       // Reduzierte Bewegung: ein ruhiges, eingefrorenes Feld — keine Loop,
       // keine Zeigerreaktion.
-      this.renderFrame(this.staticTime());
+      this.renderFrame(STATIC_FRAME_TIME);
       return;
     }
 
@@ -268,8 +271,17 @@ export class SignalScene {
     }
   }
 
+  // Scratch-Vektoren für trackPointer — einmal angelegt statt pro Event.
+  private rayVec?: import('three').Vector3;
+  private hitVec?: import('three').Vector3;
+
   /** Maus → Weltkoordinate auf der Feld-Ebene (y = 0), analytisch per Strahl. */
   private trackPointer(event: PointerEvent): void {
+    // Pausierte Loop (außerhalb des Viewports, Tab versteckt): das Ergebnis
+    // würde nie konsumiert — Layout-Read und Rechnung sparen.
+    if (this.rafId === null) {
+      return;
+    }
     const camera = this.camera;
     const three = this.three;
     const canvas = this.canvasRef().nativeElement;
@@ -282,13 +294,14 @@ export class SignalScene {
     }
     const nx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     const ny = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
-    const point = new three.Vector3(nx, ny, 0.5).unproject(camera);
-    const dir = point.sub(camera.position).normalize();
+    this.rayVec ??= new three.Vector3();
+    this.hitVec ??= new three.Vector3();
+    const dir = this.rayVec.set(nx, ny, 0.5).unproject(camera).sub(camera.position).normalize();
     if (dir.y >= -0.001) {
       return; // Strahl trifft die Ebene nicht — Zeigereinfluss auslaufen lassen.
     }
     const dist = -camera.position.y / dir.y;
-    const hit = camera.position.clone().addScaledVector(dir, dist);
+    const hit = this.hitVec.copy(camera.position).addScaledVector(dir, dist);
     this.pointerTarget = [hit.x, hit.z];
   }
 
@@ -345,11 +358,6 @@ export class SignalScene {
       this.pointerCurrent[1],
     );
     renderer.render(scene, camera);
-  }
-
-  /** Fester Zeitpunkt für das statische Frame bei reduzierter Bewegung. */
-  private staticTime(): number {
-    return 2.4;
   }
 
   private dispose(): void {
