@@ -1,5 +1,19 @@
 [
   {
+    "slug": "was-bleibt-fuer-it-freelancer",
+    "date": "2026-10-20",
+    "readingMinutes": 7,
+    "title": {
+      "de": "Was bleibt für IT-Freelancer übrig, wenn KI übernimmt?",
+      "en": "What's Left for IT Freelancers When AI Takes Over?"
+    },
+    "excerpt": {
+      "de": "Kapazitätsaufträge verschwinden, die Rückzugsorte sind zu klein, die Sätze geraten unter Druck. Eine Bestandsaufnahme nach 20 Jahren Freelancing: ohne Beruhigungspille, Argument für Argument, und ohne mich selbst auszunehmen.",
+      "en": "Capacity engagements are disappearing, the safe havens are too small, rates are under pressure. Taking stock after 20 years of freelancing: no sedatives, argument by argument, without exempting myself."
+    },
+    "tags": ["Freelancing", "AI", "Career"]
+  },
+  {
     "slug": "lizenzrisiko-in-component-libraries",
     "date": "2026-08-11",
     "readingMinutes": 8,
