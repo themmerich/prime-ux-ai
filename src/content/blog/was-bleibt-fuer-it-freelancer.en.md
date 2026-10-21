@@ -1,6 +1,6 @@
 I've been an IT freelancer for 20 years, these days as a frontend architect and coach. I've seen a few upheavals in that time. This one feels different.
 
-Most articles about AI and freelancing are reassuring: AI only replaces routine work, experience will become more valuable, those who adapt will win in the end. I want to try something different here, argument by argument, without sedatives and without exempting myself.
+Most articles about AI and freelancing are reassuring: AI only replaces routine work, experience will become more valuable, those who adapt will win in the end. So here's a different approach...
 
 ## What we were actually hired for
 
@@ -20,7 +20,7 @@ The usual reassurance goes: AI writes the code, but architecture, reviews, requi
 
 A project that used to employ eight developers may still need one person who makes architecture decisions. And that person usually already works at the company.
 
-Even these islands are being nibbled at. AI makes architecture proposals, finds bugs in reviews and turns meeting notes into user stories. The safe havens are real, but there isn't room there for everyone currently being pushed out of implementation work.
+By now, AI also makes architecture proposals, finds bugs in reviews and turns meeting notes into user stories. The safe havens are real, but there isn't room there for everyone currently being pushed out of implementation work.
 
 ## Senior or junior: the freelancer loses either way
 
