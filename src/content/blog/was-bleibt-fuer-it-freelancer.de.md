@@ -1,6 +1,6 @@
 Ich bin seit 20 Jahren IT-Freelancer, heute als Frontend-Architekt und Coach. In dieser Zeit habe ich einige Umbrüche erlebt. Dieser fühlt sich anders an.
 
-Die meisten Texte zum Thema KI und Freelancing beruhigen: KI ersetze nur Routine, Erfahrung werde wertvoller, wer sich anpasse, gewinne am Ende. Ich will es hier anders versuchen, Argument für Argument, ohne Beruhigungspille und ohne mich selbst dabei auszunehmen.
+Die meisten Texte zum Thema KI und Freelancing beruhigen: KI ersetzt nur Routine, Erfahrung werde wertvoller, wer sich anpasst gewinnt am Ende. Hier mal ein anderer Ansatz...
 
 ## Wofür wir eigentlich gebucht wurden
 
@@ -20,7 +20,7 @@ Die übliche Beruhigung lautet: Den Code schreibt die KI, aber Architektur, Revi
 
 Ein Projekt, das früher acht Entwickler beschäftigt hat, braucht vielleicht noch eine Person, die Architekturentscheidungen trifft. Und diese Person sitzt meist schon im Unternehmen.
 
-Selbst diese Inseln werden angeknabbert. KI macht Architekturvorschläge, findet Fehler im Review und formuliert User Stories aus einem Meeting-Protokoll. Die Rückzugsorte sind real, aber dort ist nicht Platz für alle, die gerade aus der Umsetzung verdrängt werden.
+KI macht mittlerweile auch Architekturvorschläge, findet Fehler im Review und formuliert User Stories aus einem Meeting-Protokoll. Die Rückzugsorte sind real, aber dort ist nicht Platz für alle, die gerade aus der Umsetzung verdrängt werden.
 
 ## Senior oder Junior: Der Freelancer verliert in beiden Fällen
 
