@@ -38,9 +38,25 @@ jobs:
           terraform -chdir=infra init -backend=false -input=false
           terraform -chdir=infra validate
 
+      # Trivy direkt aus dem GitHub-Release installieren: Das Install-Skript von
+      # setup-trivy lädt über get.trivy.dev, die Domain löst seit 11/2026 nicht mehr
+      # auf (aquasecurity/trivy#11537). Hash fest eingetragen gegen Supply-Chain-Risiken.
+      - name: Trivy installieren
+        env:
+          TRIVY_VERSION: 0.70.0
+          TRIVY_SHA256: 8b4376d5d6befe5c24d503f10ff136d9e0c49f9127a4279fd110b727929a5aa9
+        run: |
+          curl -fsSL -o trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          echo "${TRIVY_SHA256}  trivy.tar.gz" | sha256sum -c -
+          mkdir -p "$HOME/.local/bin/trivy-bin"
+          tar -xzf trivy.tar.gz -C "$HOME/.local/bin/trivy-bin" trivy
+          rm trivy.tar.gz
+          echo "$HOME/.local/bin/trivy-bin" >> "$GITHUB_PATH"
+
       - name: Security-Scan (Trivy)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
+          skip-setup-trivy: true
           scan-type: fs
           scanners: vuln,secret,misconfig
           severity: CRITICAL,HIGH

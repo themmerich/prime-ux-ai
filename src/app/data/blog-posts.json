@@ -1,5 +1,19 @@
 [
   {
+    "slug": "lohnt-sich-it-freelancing",
+    "date": "2026-11-04",
+    "readingMinutes": 9,
+    "title": {
+      "de": "Lohnt es sich in Deutschland noch, IT-Freelancer zu sein?",
+      "en": "Is It Still Worth Being an IT Freelancer in Germany?"
+    },
+    "excerpt": {
+      "de": "Eine ehrliche Kostenrechnung: was vom Stundensatz bleibt, was Angestellte zusätzlich haben und warum man sich alle paar Jahre neu erfinden muss, nur um seinen Satz zu halten.",
+      "en": "An honest cost calculation: what's left of the hourly rate, what employees get on top, and why you have to reinvent yourself every few years just to keep your rate."
+    },
+    "tags": ["Freelancing", "Career"]
+  },
+  {
     "slug": "was-bleibt-fuer-it-freelancer",
     "date": "2026-10-20",
     "readingMinutes": 7,

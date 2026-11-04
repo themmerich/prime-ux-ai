@@ -7,6 +7,8 @@ import lizenzrisikoDe from '../../content/blog/lizenzrisiko-in-component-librari
 import lizenzrisikoEn from '../../content/blog/lizenzrisiko-in-component-libraries.en.md';
 import freelancerKiDe from '../../content/blog/was-bleibt-fuer-it-freelancer.de.md';
 import freelancerKiEn from '../../content/blog/was-bleibt-fuer-it-freelancer.en.md';
+import kostenrechnungDe from '../../content/blog/lohnt-sich-it-freelancing.de.md';
+import kostenrechnungEn from '../../content/blog/lohnt-sich-it-freelancing.en.md';
 
 /**
  * Artikeltexte pro Slug — als Markdown zur Buildzeit eingebunden (src/content/blog/<slug>.<lang>.md).
@@ -16,6 +18,7 @@ const BODIES: Record<string, L> = {
   'wie-diese-website-gebaut-ist': { de: makingOfDe, en: makingOfEn },
   'lizenzrisiko-in-component-libraries': { de: lizenzrisikoDe, en: lizenzrisikoEn },
   'was-bleibt-fuer-it-freelancer': { de: freelancerKiDe, en: freelancerKiEn },
+  'lohnt-sich-it-freelancing': { de: kostenrechnungDe, en: kostenrechnungEn },
 };
 
 // Schlägt beim Prerendern (Build) fehl statt still einen leeren Artikel auszuliefern,

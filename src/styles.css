@@ -197,3 +197,19 @@ main:focus {
 .prose figcaption {
   @apply mt-3 text-center text-sm text-slate-500;
 }
+.prose table {
+  @apply my-6 w-full border-collapse text-sm;
+}
+.prose th {
+  @apply border-b border-slate-300 px-3 py-2 text-left font-semibold text-slate-900 dark:border-slate-600 dark:text-white;
+}
+.prose td {
+  @apply border-b border-slate-200 px-3 py-2 align-top dark:border-ink-700;
+}
+.prose tr:last-child td {
+  @apply border-b-0;
+}
+/* Beträge in Tabellen nicht umbrechen */
+.prose td:last-child {
+  @apply whitespace-nowrap;
+}
