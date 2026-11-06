@@ -383,18 +383,26 @@ export const HISTORY: HistoryEntry[] = [
     tech: ['JavaEE', 'Adobe Flex', 'Apache CXF', 'Oracle'],
   },
   {
-    period: { de: '2006 – 2009', en: '2006 – 2009' },
-    client: 'AGCS · LEONI (Festanstellung)',
-    project: {
-      de: 'Location Mgmt. System & diverse Tools',
-      en: 'Location mgmt. system & various tools',
-    },
+    period: { de: '10/2008 – 03/2009', en: '10/2008 – 03/2009' },
+    client: 'LEONI Wiring Systems',
+    project: { de: 'Diverse Tools', en: 'Various tools' },
     role: { de: 'Full Stack Entwickler', en: 'Full stack developer' },
     text: {
-      de: 'Erste Berufsjahre als IT-Berater: Administrationssystem für die Sachversicherung und mehrere interne IT-Systeme.',
-      en: 'Early career as IT consultant: property insurance administration system and several internal tools.',
+      de: 'Festangestellt beim Automobilzulieferer LEONI in Kitzingen: Entwicklung mehrerer interner IT-Tools.',
+      en: 'Employed at automotive supplier LEONI in Kitzingen: built several internal IT tools.',
     },
-    tech: ['JavaEE', 'JSF', 'Apache Tapestry', 'Oracle', 'Informix'],
+    tech: ['Apache Tapestry', 'Informix'],
+  },
+  {
+    period: { de: '06/2006 – 09/2008', en: '06/2006 – 09/2008' },
+    client: 'Allianz Global Corporate & Specialty',
+    project: { de: 'Location Mgmt. System', en: 'Location mgmt. system' },
+    role: { de: 'Full Stack Entwickler', en: 'Full stack developer' },
+    text: {
+      de: 'Als Festangestellter der nobisCum (Würzburg) im Projekt bei der AGCS: Administrationssystem für die Sachversicherung.',
+      en: 'As an employee of nobisCum (Würzburg), placed at AGCS: property insurance administration system.',
+    },
+    tech: ['JavaEE', 'JSF', 'Oracle'],
   },
 ];
 
