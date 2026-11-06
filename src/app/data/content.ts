@@ -65,8 +65,8 @@ export const HERO = {
   ctaProjects: { de: 'Projekte ansehen', en: 'View projects' } as L,
   photo: 'portrait-neu.jpg',
   available: {
-    de: 'Buchbar ab Q1/2027',
-    en: 'Available from Q1 2027',
+    de: 'Buchbar ab Q2/2027',
+    en: 'Available from Q2 2027',
   } as L,
 };
 
